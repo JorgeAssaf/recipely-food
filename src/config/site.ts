@@ -7,8 +7,7 @@ export const siteConfig = {
   description: 'A recipe sharing platform',
   url: process.env.URL || 'http://localhost:3000',
   sourceCode: 'github.com/Recipely-app/Recipely',
-  ogImage:
-    'https://res.cloudinary.com/dx3vxwusq/image/upload/v1623778850/Recipely/og-image.png',
+  ogImage: {},
   mainNav: [
     {
       name: 'Home',
