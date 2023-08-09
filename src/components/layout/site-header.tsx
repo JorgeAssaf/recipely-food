@@ -4,9 +4,10 @@ import { type FC } from 'react'
 import Link from 'next/link'
 import { User } from '@clerk/nextjs/server'
 import { AvatarImage } from '@radix-ui/react-avatar'
-import { LayoutDashboard, LogOut, User2 } from 'lucide-react'
+import { LayoutDashboard, LogOut, User2 as UserIcon } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +21,6 @@ import {
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { buttonVariants } from '../ui/button'
 import MainNav from './main-nav'
-import { cn } from '@/lib/utils'
 
 interface SiteHeaderProps {
   user: User | null
@@ -44,9 +44,8 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Avatar className={cn('w-10 h-10')}>
+                  <Avatar className={cn('h-10 w-10')}>
                     <AvatarImage
-
                       src={user.imageUrl}
                       alt={user?.firstName + user?.lastName!}
                     />
@@ -69,7 +68,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Link href='/dashboard/account'>
-                      <User2 className='mr-2 h-4 w-4' aria-hidden='true' />
+                      <UserIcon className='mr-2 h-4 w-4' aria-hidden='true' />
                       Account
                       <DropdownMenuShortcut>⇧⌘A</DropdownMenuShortcut>
                     </Link>

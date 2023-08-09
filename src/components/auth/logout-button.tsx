@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { useRouter } from "next/navigation"
-import { SignOutButton } from "@clerk/nextjs"
+import { useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { SignOutButton } from '@clerk/nextjs'
+import { Loader2 as Loader } from 'lucide-react'
 
-import { cn } from "@/lib/utils"
-import { useMounted } from "@/hooks/useMounted"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useTransition } from "react"
-import { Loader2 } from "lucide-react"
+import { cn } from '@/lib/utils'
+import { useMounted } from '@/hooks/useMounted'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function LogOutButtons() {
   const router = useRouter()
@@ -16,7 +16,7 @@ export function LogOutButtons() {
   const [isPending, startTransition] = useTransition()
 
   return (
-    <div className="flex w-full items-center space-x-2">
+    <div className='flex w-full items-center space-x-2'>
       {mounted ? (
         <SignOutButton
           signOutCallback={() =>
@@ -26,32 +26,30 @@ export function LogOutButtons() {
           }
         >
           <Button
-            aria-label="Log out"
-            size="sm"
-            className="w-full"
+            aria-label='Log out'
+            size='sm'
+            className='w-full'
             disabled={isPending}
           >
-            {isPending && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            )}
+            {isPending && <Loader className='mr-2 h-4 w-4 animate-spin' />}
             Log out
           </Button>
         </SignOutButton>
       ) : (
         <Skeleton
           className={cn(
-            buttonVariants({ size: "sm" }),
-            "w-full bg-muted text-muted-foreground"
+            buttonVariants({ size: 'sm' }),
+            'w-full bg-muted text-muted-foreground',
           )}
         >
           Log out
         </Skeleton>
       )}
       <Button
-        aria-label="Go back to the previous page"
-        variant="outline"
-        size="sm"
-        className="w-full"
+        aria-label='Go back to the previous page'
+        variant='outline'
+        size='sm'
+        className='w-full'
         onClick={() => router.back()}
         disabled={isPending}
       >
