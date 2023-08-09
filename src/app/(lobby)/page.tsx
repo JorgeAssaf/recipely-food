@@ -4,8 +4,9 @@ import { db } from '@/db'
 import { Balancer } from 'react-wrap-balancer'
 
 import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,36 +29,54 @@ const getRecipes = async () => {
 export default async function Home() {
   const recipes = await getRecipes()
   return (
-    <Shell as='section'>
-      <div className='flex w-full flex-col items-center py-14 text-center md:py-24 '>
+    <Shell as='div' className='gap-12'>
+      <section
+        id='hero'
+        aria-labelledby='hero-heading'
+        className='mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28'
+      >
         <Badge
           className='flex gap-1 px-4 py-2 text-sm font-bold md:text-lg'
           variant='outline'
         >
           More than <CounterUp count={recipes.length} /> recipes
         </Badge>
-        <h1 className='my-5 text-3xl font-bold leading-tight md:text-5xl md:text-[2.50rem] lg:text-6xl lg:leading-[1.1]'>
-          <Balancer>
-            Discover simple, delicious and{' '}
-            <span className='text-[hsl(343,88%,66%)]'>fast recipes!</span>
-          </Balancer>
+        <h1 className='text-4xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]'>
+          Discover simple, delicious and{' '}
+          <span className='text-[hsl(343,88%,66%)]'>fast recipes!</span>
         </h1>
-        <h3 className='mb-5 max-w-[46rem] text-muted-foreground sm:text-lg md:text-xl'>
-          <Balancer>
-            <q>
-              A recipe is soulless The essence of the recipe must corne from
-              you, the cook.
-            </q>
-          </Balancer>
-        </h3>
-        <div className='flex gap-3'>
-          <Button size='lg'>View all recipes</Button>
-          <Button size='lg' variant='outline'>
+        <Balancer className='max-w-[46rem] text-lg text-muted-foreground sm:text-xl'>
+          <q>
+            A recipe is soulless The essence of the recipe must corne from you,
+            the cook.
+          </q>
+        </Balancer>
+        <div className='flex flex-wrap items-center justify-center gap-4'>
+          <Link
+            href='/products'
+            className={cn(
+              buttonVariants({
+                size: 'lg',
+              }),
+            )}
+          >
+            View all recipes
+          </Link>
+          <Link
+            href='/dashboard/stores'
+            className={cn(
+              buttonVariants({
+                variant: 'outline',
+                size: 'lg',
+              }),
+            )}
+          >
             Top recipes
-          </Button>
+          </Link>
         </div>
-      </div>
-      <div className='flex flex-wrap items-center justify-between'>
+      </section>
+
+      <section className='flex flex-wrap items-center justify-between'>
         <h2 className='text-3xl  font-bold md:text-5xl'>Recipes</h2>
         <div className='my-4 flex gap-3'>
           <Button size='sm'>View all recipes</Button>
@@ -79,7 +98,7 @@ export default async function Home() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </div>
+      </section>
       <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
         <div>
           <div className='flex  flex-row flex-wrap gap-3 md:w-6  md:flex-col'>
