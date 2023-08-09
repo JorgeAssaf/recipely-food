@@ -41,7 +41,7 @@ export default async function Home() {
         >
           More than <CounterUp count={recipes.length} /> recipes
         </Badge>
-        <h1 className='text-[2.5rem] font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]'>
+        <h1 className='text-[2.325rem] font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]'>
           Discover simple, delicious and{' '}
           <span className='text-[hsl(343,88%,66%)]'>fast recipes!</span>
         </h1>
