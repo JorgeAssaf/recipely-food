@@ -16,7 +16,7 @@ const MainNav: FC<MainNavProps> = ({ items }) => {
   console.log(pathname)
   return (
     <>
-      <div className='hidden h-10 items-center md:flex gap-10'>
+      <div className='hidden items-center sm:flex gap-10'>
         <Link
           aria-label="Home"
           href="/"
