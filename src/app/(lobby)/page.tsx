@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { db } from '@/db'
+import { ChevronDown } from 'lucide-react'
 import { Balancer } from 'react-wrap-balancer'
 
+import { sortOptions } from '@/config/recipes'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -12,8 +14,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import Combobox from '@/components/combobox'
 import { CounterUp } from '@/components/counter-up'
 import { Shell } from '@/components/shell'
 
@@ -29,7 +33,7 @@ const getRecipes = async () => {
 export default async function Home() {
   const recipes = await getRecipes()
   return (
-    <Shell as='div' className='gap-12'>
+    <Shell as='div' className='py-3'>
       <section
         id='hero'
         aria-labelledby='hero-heading'
@@ -39,17 +43,18 @@ export default async function Home() {
           className='flex gap-1 px-4 py-2 text-sm font-bold md:text-lg'
           variant='outline'
         >
-          More than <CounterUp count={recipes.length} /> recipes
+          More than <CounterUp count={1000} /> recipes
         </Badge>
         <h1 className='text-[2.325rem] font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]'>
           Discover simple, delicious and{' '}
           <span className='text-[hsl(343,88%,66%)]'>fast recipes!</span>
         </h1>
-        <Balancer className='max-w-[46rem] text-lg text-muted-foreground sm:text-xl'>
-          <q>
-            A recipe is soulless The essence of the recipe must corne from you,
-            the cook.
-          </q>
+        <Balancer
+          className='max-w-[46rem] text-lg text-muted-foreground sm:text-xl'
+          as='q'
+        >
+          A recipe is soulless The essence of the recipe must corne from you,
+          the cook.
         </Balancer>
         <div className='flex flex-wrap items-center justify-center gap-4'>
           <Link
@@ -76,32 +81,32 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className='flex flex-wrap items-center justify-between'>
-        <h2 className='text-3xl  font-bold md:text-5xl'>Recipes</h2>
-        <div className='my-4 flex gap-3'>
-          <Button size='sm'>View all recipes</Button>
+      <section className='flex items-center justify-between'>
+        <h2 className='text-3xl font-bold md:text-5xl'>Recipes</h2>
+        <div className='flex items-center space-x-2'>
+          <Combobox />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size='sm'>Sort by</Button>
+              <Button aria-label='Sort products' size='sm'>
+                Sort
+                <ChevronDown className='ml-2 h-4 w-4' aria-hidden='true' />
+              </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className='w-52'
-              align='end'
-              forceMount
-              sideOffset={10}
-            >
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            <DropdownMenuContent align='start' className='w-auto'>
+              <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {sortOptions.map((option) => (
+                <DropdownMenuItem key={option.label}>
+                  {option.label}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </section>
       <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
         <div>
-          <div className='flex  flex-row flex-wrap gap-3 md:w-6  md:flex-col'>
+          <div className='flex flex-row flex-wrap gap-3 md:w-6 md:flex-col'>
             {siteConfig.recipeNav.map((item) => (
               <Badge
                 variant='outline'
