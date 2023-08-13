@@ -1,13 +1,13 @@
 'use client'
 
-import { FC } from 'react'
-import Up from 'react-countup'
+import type { FC } from 'react'
+import { CountUp } from 'use-count-up'
 
 type CounterUpProps = {
   count: number
   duration?: number
 }
 
-export const CounterUp: FC<CounterUpProps> = ({ count, duration = 200 }) => {
-  return <Up end={count} duration={duration} />
+export const CounterUp: FC<CounterUpProps> = ({ count, duration = 3.2 }) => {
+  return <CountUp isCounting end={count} duration={duration} />
 }
