@@ -92,7 +92,7 @@ export default async function Home() {
                 <ChevronDown className='ml-2 h-4 w-4' aria-hidden='true' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='start' className='w-auto'>
+            <DropdownMenuContent align='end' className='w-auto'>
               <DropdownMenuLabel>Sort by</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {sortOptions.map((option) => (
@@ -151,6 +151,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-    </Shell>
+    </Shell >
   )
 }
