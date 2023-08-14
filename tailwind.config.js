@@ -67,6 +67,10 @@ module.exports = {
           to: { height: 0 },
         },
       },
+      fontFamily: {
+        sans: 'var(--font-sans), sans-serif',
+        mono: 'var(--font-mono), monospace',
+      },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',

@@ -1,14 +1,20 @@
 import '@/styles/globals.css'
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import Satoshi from 'next/font/local'
 import { ClerkProvider } from '@clerk/nextjs'
 
+import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
-import { siteConfig } from '@/config/site'
 
-const inter = Inter({ subsets: ['latin'] })
+const satoshi = Satoshi({
+  src: '../fonts/Satoshi-Variable.ttf',
+  display: 'swap',
+  preload: true,
+  fallback: ['sans-serif'],
+  variable: '--font-sans',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -77,7 +83,7 @@ export default function RootLayout({
         <body
           className={cn(
             'min-h-screen bg-background font-sans antialiased',
-            inter.className,
+            satoshi.variable,
           )}
         >
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
