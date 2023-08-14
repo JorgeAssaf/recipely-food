@@ -111,9 +111,9 @@ export default async function Home() {
               <Badge
                 variant='outline'
                 className='text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)]'
-                key={item.name}
+                key={item.title}
               >
-                <Link href={item.url}>{item.name}</Link>
+                <Link href={item.href}>{item.title}</Link>
               </Badge>
             ))}
           </div>
@@ -151,6 +151,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-    </Shell >
+    </Shell>
   )
 }

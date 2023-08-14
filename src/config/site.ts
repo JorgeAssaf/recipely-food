@@ -1,4 +1,9 @@
-import { recipes } from "@/db/schema"
+import { recipes } from '@/db/schema'
+
+import { MainNavItem } from '@/types/nav'
+import { slugify } from '@/lib/utils'
+
+import { recipesCategories } from './recipes'
 
 export type SiteConfig = typeof siteConfig
 
@@ -8,31 +13,41 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
   sourceCode: 'github.com/Recipely-app/Recipely',
   ogImage: {},
-  mainNav: [
+  MainNavItem: [
     {
-      name: 'Home',
-      url: '/',
+      title: 'Home',
+      href: '/',
     },
     {
-      name: 'Recipes',
-      url: '/recipes',
+      title: 'Recipes',
+      href: '/recipes',
     },
     {
-      name: 'Categories',
-      url: '/categories',
+      title: 'Categories',
+      href: '/categories',
+      items: [
+        ...recipesCategories.map((category) => ({
+          title: category.title,
+          href: `/categories/${slugify(category.title)}`,
+          description: `All ${category.title}.`,
+          items: [],
+        })),
+      ],
+    },
+
+    {
+      title: 'About',
+      href: '/about',
     },
     {
-      name: 'About',
-      url: '/about',
+      title: 'Blog',
+      href: '/blog',
     },
-    {
-      name: 'Blog',
-      url: '/blog',
-    },
-  ],
+  ] satisfies MainNavItem[],
+
   recipeNav: recipes.category.enumValues.map((category) => ({
-    name: category,
-    url: `/recipes/${category}`,
+    title: category,
+    href: `/recipes/${category}`,
   })),
 
   footerNav: [],
