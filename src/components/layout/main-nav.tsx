@@ -38,17 +38,17 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
         <NavigationMenuList>
           {items
             ?.filter((item) => item.title !== items[0]?.title)
-            .map((item) =>
+            .map((item, i) =>
               item.items ? (
-                <NavigationMenuItem key={item.title}>
+                <NavigationMenuItem key={item.title + i}>
                   <NavigationMenuTrigger className='h-auto capitalize'>
                     {item.title}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
-                      {item.items.map((item) => (
+                      {item.items.map((item, i) => (
                         <ListItem
-                          key={item.title}
+                          key={item.title + i}
                           title={item.title}
                           href={item.href}
                         >
@@ -60,7 +60,7 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
                 </NavigationMenuItem>
               ) : (
                 item.href && (
-                  <NavigationMenuItem key={item.title}>
+                  <NavigationMenuItem key={item.title + i}>
                     <Link href={item.href} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={cn(navigationMenuTriggerStyle(), 'h-auto')}

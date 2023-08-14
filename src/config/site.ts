@@ -11,7 +11,7 @@ export const siteConfig = {
   name: 'Recipely',
   description: 'A recipe sharing platform',
   url: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
-  sourceCode: 'github.com/Recipely-app/Recipely',
+  sourceCode: 'https://github.com/JorgeAssaf/recipely-food',
   ogImage: {},
   MainNavItem: [
     {
@@ -29,7 +29,7 @@ export const siteConfig = {
         ...recipesCategories.map((category) => ({
           title: category.title,
           href: `/categories/${slugify(category.title)}`,
-          description: `All ${category.title}.`,
+          description: `All recipes in category ${category.title}`,
           items: [],
         })),
       ],

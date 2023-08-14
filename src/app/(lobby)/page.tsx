@@ -45,12 +45,12 @@ export default async function Home() {
         >
           More than <CounterUp count={1000} /> recipes
         </Badge>
-        <h1 className='text-[2.325rem] font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]'>
+        <h1 className='text-4xl font-bold  md:text-5xl lg:text-6xl lg:leading-[1.1]'>
           Discover simple, delicious and{' '}
           <span className='text-[hsl(343,88%,66%)]'>fast recipes!</span>
         </h1>
         <Balancer
-          className='max-w-[46rem] text-lg text-muted-foreground sm:text-xl'
+          className='max-w-[46rem] text-base font-medium text-muted-foreground md:text-xl'
           as='q'
         >
           A recipe is soulless The essence of the recipe must corne from you,

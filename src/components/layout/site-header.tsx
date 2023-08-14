@@ -9,7 +9,7 @@ import {
   LayoutDashboard,
   LogOut,
   Settings,
-  User2,
+  User2 as UserIcon,
 } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
@@ -80,7 +80,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
                       <Link href='/dashboard/account'>
-                        <User2 className='mr-2 h-4 w-4' aria-hidden='true' />
+                        <UserIcon className='mr-2 h-4 w-4' aria-hidden='true' />
                         Account
                         <DropdownMenuShortcut>⇧⌘A</DropdownMenuShortcut>
                       </Link>
