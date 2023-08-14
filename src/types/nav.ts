@@ -1,11 +1,9 @@
-import { icons } from 'lucide-react'
-
 export interface NavItem {
   title: string
   href?: string
   disabled?: boolean
   external?: boolean
-  icon?: typeof icons
+  icon?: string
   label?: string
   description?: string
 }

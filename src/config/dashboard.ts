@@ -1,31 +1,35 @@
 
-import { type SideNav } from '@/types/nav'
+import { type SidebarNavItem } from '@/types/nav'
 
 export interface DashboardConfig {
-  sidebarNav: SideNav[]
+  sidebarNav: SidebarNavItem[]
 }
 
 export const dashboardConfig: DashboardConfig = {
   sidebarNav: [
     {
-      name: 'Account',
-      url: '/dashboard/account',
+      title: 'Account',
+      href: '/dashboard/account',
       icon: 'User2',
+      items: [],
     },
     {
-      name: 'Recipes',
-      url: '/dashboard/recipes',
+      title: 'Recipes',
+      href: '/dashboard/recipes',
       icon: 'Book',
+      items: [],
     },
     {
-      name: 'Billing',
-      url: '/dashboard/billing',
+      title: 'Billing',
+      href: '/dashboard/billing',
       icon: 'CreditCard',
+      items: [],
     },
     {
-      name: 'Purchases',
-      url: '/dashboard/purchases',
+      title: 'Purchases',
+      href: '/dashboard/purchases',
       icon: 'CreditCard',
+      items: [],
     },
   ],
 }
