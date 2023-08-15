@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { db } from '@/db'
-import { ChevronDown } from 'lucide-react'
+import { ArrowUpRightIcon, ChevronDown, XCircle } from 'lucide-react'
 import { Balancer } from 'react-wrap-balancer'
 
 import { sortOptions } from '@/config/recipes'
@@ -59,11 +59,7 @@ export default async function Home() {
         <div className='flex flex-wrap items-center justify-center gap-4'>
           <Link
             href={`/recipes?sort=${sortOptions[1].value}`}
-            className={cn(
-              buttonVariants({
-                size: 'lg',
-              }),
-            )}
+            className={cn(buttonVariants({ className: 'font-medium' }))}
           >
             View all recipes
           </Link>
@@ -72,7 +68,7 @@ export default async function Home() {
             className={cn(
               buttonVariants({
                 variant: 'outline',
-                size: 'lg',
+                className: 'font-medium',
               }),
             )}
           >
@@ -119,35 +115,53 @@ export default async function Home() {
             ))}
           </div>
         </div>
-        <div className='flex flex-col gap-10 md:ml-10 md:flex-row lg:gap-20'>
-          <Image
-            src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
-            alt='Picture of the author'
-            className='h-[250px] rounded-lg object-cover sm:w-[500px] md:w-[200px] lg:w-[500px]'
-            width={500}
-            height={250}
-          />
-
-          <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
-            <div className='rounded-lg bg-rose-300 p-4 shadow-lg'>
-              <h3 className='text-xl font-bold'>Green salad</h3>
-              <p>
-                Cooking time: <span className='font-bold'>15 min</span>
-              </p>
-            </div>
-            <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
-              <h3 className='text-xl font-bold'>Green salad</h3>
-              <p>
-                Cooking time: <span className='font-bold'>15 min</span>
-              </p>
-            </div>
-            <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
-              <h3 className='text-xl font-bold'>Green salad</h3>
-              <p>
-                Cooking time: <span className='font-bold'>15 min</span>
-              </p>
+        <div className='flex flex-col items-center md:ml-10 md:flex-row '>
+          <div className='group relative'>
+            <Image
+              src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
+              width={500}
+              height={350}
+              loading='lazy'
+              alt='Picture of the author'
+              className='h-[350px] transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 sm:w-[500px] md:w-[200px] lg:w-[500px]'
+            />
+            <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
+              <Button
+                variant='secondary'
+                className='text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base'
+                aria-label='View recipe'
+              >
+                <span>View category</span>
+                <ArrowUpRightIcon className='ml-2 h-5 w-5' aria-hidden='true' />
+              </Button>
             </div>
           </div>
+
+          {recipes.length > 0 ? (
+            recipes.slice(0, 2).map((recipe) => (
+              <div
+                className='grid grid-cols-1 gap-3 md:grid-cols-2'
+                key={recipe.id}
+              >
+                <div className='rounded-lg bg-rose-300 p-4 shadow-lg'>
+                  <h3 className='text-xl font-bold'>{recipe.name}</h3>
+                  <p>
+                    Cooking time:
+                    <span className='font-bold'>{recipe.prepTime}</span>
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className='w-2/4 items-center  '>
+              <div className='flex flex-col items-center'>
+                <XCircle className='h-20 w-20' aria-hidden='true' />
+                <p className=' mt-3 font-medium text-muted-foreground'>
+                  No recipes found
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </Shell>
