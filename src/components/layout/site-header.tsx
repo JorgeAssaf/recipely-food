@@ -59,6 +59,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                     <Avatar className='h-8 w-8'>
                       <AvatarImage
                         src={user.imageUrl}
+                        loading='lazy'
                         alt={user.username ?? ''}
                       />
                       <AvatarFallback>{initials}</AvatarFallback>
