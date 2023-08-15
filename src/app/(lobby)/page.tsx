@@ -58,7 +58,7 @@ export default async function Home() {
         </Balancer>
         <div className='flex flex-wrap items-center justify-center gap-4'>
           <Link
-            href='/products'
+            href={`/recipes?sort=${sortOptions[1].value}`}
             className={cn(
               buttonVariants({
                 size: 'lg',
@@ -68,7 +68,7 @@ export default async function Home() {
             View all recipes
           </Link>
           <Link
-            href='/dashboard/stores'
+            href={`/recipes?sort=${sortOptions[2].value}`}
             className={cn(
               buttonVariants({
                 variant: 'outline',
@@ -106,19 +106,20 @@ export default async function Home() {
       </section>
       <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
         <div>
-          <div className='flex flex-row flex-wrap gap-3 md:w-6 md:flex-col'>
+          <div className='flex flex-row flex-wrap gap-3  md:flex-col'>
             {siteConfig.recipeNav.map((item) => (
-              <Badge
-                variant='outline'
-                className='text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)]'
+              <Button
+                variant='secondary'
+                className='text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base'
                 key={item.title}
+                aria-label={item.title}
               >
-                <Link href={item.href}>{item.title}</Link>
-              </Badge>
+                <span>{item.title}</span>
+              </Button>
             ))}
           </div>
         </div>
-        <div className='flex flex-col gap-10 md:flex-row lg:gap-20'>
+        <div className='flex flex-col gap-10 md:ml-10 md:flex-row lg:gap-20'>
           <Image
             src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
             alt='Picture of the author'
