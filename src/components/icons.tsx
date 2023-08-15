@@ -1,5 +1,9 @@
-import { Pizza, type LucideIcon } from 'lucide-react'
+import { Book, CreditCard, User2, type LucideIcon } from 'lucide-react'
 
 export type Icon = LucideIcon
 
-export { Pizza as Logo }
+export const icons = {
+  creditCard: CreditCard,
+  book: Book,
+  user: User2,
+}
