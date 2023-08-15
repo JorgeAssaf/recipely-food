@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { MenuIcon, Pizza } from 'lucide-react'
 
 import type { MainNavItem } from '@/types/nav'
@@ -23,6 +24,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ mainNavItemItems }: MobileNavProps) {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -60,16 +62,17 @@ export function MobileNav({ mainNavItemItems }: MobileNavProps) {
                   <AccordionContent>
                     <div className='flex flex-col'>
                       {item.items.map((item, index) => (
-                        <Link
+                        <MobileLink
                           href={item.href!}
-                          key={index}
+                          key={index + item.title}
                           className='flex flex-col gap-y-3'
-                          onClick={() => setIsOpen(false)}
+                          pathname={pathname}
+                          setIsOpen={setIsOpen}
                         >
                           <span className='text-sm capitalize'>
                             {item.title}
                           </span>
-                        </Link>
+                        </MobileLink>
                       ))}
                     </div>
                   </AccordionContent>
@@ -78,13 +81,14 @@ export function MobileNav({ mainNavItemItems }: MobileNavProps) {
             ) : (
               item.href && (
                 <div className='flex flex-col space-y-4 font-medium'>
-                  <Link
+                  <MobileLink
                     href={item.href}
-                    key={index}
-                    onClick={() => setIsOpen(false)}
+                    key={index + item.title}
+                    pathname={pathname}
+                    setIsOpen={setIsOpen}
                   >
                     <span className='text-sm capitalize'>{item.title}</span>
-                  </Link>
+                  </MobileLink>
                 </div>
               )
             ),
@@ -99,6 +103,7 @@ interface MobileLinkProps {
   children?: React.ReactNode
   href: string
   disabled?: boolean
+  className?: string
   pathname: string
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -107,8 +112,10 @@ function MobileLink({
   children,
   href,
   disabled,
+  className,
   pathname,
   setIsOpen,
+  ...props
 }: MobileLinkProps) {
   return (
     <Link
@@ -117,8 +124,10 @@ function MobileLink({
         'text-foreground/70 transition-colors hover:text-foreground',
         pathname === href && 'text-foreground',
         disabled && 'pointer-events-none opacity-60',
+        className,
       )}
       onClick={() => setIsOpen(false)}
+      {...props}
     >
       {children}
     </Link>

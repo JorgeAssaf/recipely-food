@@ -40,7 +40,7 @@ export default async function Home() {
         className='mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28'
       >
         <Badge
-          className='flex gap-1 px-4 py-2 text-sm font-bold md:text-lg'
+          className='flex gap-1 px-4 py-2 text-sm font-bold md:text-base'
           variant='outline'
         >
           More than <CounterUp count={1000} /> recipes
@@ -118,35 +118,33 @@ export default async function Home() {
             ))}
           </div>
         </div>
-        <div className='flex flex-wrap gap-10 md:flex-row'>
+        <div className='flex flex-col gap-10 md:flex-row lg:gap-20'>
           <Image
             src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
             alt='Picture of the author'
-            className='h-[250px] w-[500px] rounded-lg object-cover'
+            className='h-[250px] rounded-lg object-cover sm:w-[500px] md:w-[200px] lg:w-[500px]'
             width={500}
             height={250}
           />
 
-          <div className='flex gap-3'>
-            <div className='flex h-32 gap-3'>
-              <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
-                <h3 className='text-xl font-bold'>Green salad</h3>
-                <p>
-                  Cooking time: <span className='font-bold'>15 min</span>
-                </p>
-              </div>
-              <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
-                <h3 className='text-xl font-bold'>Green salad</h3>
-                <p>
-                  Cooking time: <span className='font-bold'>15 min</span>
-                </p>
-              </div>
-              <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
-                <h3 className='text-xl font-bold'>Green salad</h3>
-                <p>
-                  Cooking time: <span className='font-bold'>15 min</span>
-                </p>
-              </div>
+          <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
+            <div className='rounded-lg bg-rose-300 p-4 shadow-lg'>
+              <h3 className='text-xl font-bold'>Green salad</h3>
+              <p>
+                Cooking time: <span className='font-bold'>15 min</span>
+              </p>
+            </div>
+            <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
+              <h3 className='text-xl font-bold'>Green salad</h3>
+              <p>
+                Cooking time: <span className='font-bold'>15 min</span>
+              </p>
+            </div>
+            <div className='rounded-lg  bg-rose-300 p-4 shadow-lg'>
+              <h3 className='text-xl font-bold'>Green salad</h3>
+              <p>
+                Cooking time: <span className='font-bold'>15 min</span>
+              </p>
             </div>
           </div>
         </div>

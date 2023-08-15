@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { icons } from 'lucide-react'
 
 import type { SidebarNavItem } from '@/types/nav'
 import { cn } from '@/lib/utils'
+import { icons } from '../icons'
 
 export interface SidebarNavProps {
   items: SidebarNavItem[]
@@ -18,13 +18,13 @@ export function SidebarNav({ items }: SidebarNavProps) {
 
   return (
     <div className='flex w-full flex-col gap-2'>
-      {items.map((item) => {
+      {items.map((item, i) => {
         // @ts-ignore
         const LucideIcon = icons[item.icon]
 
         return item.href ? (
           <Link
-            key={item.title}
+            key={item.title + i}
             href={item.href}
             target={item.external ? '_blank' : ''}
             rel={item.external ? 'noreferrer' : ''}
@@ -44,7 +44,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
           </Link>
         ) : (
           <span
-            key={item.title}
+            key={item.title + i}
             className='flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground hover:underline'
           >
             {item.title}
