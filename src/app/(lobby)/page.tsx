@@ -115,15 +115,15 @@ export default async function Home() {
             ))}
           </div>
         </div>
-        <div className='flex flex-col items-center md:ml-10 md:flex-row '>
-          <div className='group relative'>
+        <div className='flex w-full flex-col items-center gap-10 md:flex-row '>
+          <div className='group relative h-full w-full '>
             <Image
               src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
               width={500}
-              height={350}
+              height={550}
               loading='lazy'
               alt='Picture of the author'
-              className='h-[350px] transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 sm:w-[500px] md:w-[200px] lg:w-[500px]'
+              className='h-[350px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40'
             />
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Button
@@ -139,21 +139,41 @@ export default async function Home() {
 
           {recipes.length > 0 ? (
             recipes.slice(0, 2).map((recipe) => (
-              <div
-                className='grid grid-cols-1 gap-3 md:grid-cols-2'
-                key={recipe.id}
-              >
-                <div className='rounded-lg bg-rose-300 p-4 shadow-lg'>
-                  <h3 className='text-xl font-bold'>{recipe.name}</h3>
-                  <p>
-                    Cooking time:
-                    <span className='font-bold'>{recipe.prepTime}</span>
-                  </p>
+              <div className='grid w-full grid-cols-2 flex-row gap-4  md:flex md:w-10/12 md:flex-col'>
+                <div className='h-full rounded-lg bg-rose-300 p-4 shadow-lg '>
+                  <h3 className='lineclamp-2 text-base font-medium md:text-base'>
+                    Green Salad with Smoked Salmon
+                  </h3>
+                  <div className='flex flex-col gap-2'>
+                    <p>
+                      Dificulty:
+                      <span className='font-bold'>Easy</span>
+                    </p>
+                    <p>
+                      Cooking time:
+                      <span className='font-bold'>30 minutes</span>
+                    </p>
+                  </div>
+                </div>
+                <div className='h-full rounded-lg bg-rose-300 p-4 shadow-lg '>
+                  <h3 className='lineclamp-2 text-base font-medium md:text-base'>
+                    Green Salad with Smoked Salmon
+                  </h3>
+                  <div className='flex flex-col gap-2'>
+                    <p>
+                      Dificulty:
+                      <span className='font-bold'>Easy</span>
+                    </p>
+                    <p>
+                      Cooking time:
+                      <span className='font-bold'>30 minutes</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             ))
           ) : (
-            <div className='w-2/4 items-center  '>
+            <div className='items-center md:w-10/12  '>
               <div className='flex flex-col items-center'>
                 <XCircle className='h-20 w-20' aria-hidden='true' />
                 <p className=' mt-3 font-medium text-muted-foreground'>
