@@ -48,11 +48,12 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
         <MobileNav mainNavItemItems={siteConfig.MainNavItem} />
         <div className='flex flex-1 items-center justify-end space-x-4'>
           <nav className='flex items-center space-x-2'>
-            {user ? <BookmarkIcon /> : null}
+            {user ? <BookmarkIcon className='h-6 w-6' aria-hidden='true' /> : null}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
+                    aria-label='Open user menu'
                     variant='secondary'
                     className='relative h-8 w-8 rounded-full'
                   >
