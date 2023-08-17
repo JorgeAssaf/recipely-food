@@ -22,11 +22,7 @@ import { CounterUp } from '@/components/counter-up'
 import { Shell } from '@/components/shell'
 
 const getRecipes = async () => {
-  const recipes = await db.query.recipes.findMany({
-    with: {
-      ingredients: true,
-    },
-  })
+  const recipes = await db.query.recipes.findMany()
   return recipes
 }
 
@@ -121,7 +117,7 @@ export default async function Home() {
               src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
               width={500}
               height={550}
-              loading='lazy'
+              priority
               alt='Picture of the author'
               className='h-[350px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40'
             />
@@ -139,51 +135,126 @@ export default async function Home() {
 
           {recipes.length > 0 ? (
             recipes.slice(0, 2).map((recipe) => (
-              <div className='grid w-full grid-cols-2 flex-row gap-4  md:flex md:w-10/12 md:flex-col'>
+              <div
+                className='grid w-full grid-cols-2 flex-row gap-4  md:flex md:w-10/12 md:flex-col'
+                key={recipe.id}
+              >
                 <div className='h-full rounded-lg bg-rose-300 p-4 shadow-lg '>
-                  <h3 className='lineclamp-2 text-base font-medium md:text-base'>
-                    Green Salad with Smoked Salmon
+                  <h3 className='lineclamp-2 my-2 text-base font-medium md:text-2xl'>
+                    Salad with tomatoes and cheese
                   </h3>
-                  <div className='flex flex-col gap-2'>
-                    <p>
+                  <div className='flex items-center gap-2'>
+                    <p className='border-r border-muted-foreground pr-3 text-sm md:text-lg'>
                       Dificulty:
                       <span className='font-bold'>Easy</span>
                     </p>
-                    <p>
+                    <p className='text-sm md:text-lg '>
                       Cooking time:
-                      <span className='font-bold'>30 minutes</span>
+                      <span className='font-bold'>13 minutes</span>
                     </p>
                   </div>
+                  <Link
+                    href='/recipes/1'
+                    className={buttonVariants({
+                      className: cn('my-2 text-sm md:text-lg'),
+                      variant: 'secondary',
+                      size: 'sm',
+                    })}
+                  >
+                    View recipe
+                  </Link>
                 </div>
                 <div className='h-full rounded-lg bg-rose-300 p-4 shadow-lg '>
-                  <h3 className='lineclamp-2 text-base font-medium md:text-base'>
-                    Green Salad with Smoked Salmon
+                  <h3 className='lineclamp-2 my-2 text-base font-medium md:text-2xl'>
+                    Salad with tomatoes and cheese
                   </h3>
-                  <div className='flex flex-col gap-2'>
-                    <p>
+                  <div className='flex items-center gap-2'>
+                    <p className='border-r border-muted-foreground pr-3 text-sm md:text-lg'>
                       Dificulty:
                       <span className='font-bold'>Easy</span>
                     </p>
-                    <p>
+                    <p className='text-sm md:text-lg '>
                       Cooking time:
-                      <span className='font-bold'>30 minutes</span>
+                      <span className='font-bold'>13 minutes</span>
                     </p>
                   </div>
+                  <Link
+                    href='/recipes/1'
+                    className={buttonVariants({
+                      className: cn('my-2 text-sm md:text-lg'),
+                      variant: 'secondary',
+                      size: 'sm',
+                    })}
+                  >
+                    View recipe
+                  </Link>
                 </div>
               </div>
             ))
           ) : (
-            <div className='items-center md:w-10/12  '>
-              <div className='flex flex-col items-center'>
-                <XCircle className='h-20 w-20' aria-hidden='true' />
-                <p className=' mt-3 font-medium text-muted-foreground'>
-                  No recipes found
+            <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
+              <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
+                Salad with tomatoes and cheese
+              </h3>
+              <div className='flex flex-col gap-2 lg:flex-row'>
+                <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
+                  Dificulty:
+                  <span className='font-bold'>Easy</span>
+                </p>
+                <p className='text-sm lg:text-lg '>
+                  Cooking time:
+                  <span className='font-bold'>13 minutes</span>
                 </p>
               </div>
+              <Link
+                href='/recipes/1'
+                className={buttonVariants({
+                  className: cn('mt-2 text-sm lg:text-lg'),
+                  variant: 'secondary',
+                  size: 'sm',
+                })}
+              >
+                View recipe
+              </Link>
             </div>
-          )}
+            </div>
+        <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
+          <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
+            Salad with tomatoes and cheese
+          </h3>
+          <div className='flex flex-col gap-2 lg:flex-row'>
+            <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
+              Dificulty:
+              <span className='font-bold'>Easy</span>
+            </p>
+            <p className='text-sm lg:text-lg '>
+              Cooking time:
+              <span className='font-bold'>13 minutes</span>
+            </p>
+          </div>
+          <Link
+            href='/recipes/1'
+            className={buttonVariants({
+              className: cn('mt-2 text-sm lg:text-lg'),
+              variant: 'secondary',
+              size: 'sm',
+            })}
+          >
+            View recipe
+          </Link>
         </div>
-      </section>
-    </Shell>
+      </div>
+            // <div className='items-center md:w-10/12  '>
+            //   <div className='flex flex-col items-center'>
+            //     <XCircle className='h-20 w-20' aria-hidden='true' />
+            //     <p className=' mt-3 font-medium text-muted-foreground'>
+            //       No recipes found
+            //     </p>
+            //   </div>
+            // </div>
+          )}
+    </div>
+      </section >
+    </Shell >
   )
 }
