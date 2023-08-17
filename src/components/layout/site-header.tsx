@@ -48,7 +48,18 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
         <MobileNav mainNavItemItems={siteConfig.MainNavItem} />
         <div className='flex flex-1 items-center justify-end space-x-4'>
           <nav className='flex items-center space-x-2'>
-            {user ? <BookmarkIcon className='h-6 w-6' aria-hidden='true' /> : null}
+            {user ? (
+              <Link
+                href='/dashboard/recipes'
+                className={buttonVariants({
+                  variant: 'ghost',
+                  size: 'icon',
+                })}
+              >
+                <BookmarkIcon className='h-6 w-6' aria-hidden='true' />
+                <span className='sr-only'>View saved recipes</span>
+              </Link>
+            ) : null}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

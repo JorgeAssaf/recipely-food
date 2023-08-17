@@ -6,7 +6,7 @@ import { Pizza } from 'lucide-react'
 
 import type { MainNavItem } from '@/types/nav'
 import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
+import { cn, toTitleCase } from '@/lib/utils'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -96,8 +96,8 @@ const ListItem = forwardRef<
           )}
           {...props}
         >
-          <div className='text-sm font-medium capitalize leading-none'>
-            {title}
+          <div className='text-sm font-medium leading-none'>
+            {toTitleCase(title!)}
           </div>
           <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
             {children}
