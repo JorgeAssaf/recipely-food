@@ -1,9 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { db } from '@/db'
+import { Recipes, recipes } from '@/db/schema'
+import { like } from 'drizzle-orm'
 import { SearchIcon } from 'lucide-react'
 
-import { isMacOs } from '@/lib/utils'
+import { cn, isMacOs, slugify } from '@/lib/utils'
+import { useDebounce } from '@/hooks/useDebounce'
 import {
   CommandDialog,
   CommandEmpty,
@@ -11,13 +16,52 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '@/components/ui/command'
 
 import { Button } from './ui/button'
+import { Skeleton } from './ui/skeleton'
 
 const Combobox = () => {
-  const [open, setOpen] = useState(false)
+  const router = useRouter()
+  const [open, setOpen] = useState<boolean>(false)
+  const [query, setQuery] = useState<string>('')
+  const [isPending, startTransition] = useTransition()
+  const debounceQuery = useDebounce<string>(query, 300)
+  const [data, setData] = useState<
+    | {
+      category: Recipes['category']
+      recipes: Pick<Recipes, 'id' | 'name' | 'category'>[]
+    }[]
+    | null
+  >(null)
+
+  useEffect(() => {
+    if (debounceQuery === '') setData(null)
+    if (debounceQuery.length > 0) {
+      startTransition(async () => {
+        if (debounceQuery.length === 0) setData(null)
+        const filteredRecipes = await db
+          .select({
+            category: recipes.category,
+            name: recipes.name,
+            id: recipes.id,
+          })
+          .from(recipes)
+          .where(like(recipes.name, `%${debounceQuery}%`))
+          .orderBy(recipes.createdAt)
+          .limit(10)
+        const data = Object.values(recipes.category.enumValues).map(
+          (category) => ({
+            category,
+            recipes: filteredRecipes.filter(
+              (recipe) => recipe.category === category,
+            ),
+          }),
+        )
+        setData(data)
+      })
+    }
+  }, [])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -29,6 +73,12 @@ const Combobox = () => {
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
+
+  const handleSelect = useCallback((callback: () => unknown) => {
+    setOpen(false)
+    callback()
+  }, [])
+
   return (
     <>
       <Button
@@ -48,20 +98,49 @@ const Combobox = () => {
         </kbd>
       </Button>
       <CommandDialog position='top' open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder='Search products...' />
+        <CommandInput
+          placeholder='Search products...'
+          value={query}
+          onValueChange={setQuery}
+        />
         <CommandList>
-          <CommandEmpty>No products found.</CommandEmpty>
-          <CommandGroup heading='Suggestions'>
-            <CommandItem>Calendar</CommandItem>
-            <CommandItem>Search Emoji</CommandItem>
-            <CommandItem>Calculator</CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading='Settings'>
-            <CommandItem>Profile</CommandItem>
-            <CommandItem>Billing</CommandItem>
-            <CommandItem>Settings</CommandItem>
-          </CommandGroup>
+          <CommandList>
+            <CommandEmpty
+              className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
+            >
+              No products found.
+            </CommandEmpty>
+            {isPending ? (
+              <div className='space-y-1 overflow-hidden px-1 py-2'>
+                <Skeleton className='h-4 w-10 rounded' />
+                <Skeleton className='h-8 rounded-sm' />
+                <Skeleton className='h-8 rounded-sm' />
+              </div>
+            ) : (
+              data?.map((group) => (
+                <CommandGroup
+                  key={group.category}
+                  className='capitalize'
+                  heading={group.category}
+                >
+                  {group.recipes.map((item) => (
+                    <CommandItem
+                      key={item.id}
+                      onSelect={() =>
+                        handleSelect(() =>
+                          router.push(
+                            `/recipe/${slugify(item.name!.toString())}`,
+                          ),
+                        )
+                      }
+                    >
+                      {item.name}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              ))
+            )}
+          </CommandList>
         </CommandList>
       </CommandDialog>
     </>
