@@ -15,7 +15,7 @@ export const sortOptions = [
     label: 'Alphabetical: Z to A',
     value: 'name.desc',
   },
-]
+] satisfies { label: string; value: string }[]
 
 export const recipesCategories = [
   ...recipes.category.enumValues.map((category) => ({

@@ -1,6 +1,6 @@
 import { recipes } from '@/db/schema'
 
-import { MainNavItem } from '@/types/nav'
+import type { MainNavItem } from '@/types/nav'
 import { slugify } from '@/lib/utils'
 
 import { recipesCategories } from './recipes'
@@ -26,10 +26,16 @@ export const siteConfig = {
       title: 'Categories',
       href: '/categories',
       items: [
+        {
+          title: 'All categories',
+          href: '/categories',
+          description: 'View all categories',
+          items: [],
+        },
         ...recipesCategories.map((category) => ({
           title: category.title,
           href: `/categories/${slugify(category.title)}`,
-          description: `All recipes in category ${category.title}`,
+          description: `View all ${category.title} recipes`,
           items: [],
         })),
       ],
