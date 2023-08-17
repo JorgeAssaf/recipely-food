@@ -25,7 +25,6 @@ export const recipes = mysqlTable('recipes', {
     'appetizer',
     'drinks',
   ]),
-  subcategory: varchar('subcategory', { length: 191 }),
   prepTime: int('prepTime'),
   steps: varchar('steps', { length: 1024 }),
   image: varchar('image', { length: 1024 }),
@@ -39,7 +38,7 @@ export const recipesRelations = relations(recipes, ({ many }) => ({
   ingredients: many(ingredients),
 }))
 
-export type recipes = InferModel<typeof recipes>
+export type Recipes = InferModel<typeof recipes>
 
 export const ingredients = mysqlTable('ingredients', {
   id: serial('id').primaryKey(),
@@ -50,7 +49,7 @@ export const ingredients = mysqlTable('ingredients', {
   recipesId: int('recipes_id').notNull(),
 })
 
-export type ingredients = InferModel<typeof ingredients>
+export type Ingredients = InferModel<typeof ingredients>
 
 export const ingredientsRelations = relations(ingredients, ({ one }) => ({
   ingredient: one(recipes, {
