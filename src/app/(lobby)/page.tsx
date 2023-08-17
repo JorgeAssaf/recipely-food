@@ -135,20 +135,17 @@ export default async function Home() {
 
           {recipes.length > 0 ? (
             recipes.slice(0, 2).map((recipe) => (
-              <div
-                className='grid w-full grid-cols-2 flex-row gap-4  md:flex md:w-10/12 md:flex-col'
-                key={recipe.id}
-              >
-                <div className='h-full rounded-lg bg-rose-300 p-4 shadow-lg '>
-                  <h3 className='lineclamp-2 my-2 text-base font-medium md:text-2xl'>
+              <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
+                <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg lg:p-4 '>
+                  <h3 className='my-2 truncate text-lg font-medium lg:text-2xl'>
                     Salad with tomatoes and cheese
                   </h3>
-                  <div className='flex items-center gap-2'>
-                    <p className='border-r border-muted-foreground pr-3 text-sm md:text-lg'>
+                  <div className='flex  flex-col gap-2 lg:flex-row'>
+                    <p className='border-muted-foreground text-sm  md:border-r md:pr-3 lg:text-lg'>
                       Dificulty:
                       <span className='font-bold'>Easy</span>
                     </p>
-                    <p className='text-sm md:text-lg '>
+                    <p className='text-sm lg:text-lg '>
                       Cooking time:
                       <span className='font-bold'>13 minutes</span>
                     </p>
@@ -156,7 +153,7 @@ export default async function Home() {
                   <Link
                     href='/recipes/1'
                     className={buttonVariants({
-                      className: cn('my-2 text-sm md:text-lg'),
+                      className: cn('mt-2 text-sm lg:text-lg'),
                       variant: 'secondary',
                       size: 'sm',
                     })}
@@ -164,16 +161,16 @@ export default async function Home() {
                     View recipe
                   </Link>
                 </div>
-                <div className='h-full rounded-lg bg-rose-300 p-4 shadow-lg '>
-                  <h3 className='lineclamp-2 my-2 text-base font-medium md:text-2xl'>
+                <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
+                  <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
                     Salad with tomatoes and cheese
                   </h3>
-                  <div className='flex items-center gap-2'>
-                    <p className='border-r border-muted-foreground pr-3 text-sm md:text-lg'>
+                  <div className='flex flex-col gap-2 lg:flex-row'>
+                    <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
                       Dificulty:
                       <span className='font-bold'>Easy</span>
                     </p>
-                    <p className='text-sm md:text-lg '>
+                    <p className='text-sm lg:text-lg '>
                       Cooking time:
                       <span className='font-bold'>13 minutes</span>
                     </p>
@@ -181,7 +178,7 @@ export default async function Home() {
                   <Link
                     href='/recipes/1'
                     className={buttonVariants({
-                      className: cn('my-2 text-sm md:text-lg'),
+                      className: cn('mt-2 text-sm lg:text-lg'),
                       variant: 'secondary',
                       size: 'sm',
                     })}
@@ -192,58 +189,58 @@ export default async function Home() {
               </div>
             ))
           ) : (
-            <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
-              <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
-                Salad with tomatoes and cheese
-              </h3>
-              <div className='flex flex-col gap-2 lg:flex-row'>
-                <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
-                  Dificulty:
-                  <span className='font-bold'>Easy</span>
-                </p>
-                <p className='text-sm lg:text-lg '>
-                  Cooking time:
-                  <span className='font-bold'>13 minutes</span>
-                </p>
+            <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
+              <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg lg:p-4 '>
+                <h3 className='my-2 truncate text-lg font-medium lg:text-2xl'>
+                  Salad with tomatoes and cheese
+                </h3>
+                <div className='flex  flex-col gap-2 lg:flex-row'>
+                  <p className='border-muted-foreground text-sm  md:border-r md:pr-3 lg:text-lg'>
+                    Dificulty:
+                    <span className='font-bold'>Easy</span>
+                  </p>
+                  <p className='text-sm lg:text-lg '>
+                    Cooking time:
+                    <span className='font-bold'>13 minutes</span>
+                  </p>
+                </div>
+                <Link
+                  href='/recipes/1'
+                  className={buttonVariants({
+                    className: cn('mt-2 text-sm lg:text-lg'),
+                    variant: 'secondary',
+                    size: 'sm',
+                  })}
+                >
+                  View recipe
+                </Link>
               </div>
-              <Link
-                href='/recipes/1'
-                className={buttonVariants({
-                  className: cn('mt-2 text-sm lg:text-lg'),
-                  variant: 'secondary',
-                  size: 'sm',
-                })}
-              >
-                View recipe
-              </Link>
+              <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
+                <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
+                  Salad with tomatoes and cheese
+                </h3>
+                <div className='flex flex-col gap-2 lg:flex-row'>
+                  <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
+                    Dificulty:
+                    <span className='font-bold'>Easy</span>
+                  </p>
+                  <p className='text-sm lg:text-lg '>
+                    Cooking time:
+                    <span className='font-bold'>13 minutes</span>
+                  </p>
+                </div>
+                <Link
+                  href='/recipes/1'
+                  className={buttonVariants({
+                    className: cn('mt-2 text-sm lg:text-lg'),
+                    variant: 'secondary',
+                    size: 'sm',
+                  })}
+                >
+                  View recipe
+                </Link>
+              </div>
             </div>
-            </div>
-        <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
-          <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
-            Salad with tomatoes and cheese
-          </h3>
-          <div className='flex flex-col gap-2 lg:flex-row'>
-            <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
-              Dificulty:
-              <span className='font-bold'>Easy</span>
-            </p>
-            <p className='text-sm lg:text-lg '>
-              Cooking time:
-              <span className='font-bold'>13 minutes</span>
-            </p>
-          </div>
-          <Link
-            href='/recipes/1'
-            className={buttonVariants({
-              className: cn('mt-2 text-sm lg:text-lg'),
-              variant: 'secondary',
-              size: 'sm',
-            })}
-          >
-            View recipe
-          </Link>
-        </div>
-      </div>
             // <div className='items-center md:w-10/12  '>
             //   <div className='flex flex-col items-center'>
             //     <XCircle className='h-20 w-20' aria-hidden='true' />
@@ -253,8 +250,8 @@ export default async function Home() {
             //   </div>
             // </div>
           )}
-    </div>
-      </section >
-    </Shell >
+        </div>
+      </section>
+    </Shell>
   )
 }
