@@ -4,14 +4,13 @@ import { PageHeader } from '@/components/page-header'
 import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Read the new Recipes',
+  title: 'About',
+  description: 'About the Recipes',
 }
-
-export default function BlogPage() {
+export default function AboutPage() {
   return (
     <Shell>
-      <PageHeader size='sm' title='Blog' description='Read the new Recipes' />
+      <PageHeader size='sm' title='About' description='About the Recipes' />
     </Shell>
   )
 }
