@@ -4,10 +4,11 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ['@typescript-eslint', 'tailwindcss'],
+  plugins: ['@typescript-eslint', 'tailwindcss/recommended'],
   extends: [
-    'next/core-web-vitals',
+    'plugin:@next/next/recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
+    'next/core-web-vitals',
     'prettier',
     'plugin:tailwindcss/recommended',
   ],
