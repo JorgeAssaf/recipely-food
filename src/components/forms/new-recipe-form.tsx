@@ -114,7 +114,7 @@ export function AddNewRecipe() {
           <FormLabel>Ingredient</FormLabel>
           <FormField
             control={form.control}
-            name='ingredients'
+            name='ingredients.quantity'
             render={({ field }) => (
               <FormControl>
                 <Select
