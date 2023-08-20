@@ -5,6 +5,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { SidebarNav } from '@/components/layout/side-nav'
 import SiteFooter from '@/components/layout/site-footer'
 import SiteHeader from '@/components/layout/site-header'
+import { Shell } from '@/components/shell'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -24,7 +25,9 @@ export default async function DashboardLayout({
             <SidebarNav items={dashboardConfig.sidebarNav} />
           </ScrollArea>
         </aside>
-        <main className='flex w-full  flex-col overflow-hidden'>{children}</main>
+        <main className='flex w-full  flex-col overflow-hidden'>
+          <Shell variant='sidebar'>{children}</Shell>
+        </main>
       </div>
       <SiteFooter />
     </div>
