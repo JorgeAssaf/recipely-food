@@ -16,7 +16,7 @@ interface RecipeSloganProps {
   }
 }
 
-export function RecipeSlogan({ category }: RecipeSloganProps) {
+function RecipeSlogan({ category }: RecipeSloganProps) {
   if (!category) return null
   switch (category.title) {
     case 'breakfast':
