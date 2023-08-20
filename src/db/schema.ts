@@ -25,6 +25,7 @@ export const recipes = mysqlTable('recipes', {
     'appetizer',
     'drinks',
   ]),
+
   prepTime: int('prepTime'),
   steps: varchar('steps', { length: 1024 }),
   image: varchar('image', { length: 1024 }),
@@ -45,7 +46,7 @@ export const ingredients = mysqlTable('ingredients', {
   title: varchar('title', { length: 256 }),
   description: varchar('description', { length: 1024 }),
   quantity: int('quantity'),
-  unit: varchar('unit', { length: 256 }),
+  unit: mysqlEnum('unit', ['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'cup', 'pinch']),
   recipesId: int('recipes_id').notNull(),
 })
 
