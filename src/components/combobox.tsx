@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { db } from '@/db'
-import { Recipes, recipes } from '@/db/schema'
+import { type Recipes, recipes } from '@/db/schema'
 import { like } from 'drizzle-orm'
 import { SearchIcon } from 'lucide-react'
 

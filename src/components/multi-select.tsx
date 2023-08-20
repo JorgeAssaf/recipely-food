@@ -24,7 +24,7 @@ export const MultiSelect = () => {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  useEffect(() => { }, [])
+
   const filteredOptions = useMemo(
     () =>
       options.filter((option) => {
@@ -65,7 +65,7 @@ export const MultiSelect = () => {
   return (
     <Command
       onKeyDown={handleKeyDown}
-      className='overflow-visible bg-transparent'
+      className='h-auto overflow-visible bg-transparent'
     >
       <div className='group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2'>
         <div className='flex flex-wrap gap-1'>
@@ -111,7 +111,7 @@ export const MultiSelect = () => {
           />
         </div>
       </div>
-      <div className='relative  mt-2'>
+      <div className='relative z-50 mt-2'>
         {isOpen && filteredOptions.length > 0 ? (
           <div className='absolute top-0 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in'>
             <CommandGroup className='h-full overflow-auto'>
