@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useTransition } from 'react'
 import { ingredients, recipes } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 import { recipesSchema } from '@/lib/validations/recipes'
@@ -30,36 +30,39 @@ import {
 import { Textarea } from '../ui/textarea'
 
 export function AddNewRecipe() {
-  const [addIngredients, setAddIngredients] = useState([
-    {
-      title: 'salt',
-      quantity: 1,
-      unit: 'kg',
-    },
-  ])
-  const [howManyIngredients, setHowManyIngredients] = useState(1)
+  const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof recipesSchema>>({
     resolver: zodResolver(recipesSchema),
     defaultValues: {
       category: 'breakfast',
-      ingredients: {
-        unit: 'kg',
-      },
+      ingredients: [
+        {
+          unit: 'kg',
+        },
+      ],
     },
   })
-  form.watch((data) => console.log(data))
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: 'ingredients',
+    rules: {
+      maxLength: 10,
+      minLength: 0,
+      required: true,
+    },
+  })
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof recipesSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
+    console.log({ values })
   }
-  console.log(ingredients.quantity)
+
   return (
     <Form {...form}>
       <form
         className='grid w-full max-w-2xl gap-5'
-        onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
+        onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormItem>
           <FormLabel>Recipe Name</FormLabel>
@@ -112,60 +115,68 @@ export function AddNewRecipe() {
 
         <FormItem>
           <FormLabel>Ingredient</FormLabel>
-          <FormField
-            control={form.control}
-            name='ingredients.quantity'
-            render={({ field }) => (
-              <FormControl>
-                <Select
-                  value={field.value}
-                  onValueChange={(value: typeof field.value) =>
-                    field.onChange(value)
-                  }
-                >
-                  <SelectTrigger className='capitalize'>
-                    <SelectValue placeholder={field.value} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {Object.values(ingredients.unit.enumValues).map(
-                        (option) => (
-                          <SelectItem
-                            key={option}
-                            value={option}
-                            className='capitalize'
-                          >
-                            {option}
-                          </SelectItem>
-                        ),
-                      )}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-            )}
-          />
 
-          <FormControl>
-            <Input
-              aria-invalid={!!form.formState.errors.ingredients?.title}
-              placeholder='Type product name here.'
-              {...form.register('ingredients.title')}
-            />
-          </FormControl>
-          <FormMessage />
+          {fields.map((field, index) => (
+            <div key={field.id}>
+              <div className='flex gap-5'>
+                <FormControl>
+                  <Input
+                    placeholder='Type product name here.'
+                    {...form.register(`ingredients.${index}.title` as const)}
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <Input
+                    placeholder='Type product name here.'
+                    {...form.register(`ingredients.${index}.quantity` as const)}
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <Select>
+                    <SelectTrigger className='capitalize'>
+                      <SelectValue placeholder={field.unit} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {Object.values(ingredients.unit.enumValues).map(
+                          (option) => (
+                            <SelectItem
+                              key={option}
+                              value={option}
+                              className='capitalize'
+                            >
+                              {option}
+                            </SelectItem>
+                          ),
+                        )}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <Button
+                  type='button'
+                  onClick={() => {
+                    remove(index)
+                  }}
+                >
+                  Remove
+                </Button>
+              </div>
+            </div>
+          ))}
         </FormItem>
 
         <Button
+          type='button'
           onClick={() =>
-            setAddIngredients([
-              ...addIngredients,
-              {
-                title: '',
-                quantity: 1,
-                unit: 'kg',
-              },
-            ])
+            append({
+              title: '',
+              quantity: '',
+              description: '',
+              unit: 'kg',
+            })
           }
         >
           Add Ingredient
