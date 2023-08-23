@@ -1,12 +1,15 @@
 import { InferModel, relations } from 'drizzle-orm'
 import {
   int,
+  json,
   mysqlEnum,
   mysqlTable,
   serial,
   timestamp,
   varchar,
 } from 'drizzle-orm/mysql-core'
+
+import { IngredientsType } from '@/types/recipes'
 
 // declaring enum in database
 export const recipes = mysqlTable('recipes', {
@@ -16,6 +19,7 @@ export const recipes = mysqlTable('recipes', {
   description: varchar('description', { length: 1024 }),
   difficulty: mysqlEnum('difficulty', ['easy', 'medium', 'hard']),
   rating: int('rating').default(0),
+  ingredients: json('ingredients').$type<IngredientsType[]>().default([]),
   category: mysqlEnum('category', [
     'breakfast',
     'lunch',
@@ -43,11 +47,19 @@ export type Recipes = InferModel<typeof recipes>
 
 export const ingredients = mysqlTable('ingredients', {
   id: serial('id').primaryKey(),
-  title: varchar('title', { length: 256 }),
-  description: varchar('description', { length: 1024 }),
+  ingredient: varchar('ingredient', { length: 256 }),
   quantity: int('quantity'),
-  unit: mysqlEnum('unit', ['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'cup', 'pinch']),
-  recipesId: int('recipes_id').notNull(),
+  unit: mysqlEnum('unit', [
+    'g',
+    'kg',
+    'ml',
+    'l',
+    'tsp',
+    'tbsp',
+    'cup',
+    'pinch',
+  ]),
+  recipesId: int('recipes_id'),
 })
 
 export type Ingredients = InferModel<typeof ingredients>
