@@ -132,47 +132,24 @@ export default async function Home() {
               </Button>
             </div>
           </div>
-
-          {recipes.length > 0 ? (
-            recipes.slice(0, 2).map((recipe) => (
-              <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
-                <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg lg:p-4 '>
-                  <h3 className='my-2 truncate text-lg font-medium lg:text-2xl'>
-                    Salad with tomatoes and cheese
-                  </h3>
-                  <div className='flex  flex-col gap-2 lg:flex-row'>
-                    <p className='border-muted-foreground text-sm  md:border-r md:pr-3 lg:text-lg'>
-                      Dificulty:
-                      <span className='font-bold'>Easy</span>
-                    </p>
-                    <p className='text-sm lg:text-lg '>
-                      Cooking time:
-                      <span className='font-bold'>13 minutes</span>
-                    </p>
-                  </div>
-                  <Link
-                    href='/recipes/1'
-                    className={buttonVariants({
-                      className: cn('mt-2 text-sm lg:text-lg'),
-                      variant: 'secondary',
-                      size: 'sm',
-                    })}
-                  >
-                    View recipe
-                  </Link>
-                </div>
-                <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
+          <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
+            {recipes.length > 0 ? (
+              recipes.slice(0, 2).map((recipe) => (
+                <div
+                  className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '
+                  key={recipe.id}
+                >
                   <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
-                    Salad with tomatoes and cheese
+                    {recipe.name}
                   </h3>
                   <div className='flex flex-col gap-2 lg:flex-row'>
                     <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
                       Dificulty:
-                      <span className='font-bold'>Easy</span>
+                      <span className='font-bold'>{recipe.difficulty}</span>
                     </p>
                     <p className='text-sm lg:text-lg '>
                       Cooking time:
-                      <span className='font-bold'>13 minutes</span>
+                      <span className='font-bold'>{recipe.prepTime} min</span>
                     </p>
                   </div>
                   <Link
@@ -186,70 +163,18 @@ export default async function Home() {
                     View recipe
                   </Link>
                 </div>
-              </div>
-            ))
-          ) : (
-            <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
-              <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg lg:p-4 '>
-                <h3 className='my-2 truncate text-lg font-medium lg:text-2xl'>
-                  Salad with tomatoes and cheese
-                </h3>
-                <div className='flex  flex-col gap-2 lg:flex-row'>
-                  <p className='border-muted-foreground text-sm  md:border-r md:pr-3 lg:text-lg'>
-                    Dificulty:
-                    <span className='font-bold'>Easy</span>
-                  </p>
-                  <p className='text-sm lg:text-lg '>
-                    Cooking time:
-                    <span className='font-bold'>13 minutes</span>
+              ))
+            ) : (
+              <div className='items-center md:w-10/12  '>
+                <div className='flex flex-col items-center'>
+                  <XCircle className='h-20 w-20' aria-hidden='true' />
+                  <p className=' mt-3 font-medium text-muted-foreground'>
+                    No recipes found
                   </p>
                 </div>
-                <Link
-                  href='/recipes/1'
-                  className={buttonVariants({
-                    className: cn('mt-2 text-sm lg:text-lg'),
-                    variant: 'secondary',
-                    size: 'sm',
-                  })}
-                >
-                  View recipe
-                </Link>
               </div>
-              <div className='h-full rounded-lg bg-rose-300 p-3 shadow-lg '>
-                <h3 className='my-2 truncate text-lg font-semibold lg:text-2xl'>
-                  Salad with tomatoes and cheese
-                </h3>
-                <div className='flex flex-col gap-2 lg:flex-row'>
-                  <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
-                    Dificulty:
-                    <span className='font-bold'>Easy</span>
-                  </p>
-                  <p className='text-sm lg:text-lg '>
-                    Cooking time:
-                    <span className='font-bold'>13 minutes</span>
-                  </p>
-                </div>
-                <Link
-                  href='/recipes/1'
-                  className={buttonVariants({
-                    className: cn('mt-2 text-sm lg:text-lg'),
-                    variant: 'secondary',
-                    size: 'sm',
-                  })}
-                >
-                  View recipe
-                </Link>
-              </div>
-            </div>
-            // <div className='items-center md:w-10/12  '>
-            //   <div className='flex flex-col items-center'>
-            //     <XCircle className='h-20 w-20' aria-hidden='true' />
-            //     <p className=' mt-3 font-medium text-muted-foreground'>
-            //       No recipes found
-            //     </p>
-            //   </div>
-            // </div>
-          )}
+            )}
+          </div>
         </div>
       </section>
     </Shell>

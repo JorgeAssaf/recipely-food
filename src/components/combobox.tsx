@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { db } from '@/db'
-import { type Recipes, recipes } from '@/db/schema'
+import { recipes, type Recipes } from '@/db/schema'
 import { like } from 'drizzle-orm'
 import { SearchIcon } from 'lucide-react'
 
@@ -20,6 +20,7 @@ import {
 
 import { Button } from './ui/button'
 import { Skeleton } from './ui/skeleton'
+import { filterProductsAction } from '@/app/_actions/recipes'
 
 const Combobox = () => {
   const router = useRouter()
@@ -39,29 +40,11 @@ const Combobox = () => {
     if (debounceQuery === '') setData(null)
     if (debounceQuery.length > 0) {
       startTransition(async () => {
-        if (debounceQuery.length === 0) setData(null)
-        const filteredRecipes = await db
-          .select({
-            category: recipes.category,
-            name: recipes.name,
-            id: recipes.id,
-          })
-          .from(recipes)
-          .where(like(recipes.name, `%${debounceQuery}%`))
-          .orderBy(recipes.createdAt)
-          .limit(10)
-        const data = Object.values(recipes.category.enumValues).map(
-          (category) => ({
-            category,
-            recipes: filteredRecipes.filter(
-              (recipe) => recipe.category === category,
-            ),
-          }),
-        )
+        const data = await filterProductsAction(debounceQuery)
         setData(data)
       })
     }
-  }, [])
+  }, [debounceQuery])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {

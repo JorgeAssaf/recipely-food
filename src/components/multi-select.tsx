@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { Command as CommandPrimitive } from 'cmdk'
 import { Option, X } from 'lucide-react'
 

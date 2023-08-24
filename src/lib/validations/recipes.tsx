@@ -8,6 +8,7 @@ export const recipesSchema = z.object({
       message: 'name must be at least 2 characters.',
     })
     .nonempty({ message: 'name must be at least 2 characters.' }),
+
   description: z
     .string()
     .min(2, {
@@ -26,7 +27,7 @@ export const recipesSchema = z.object({
     .default(recipes.difficulty.enumValues[0]),
   ingredients: z
     .object({
-      title: z.string().min(2, {
+      ingredient: z.string().min(2, {
         message: 'Title must be at least 2 characters.',
       }),
       unit: z
@@ -40,23 +41,19 @@ export const recipesSchema = z.object({
         .min(2, {
           message: 'Description must be at least 2 characters.',
         })
-        .nonempty({ message: 'Description must be at least 2 characters.' }),
-      quantity: z
-        .string()
-        .min(2, {
-          message: 'Quantity must be at least 2 characters.',
-        })
-        .nonempty({ message: 'Quantity must be at least 2 characters.' }),
+        .optional(),
+      // .nonempty({ message: 'Description must be at least 2 characters.' }),
+      quantity: z.string(),
     })
+    .optional()
     .array(),
-
   steps: z
     .string()
     .min(2, {
       message: 'Steps must be at least 2 characters.',
     })
     .nonempty({ message: 'Steps must be at least 2 characters.' }),
+
   // image: z.string().min(2, {
   //   message: "Image must be at least 2 characters.",
-  // }),
 })

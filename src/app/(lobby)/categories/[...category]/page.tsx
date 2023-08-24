@@ -16,7 +16,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Slider } from '@/components/ui/slider'
-import { MultiSelect } from '@/components/multi-select'
 import { PageHeader } from '@/components/page-header'
 import { Shell } from '@/components/shell'
 

@@ -1,4 +1,3 @@
-
 import { type SidebarNavItem } from '@/types/nav'
 
 export interface DashboardConfig {
