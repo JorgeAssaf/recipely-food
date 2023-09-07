@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Recipes } from '@/db/schema'
+import type { Recipes } from '@/db/schema'
 
 import { recipesCategories } from '@/config/recipes'
 import { PageHeader } from '@/components/page-header'
 import { Shell } from '@/components/shell'
+import { Icons } from '@/components/icons'
 
 export const metadata: Metadata = {
   title: 'Categories',
@@ -20,24 +21,19 @@ function RecipeSlogan({ category }: RecipeSloganProps) {
   if (!category) return null
   switch (category.title) {
     case 'breakfast':
-      return <span>Start your day right</span>
-
+      return <p>The most important meal of the day!</p>
     case 'lunch':
-      return <span>Power up your day</span>
-
+      return <p>Time to refuel and get back to work!</p>
     case 'dinner':
-      return <span>End your day right</span>
-
+      return <p>Sit down and enjoy!</p>
     case 'dessert':
-      return <span>Reward yourself</span>
+      return <p>Treat yourself!</p>
     case 'snack':
-      return <span>Fuel your day</span>
-
+      return <p>A little something to get you through!</p>
     case 'drinks':
-      return <span>Happiness in a cup</span>
-
+      return <p>Stay hydrated!</p>
     case 'appetizer':
-      return <span>Start your meal right</span>
+      return <p>A little something to get you started!</p>
 
     default:
       return null
@@ -45,6 +41,7 @@ function RecipeSlogan({ category }: RecipeSloganProps) {
 }
 
 export default async function CategotyPage() {
+
   return (
     <Shell as='div' className='py-3'>
       <PageHeader
@@ -52,24 +49,27 @@ export default async function CategotyPage() {
         title='Categories'
         description='View all categories'
       />
-      {recipesCategories.map((category) => (
-        <div
-          key={category.title}
-          className='flex items-center justify-between py-2'
-        >
-          <div className='flex items-center'>
-            <div className='mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 text-white'>
-              {/* <category.icon className='w-6 h-6' /> */}
+      {recipesCategories.map((category) => {
+        const LucideIcon = Icons[category.title] || Icons.book
+        return (
+          <div
+            key={category.title}
+            className='flex items-center justify-between py-2'
+          >
+            <div className='flex items-center'>
+              <div className='mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 text-white'>
+                <LucideIcon className='h-[1.56rem] w-[1.56rem]' aria-hidden='true' aria-label={category.title} />
+              </div>
+              <div className='text-sm font-medium'>{category.title}</div>
             </div>
-            <div className='text-sm font-medium'>{category.title}</div>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <div className='text-sm font-medium '>
-              <RecipeSlogan category={category} />
+            <div className='flex items-center space-x-2'>
+              <div className='text-sm font-medium '>
+                <RecipeSlogan category={category} />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </Shell>
   )
 }
