@@ -4,15 +4,14 @@ export interface RecipesType {
   title: string
   description: string
   slug: string
+  prepTime: number
   image: string
   tags: string[]
-  ingredients: string[]
+  ingredients: IngredientsType[]
   instructions: string[]
-  notes: string[]
 }
 export interface IngredientsType {
   ingredient: string
   quantity: string
-  description: string
-  unit: keyof typeof ingredients.unit.enumValues
+  unit: 'g' | 'kg' | 'ml' | 'l' | 'tsp' | 'tbsp' | 'cup' | 'pinch'
 }
