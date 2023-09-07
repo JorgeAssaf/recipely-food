@@ -1,59 +1,57 @@
 import { ingredients, recipes } from '@/db/schema'
-import { z } from 'zod'
+import z from 'zod'
 
 export const recipesSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: 'name must be at least 2 characters.',
-    })
-    .nonempty({ message: 'name must be at least 2 characters.' }),
-
-  description: z
-    .string()
-    .min(2, {
-      message: 'Description must be at least 2 characters.',
-    })
-    .optional(),
-  category: z
-    .enum(recipes.category.enumValues, {
-      required_error: 'Must select a valid category.',
-    })
-    .default(recipes.category.enumValues[0]),
+  name: z.string().min(1, {
+    message: 'Missing valid recipe name',
+  }),
+  description: z.string().min(1, {
+    message: 'Missing valid description',
+  }),
   difficulty: z
     .enum(recipes.difficulty.enumValues, {
-      required_error: 'Must select a valid difficulty.',
+      required_error: 'Must be a valid difficulty',
     })
     .default(recipes.difficulty.enumValues[0]),
-  ingredients: z
-    .object({
-      ingredient: z.string().min(2, {
-        message: 'Title must be at least 2 characters.',
+  ingredients: z.array(
+    z.object({
+      ingredient: z.string().min(1, {
+        message: 'Must be at least 1 character',
       }),
+
       unit: z
         .enum(ingredients.unit.enumValues, {
-          required_error: 'Must select a valid unit.',
+          required_error: 'Must be a valid unit',
         })
         .default(ingredients.unit.enumValues[0]),
-
-      description: z
-        .string()
-        .min(2, {
-          message: 'Description must be at least 2 characters.',
-        })
-        .optional(),
-      // .nonempty({ message: 'Description must be at least 2 characters.' }),
-      quantity: z.string(),
+      quantity: z.string({
+        required_error: 'Missing quantity',
+      }),
+    }),
+    {
+      required_error: 'Missing ingredients',
+    },
+  ),
+  category: z
+    .enum(recipes.category.enumValues, {
+      required_error: 'Must be a valid category',
     })
-    .optional()
-    .array(),
+    .default(recipes.category.enumValues[0]),
+  prepTime: z
+    .number({
+      required_error: 'Missing prep time',
+    }).positive({
+      message: 'Must be a positive number',
+    }).int({
+      message: 'Must be an integer',
+    }),
+
+
   steps: z
-    .string()
-    .min(2, {
-      message: 'Steps must be at least 2 characters.',
+    .string({
+      required_error: 'Missing steps',
     })
-    .nonempty({ message: 'Steps must be at least 2 characters.' }),
-
-  // image: z.string().min(2, {
-  //   message: "Image must be at least 2 characters.",
+    .nonempty({
+      message: 'Missing steps',
+    }),
 })
