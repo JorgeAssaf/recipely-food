@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import type { SidebarNavItem } from '@/types/nav'
 import { cn } from '@/lib/utils'
 
-import { icons } from '../icons'
+import { Icons } from '../icons'
 
 export interface SidebarNavProps {
   items: SidebarNavItem[]
@@ -21,11 +21,11 @@ export function SidebarNav({ items }: SidebarNavProps) {
     <div className='flex w-full flex-col gap-2'>
       {items.map((item, i) => {
         // @ts-ignore
-        const LucideIcon = icons[item.icon]
+        const LucideIcon = Icons[item.icon]! || Icons.book
 
         return item.href ? (
           <Link
-            key={item.title + i}
+            key={i}
             href={item.href}
             target={item.external ? '_blank' : ''}
             rel={item.external ? 'noreferrer' : ''}

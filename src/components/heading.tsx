@@ -63,7 +63,6 @@ const getSizesClassNames = (size: HeadingSize | undefined) => {
       return 'text-xs'
     case '2':
       return 'text-sm'
-    case undefined:
     case '3':
       return 'text-base'
     case '4':
@@ -83,6 +82,7 @@ const getSizesClassNames = (size: HeadingSize | undefined) => {
         'text-[38px] leading-[46px]',
         'md:text-[70px] md:leading-[85px] tracking-[-1.024px;]',
       ]
+    case undefined:
     default:
       return null
   }
