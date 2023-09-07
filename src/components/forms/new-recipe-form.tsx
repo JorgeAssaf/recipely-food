@@ -6,8 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import * as z from 'zod'
+import z from 'zod'
 
+import { cn } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,6 +19,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  UncontrolledFormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { AddRecipeAction, DeleteRecipesAction } from '@/app/_actions/recipes'
@@ -34,19 +36,19 @@ import { Textarea } from '../ui/textarea'
 
 export function AddNewRecipe() {
   const [isPending, startTransition] = useTransition()
-  const form = useForm()
-  //<z.infer<typeof recipesSchema>>({
-  //   resolver: zodResolver(recipesSchema),
-  //   defaultValues: {
-  //     category: recipes.category.enumValues[0],
-  //     difficulty: recipes.difficulty.enumValues[0],
-  //     ingredients: [
-  //       {
-  //         unit: 'kg',
-  //       },
-  //     ],
-  //   },
-  // })
+  const form = useForm<z.infer<typeof recipesSchema>>({
+    resolver: zodResolver(recipesSchema),
+    defaultValues: {
+      category: recipes.category.enumValues[0],
+      difficulty: recipes.difficulty.enumValues[0],
+      ingredients: [
+        {
+          unit: 'kg',
+        },
+      ],
+    },
+  })
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: `ingredients`,
@@ -56,27 +58,25 @@ export function AddNewRecipe() {
       required: true,
     },
   })
-  // 2. Define a submit handler.
+
   function onSubmit(data: z.infer<typeof recipesSchema>) {
     startTransition(async () => {
       try {
         await AddRecipeAction({
           name: data.name,
-          description: data.description ?? '',
+          description: data.description,
           category: data.category,
+          prepTime: data.prepTime,
           difficulty: data.difficulty,
           ingredients: data.ingredients,
-
           steps: data.steps,
         })
         toast.success(`The recipe ${data.name} added.`)
         form.reset()
       } catch (error) {
         toast.error('Something went wrong.')
-        console.log(error)
       }
     })
-
     console.log(data)
   }
 
@@ -85,20 +85,33 @@ export function AddNewRecipe() {
       <Form {...form}>
         <form
           className='grid w-full max-w-2xl gap-5'
-          // @ts-ignore
           onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
         >
           <FormItem>
-            <FormLabel>Recipe Name</FormLabel>
+            <FormLabel>Name</FormLabel>
             <FormControl>
               <Input
-                aria-invalid={!!form.formState.errors.name}
                 placeholder='Type product name here.'
                 {...form.register('name')}
               />
             </FormControl>
-            <FormMessage />
+            <UncontrolledFormMessage
+              message={form.formState.errors.name?.message}
+            />
           </FormItem>
+          <FormItem>
+            <FormLabel>Description</FormLabel>
+            <FormControl>
+              <Textarea
+                placeholder='Type product description here.'
+                {...form.register('description')}
+              />
+            </FormControl>
+            <UncontrolledFormMessage
+              message={form.formState.errors.description?.message}
+            />
+          </FormItem>
+
           <FormField
             control={form.control}
             name='category'
@@ -132,61 +145,84 @@ export function AddNewRecipe() {
                     </SelectContent>
                   </Select>
                 </FormControl>
-                <FormMessage />
+                <UncontrolledFormMessage
+                  message={form.formState.errors.category?.message}
+                />
               </FormItem>
             )}
           />
 
           <FormItem>
-            <FormLabel>Ingredient</FormLabel>
+            <FormLabel>Ingredients</FormLabel>
 
             {fields.map((field, index) => (
               <div key={field.id}>
                 <div className='flex gap-5'>
-                  <FormControl>
-                    <Input
-                      inputMode='text'
-                      type='text'
-                      placeholder='Type product name here.'
-                      {...form.register(
-                        `ingredients.${index}.ingredient` as const,
-                      )}
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder='Insert ingredient.'
+                        {...form.register(
+                          `ingredients.${index}.ingredient` as const,
+                        )}
+                      />
+                    </FormControl>
+                    <UncontrolledFormMessage
+                      message={
+                        form.formState.errors.ingredients?.[index]?.ingredient
+                          ?.message
+                      }
                     />
-                  </FormControl>
-
-                  <FormControl>
-                    <Input
-                      inputMode='numeric'
-                      placeholder='Type quantity here.'
-                      {...form.register(
-                        `ingredients.${index}.quantity` as const,
-                      )}
+                  </FormItem>
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        inputMode='numeric'
+                        placeholder='Insert quantity.'
+                        {...form.register(
+                          `ingredients.${index}.quantity` as const,
+                        )}
+                      />
+                    </FormControl>
+                    <UncontrolledFormMessage
+                      message={
+                        form.formState.errors.ingredients?.[index]?.quantity
+                          ?.message
+                      }
                     />
-                  </FormControl>
+                  </FormItem>
 
-                  <FormControl>
-                    <Select>
-                      <SelectTrigger className='capitalize'>
-                        {/* @ts-ignore */}
-                        <SelectValue placeholder={field.unit} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {Object.values(ingredients.unit.enumValues).map(
-                            (option) => (
-                              <SelectItem
-                                key={option}
-                                value={option}
-                                className='capitalize'
-                              >
-                                {option}
-                              </SelectItem>
-                            ),
-                          )}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
+                  <FormItem>
+                    <FormControl>
+                      <Select>
+                        <SelectTrigger className='capitalize'>
+                          <SelectValue placeholder={field.unit} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {Object.values(ingredients.unit.enumValues).map(
+                              (option) => (
+                                <SelectItem
+                                  key={option}
+                                  value={option}
+                                  className='capitalize'
+                                >
+                                  {option}
+                                </SelectItem>
+                              ),
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <UncontrolledFormMessage
+                      message={
+                        form.formState.errors.ingredients?.[index]?.unit
+                          ?.message
+                      }
+                    />
+                  </FormItem>
+
                   <Button
                     type='button'
                     onClick={() => {
@@ -198,6 +234,9 @@ export function AddNewRecipe() {
                 </div>
               </div>
             ))}
+            <UncontrolledFormMessage
+              message={form.formState.errors.ingredients?.message}
+            />
           </FormItem>
 
           <Button
@@ -205,14 +244,35 @@ export function AddNewRecipe() {
             onClick={() =>
               append({
                 ingredient: '',
-                quantity: '0',
-                description: '',
                 unit: 'kg',
+                quantity: '0',
               })
             }
           >
             Add Ingredient
           </Button>
+
+          <FormField
+            control={form.control}
+            name='prepTime'
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel className={cn('text-primary')}>
+                  Prep Time <FormDescription>(in minutes)</FormDescription>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type='number'
+                    placeholder='Type product prep time here.'
+                    value={field.value}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
+                  ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name='difficulty'
@@ -250,16 +310,36 @@ export function AddNewRecipe() {
               </FormItem>
             )}
           />
-          <FormLabel>Instructions</FormLabel>
-          <FormDescription>
-            Please add each instruction on a new line.
-          </FormDescription>
-          <FormControl>
-            <Textarea rows={5} {...form.register('steps')} />
-          </FormControl>
-          <FormMessage />
 
-          <Button type='submit'>Submit</Button>
+          <FormItem>
+            <FormLabel>Steps</FormLabel>
+            <FormControl>
+              <Textarea
+                placeholder='Type product steps here.'
+                {...form.register('steps')}
+              />
+            </FormControl>
+            <UncontrolledFormMessage
+              message={form.formState.errors.steps?.message}
+            />
+          </FormItem>
+
+          <Button
+            onClick={() =>
+              void form.trigger(['name', 'description', 'prepTime', 'steps'])
+            }
+            className='w-fit'
+            disabled={isPending}
+          >
+            {isPending && (
+              <Loader2
+                className='mr-2 h-4 w-4 animate-spin'
+                aria-hidden='true'
+              />
+            )}
+            Add Product
+            <span className='sr-only'>Add Product</span>
+          </Button>
         </form>
       </Form>
       <Button
