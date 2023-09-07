@@ -59,7 +59,6 @@ export default function CategoryPage({
 }: {
   params: { category: string }
 }) {
-  console.log(params.category)
   return (
     <Shell as='main'>
       <div>
@@ -89,7 +88,7 @@ export default function CategoryPage({
                 <div className='flex flex-1 flex-col gap-5 overflow-hidden px-1'>
                   <div className='space-y-4'>
                     <h3 className='text-sm font-medium tracking-wide text-foreground'>
-                      Time (minutes)
+                      Time {'(minutes)'}
                     </h3>
                     <Slider
                       variant='range'
@@ -207,7 +206,7 @@ export default function CategoryPage({
                               <Checkbox id={`store-${store}`} />
                               <Label
                                 htmlFor={`store-${store}`}
-                                className='line-clamp-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                                className='line-clamp-1 py-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                               >
                                 {store}
                               </Label>
