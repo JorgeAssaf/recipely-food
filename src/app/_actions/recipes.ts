@@ -1,8 +1,12 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
 import { ingredients, recipes } from '@/db/schema'
-import { eq, like } from 'drizzle-orm'
+import { like } from 'drizzle-orm'
+import { z } from 'zod'
+
+import { recipesSchema } from '@/lib/validations/recipes'
 
 export async function filterProductsAction(query: string) {
   if (query.length === 0) return null
@@ -23,11 +27,23 @@ export async function filterProductsAction(query: string) {
   return data
 }
 
-export async function AddRecipeAction(values: any) {
-  const existingRecipe = await db.select().from(recipes)
+export async function AddRecipeAction(values: z.infer<typeof recipesSchema>) {
+  // const productWithSameName = await db.query.recipes.findFirst({
+  //   columns: {
+  //     id: true,
+  //   },
+  //   where: eq(recipes.name, values.name),
+  // })
+
+  // if (productWithSameName) {
+  //   throw new Error("Product name already taken.")
+  // }
 
   await db.insert(recipes).values(values)
+
+  revalidatePath(`/dashboard/recipes`)
 }
+
 export async function AddIngredientsAction(values: any) {
   const recipe = await db.select().from(recipes)
 
