@@ -1,4 +1,4 @@
-import { InferModel, relations } from 'drizzle-orm'
+import { InferSelectModel, relations } from 'drizzle-orm'
 import {
   int,
   json,
@@ -11,7 +11,6 @@ import {
 
 import { IngredientsType } from '@/types/recipes'
 
-// declaring enum in database
 export const recipes = mysqlTable('recipes', {
   id: serial('id').primaryKey(),
   // userId: int('user_id').notNull(),
@@ -43,7 +42,7 @@ export const recipesRelations = relations(recipes, ({ many }) => ({
   ingredients: many(ingredients),
 }))
 
-export type Recipes = InferModel<typeof recipes>
+export type Recipes = InferSelectModel<typeof recipes>
 
 export const ingredients = mysqlTable('ingredients', {
   id: serial('id').primaryKey(),
@@ -62,7 +61,7 @@ export const ingredients = mysqlTable('ingredients', {
   recipesId: int('recipes_id'),
 })
 
-export type Ingredients = InferModel<typeof ingredients>
+export type Ingredients = InferSelectModel<typeof ingredients>
 
 export const ingredientsRelations = relations(ingredients, ({ one }) => ({
   ingredient: one(recipes, {
