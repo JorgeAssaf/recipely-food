@@ -40,12 +40,13 @@ export const recipesSchema = z.object({
   prepTime: z
     .number({
       required_error: 'Missing prep time',
-    }).positive({
+    })
+    .positive({
       message: 'Must be a positive number',
-    }).int({
+    })
+    .int({
       message: 'Must be an integer',
     }),
-
 
   steps: z
     .string({
@@ -54,4 +55,24 @@ export const recipesSchema = z.object({
     .nonempty({
       message: 'Missing steps',
     }),
+})
+
+export const getRecipesSchema = z.object({
+  limit: z.number().default(10),
+  offset: z.number().default(0),
+  categories: z
+    .string()
+    .regex(/^\d+.\d+$/)
+    .optional()
+    .nullable(),
+
+  sort: z
+    .string()
+    .regex(/^\w+.(asc|desc)$/)
+    .optional()
+    .nullable(),
+  author: z.string().optional().nullable(),
+  prepTime: z.number().optional(),
+  difficulty: z.string().optional().nullable(),
+  category: z.enum(recipes.category.enumValues).optional().nullable(),
 })

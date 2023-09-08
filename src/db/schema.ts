@@ -14,9 +14,11 @@ import { IngredientsType } from '@/types/recipes'
 export const recipes = mysqlTable('recipes', {
   id: serial('id').primaryKey(),
   // userId: int('user_id').notNull(),
-  name: varchar('name', { length: 256 }),
-  description: varchar('description', { length: 1024 }),
-  difficulty: mysqlEnum('difficulty', ['easy', 'medium', 'hard']),
+  name: varchar('name', { length: 256 }).notNull(),
+  description: varchar('description', { length: 1024 }).notNull(),
+  difficulty: mysqlEnum('difficulty', ['easy', 'medium', 'hard'])
+    .notNull()
+    .default('easy'),
   rating: int('rating').default(0),
   ingredients: json('ingredients').$type<IngredientsType[]>().default([]),
   category: mysqlEnum('category', [
@@ -27,9 +29,11 @@ export const recipes = mysqlTable('recipes', {
     'snack',
     'appetizer',
     'drinks',
-  ]),
+  ])
+    .notNull()
+    .default('breakfast'),
 
-  prepTime: int('prepTime'),
+  prepTime: int('prepTime').notNull().default(0),
   steps: varchar('steps', { length: 1024 }),
   image: varchar('image', { length: 1024 }),
   likes: int('likes').default(0),
