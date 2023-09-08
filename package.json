@@ -17,7 +17,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@clerk/nextjs": "4.23.4",
+    "@clerk/nextjs": "4.23.5",
     "@hookform/resolvers": "3.3.1",
     "@planetscale/database": "1.11.0",
     "@radix-ui/react-accordion": "1.1.2",
@@ -39,7 +39,7 @@
     "clsx": "2.0.0",
     "cmdk": "0.2.0",
     "dotenv": "16.3.1",
-    "drizzle-orm": "0.28.5",
+    "drizzle-orm": "0.28.6",
     "lucide-react": "0.274.0",
     "next": "13.4.19",
     "next-themes": "0.2.1",
@@ -47,7 +47,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.46.1",
     "react-wrap-balancer": "1.1.0",
-    "sonner": "0.7.0",
+    "sonner": "0.7.1",
     "tailwind-merge": "1.14.0",
     "tailwindcss-animate": "1.0.7",
     "typescript": "5.2.2",
@@ -55,7 +55,7 @@
     "zod": "3.22.2"
   },
   "devDependencies": {
-    "@clerk/types": "3.50.0",
+    "@clerk/types": "3.51.0",
     "@faker-js/faker": "8.0.2",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
     "@next/eslint-plugin-next": "13.4.19",
@@ -76,4 +76,3 @@
     "tailwindcss": "3.3.3"
   }
 }
-
