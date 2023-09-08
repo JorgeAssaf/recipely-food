@@ -1,10 +1,14 @@
 import type { Metadata } from 'next'
-import type { Recipes } from '@/db/schema'
+import Link from 'next/link'
+import { db } from '@/db'
+import { type Recipes } from '@/db/schema'
 
 import { recipesCategories } from '@/config/recipes'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/button'
+import { Icons } from '@/components/icons'
 import { PageHeader } from '@/components/page-header'
 import { Shell } from '@/components/shell'
-import { Icons } from '@/components/icons'
 
 export const metadata: Metadata = {
   title: 'Categories',
@@ -41,6 +45,9 @@ function RecipeSlogan({ category }: RecipeSloganProps) {
 }
 
 export default async function CategotyPage() {
+  const countRecipesByCategory = await db.query.recipes.findMany({
+    columns: { category: true },
+  })
 
   return (
     <Shell as='div' className='py-3'>
@@ -49,27 +56,42 @@ export default async function CategotyPage() {
         title='Categories'
         description='View all categories'
       />
-      {recipesCategories.map((category) => {
-        const LucideIcon = Icons[category.title] || Icons.book
-        return (
-          <div
-            key={category.title}
-            className='flex items-center justify-between py-2'
-          >
-            <div className='flex items-center'>
-              <div className='mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 text-white'>
-                <LucideIcon className='h-[1.56rem] w-[1.56rem]' aria-hidden='true' aria-label={category.title} />
-              </div>
-              <div className='text-sm font-medium'>{category.title}</div>
-            </div>
-            <div className='flex items-center space-x-2'>
-              <div className='text-sm font-medium '>
+
+      <section className='grid grid-cols-1 gap-5 rounded-lg p-3 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-lg md:grid-cols-2 lg:grid-cols-3'>
+        {recipesCategories.map((category) => {
+          const LucideIcon = Icons[category.title]
+          return (
+
+            <div className='flex items-center gap-1' key={category.title}>
+              <LucideIcon className='mr-2 h-12 w-12' />
+              <div className='space-y-1'>
+                <Link
+                  href={`/categories/${category.title}`}
+                  className={cn(
+                    buttonVariants({
+                      variant: 'link',
+                    }),
+                    'h-auto p-0 text-xl font-semibold capitalize',
+                  )}
+                >
+                  {category.title}
+                </Link>
                 <RecipeSlogan category={category} />
+
+                <p className='text-sm text-primary/70 '>
+                  {
+                    countRecipesByCategory.filter(
+                      (recipe) => recipe.category === category.title,
+                    ).length
+                  }{' '}
+                  Recipes in this category
+                </p>
               </div>
             </div>
-          </div>
-        )
-      })}
+
+          )
+        })}
+      </section>
     </Shell>
   )
 }
