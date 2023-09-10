@@ -101,10 +101,10 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
             <Image
               src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
               width={500}
-              height={550}
+              height={500}
               priority
               alt='Picture of the author'
-              className='h-[350px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40'
+              className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[350px]'
             />
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Link
