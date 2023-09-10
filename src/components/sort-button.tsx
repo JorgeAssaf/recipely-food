@@ -1,9 +1,10 @@
 'use client'
 
-import { type FC, useCallback, useTransition } from 'react'
+import { useCallback, useTransition, type FC } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChevronDown } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +28,7 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-
+  const sortQuery = searchParams.get('sort')
   const [isPending, startTransition] = useTransition()
   const createQueryString = useCallback(
     (params: Record<string, string | number | null>) => {
@@ -62,6 +63,7 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
         ) : (
           sortOptions.map((option) => (
             <DropdownMenuItem
+              className={cn(sortQuery === option.value && 'font-semibold')}
               key={option.value}
               onClick={() => {
                 startTransition(() => {
