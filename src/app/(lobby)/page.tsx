@@ -12,12 +12,13 @@ import { CounterUp } from '@/components/counter-up'
 import { RecipesSection } from '@/components/recipes-section'
 import { Shell } from '@/components/shell'
 
-const getRecipes = async (sort: string, category: string) => {
+const getRecipes = async (sort: string, category: Recipes['category']) => {
   const [column, order] =
     (sort?.split('.') as [
       keyof Recipes | undefined,
       'asc' | 'desc' | undefined,
     ]) ?? []
+
   const recipes = await db
     .select()
     .from(recipesDB)
