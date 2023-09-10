@@ -2,9 +2,7 @@
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { db } from '@/db'
-import { recipes, type Recipes } from '@/db/schema'
-import { like } from 'drizzle-orm'
+import { type Recipes } from '@/db/schema'
 import { SearchIcon } from 'lucide-react'
 
 import { cn, isMacOs, slugify } from '@/lib/utils'
@@ -17,10 +15,10 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
+import { filterProductsAction } from '@/app/_actions/recipes'
 
 import { Button } from './ui/button'
 import { Skeleton } from './ui/skeleton'
-import { filterProductsAction } from '@/app/_actions/recipes'
 
 const Combobox = () => {
   const router = useRouter()
@@ -86,44 +84,43 @@ const Combobox = () => {
           value={query}
           onValueChange={setQuery}
         />
+
         <CommandList>
-          <CommandList>
-            <CommandEmpty
-              className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
-            >
-              No products found.
-            </CommandEmpty>
-            {isPending ? (
-              <div className='space-y-1 overflow-hidden px-1 py-2'>
-                <Skeleton className='h-4 w-10 rounded' />
-                <Skeleton className='h-8 rounded-sm' />
-                <Skeleton className='h-8 rounded-sm' />
-              </div>
-            ) : (
-              data?.map((group) => (
-                <CommandGroup
-                  key={group.category}
-                  className='capitalize'
-                  heading={group.category}
-                >
-                  {group.recipes.map((item) => (
-                    <CommandItem
-                      key={item.id}
-                      onSelect={() =>
-                        handleSelect(() =>
-                          router.push(
-                            `/recipe/${slugify(item.name!.toString())}`,
-                          ),
-                        )
-                      }
-                    >
-                      {item.name}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              ))
-            )}
-          </CommandList>
+          <CommandEmpty
+            className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
+          >
+            No products found.
+          </CommandEmpty>
+          {isPending ? (
+            <div className='space-y-1 overflow-hidden px-1 py-2'>
+              <Skeleton className='h-4 w-10 rounded' />
+              <Skeleton className='h-8 rounded-sm' />
+              <Skeleton className='h-8 rounded-sm' />
+            </div>
+          ) : (
+            data?.map((group) => (
+              <CommandGroup
+                key={group.category}
+                className='capitalize'
+                heading={group.category}
+              >
+                {group.recipes.map((item) => (
+                  <CommandItem
+                    key={item.id}
+                    onSelect={() =>
+                      handleSelect(() =>
+                        router.push(
+                          `/recipe/${slugify(item.name!.toString())}`,
+                        ),
+                      )
+                    }
+                  >
+                    {item.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ))
+          )}
         </CommandList>
       </CommandDialog>
     </>

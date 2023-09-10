@@ -24,6 +24,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
+import Combobox from '../combobox'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { Button, buttonVariants } from '../ui/button'
 import { MainNav } from './main-nav'
@@ -48,6 +49,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
         <MobileNav mainNavItemItems={siteConfig.MainNavItem} />
         <div className='flex flex-1 items-center justify-end space-x-4'>
           <nav className='flex items-center space-x-2'>
+            <Combobox />
             {user ? (
               <Link
                 href='/dashboard/recipes'
