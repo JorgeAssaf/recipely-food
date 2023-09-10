@@ -13,8 +13,9 @@ import { cn } from '@/lib/utils'
 import Combobox from './combobox'
 import { Icons } from './icons'
 import SortButton from './sort-button'
-import { Button, buttonVariants } from './ui/button'
 import { Badge } from './ui/badge'
+import { Button, buttonVariants } from './ui/button'
+import { Skeleton } from './ui/skeleton'
 
 interface RecipeSectionProps {
   sortOptions: {
@@ -56,10 +57,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
     <>
       <section className='flex items-center justify-between'>
         <h2 className='text-3xl font-bold md:text-5xl'>Recipes</h2>
-        <div className='flex items-center space-x-2'>
-          <Combobox />
-          <SortButton sortOptions={sortOptions} />
-        </div>
+        <SortButton sortOptions={sortOptions} />
       </section>
       <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
         <div>
@@ -109,62 +107,70 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
               className='h-[350px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40'
             />
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
-              <Button
-                variant='secondary'
-                className='text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base'
+              <Link
+                href='/recipes/1'
+                className={cn(
+                  buttonVariants({
+                    variant: 'secondary',
+                  }),
+                  'text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base',
+                )}
                 aria-label='View recipe'
               >
                 <span>View category</span>
                 <ArrowUpRight className='ml-2 h-5 w-5' aria-hidden='true' />
-              </Button>
+              </Link>
             </div>
           </div>
-          <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
-            {recipes.length > 0 ? (
-              recipes.slice(0, 2).map((recipe) => (
-                <div
-                  className='h-full my-2 rounded-lg bg-rose-300 p-3 shadow-lg '
-                  key={recipe.id}
-                >
-                  <h3 className=' truncate text-lg font-semibold lg:text-2xl'>
-                    {recipe.name}
-                  </h3>
-                  <Badge size='md' >
-                    {recipe.category}
-                  </Badge>
-                  <div className='flex flex-col gap-2 lg:flex-row'>
-                    <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
-                      Dificulty:
-                      <span className='font-bold'>{recipe.difficulty}</span>
-                    </p>
-                    <p className='text-sm lg:text-lg '>
-                      Cooking time:
-                      <span className='font-bold'>{recipe.prepTime} min</span>
-                    </p>
-                  </div>
-                  <Link
-                    href='/recipes/1'
-                    className={buttonVariants({
-                      className: cn('mt-2 text-sm lg:text-lg'),
-                      variant: 'secondary',
-                      size: 'sm',
-                    })}
+
+          {recipes.length > 0 ? (
+            <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
+              {recipes.slice(0, 2).map((recipe) =>
+                isPending ? (
+                  <Skeleton className='h-[182px] w-full' key={recipe.id} />
+                ) : (
+                  <div
+                    className='my-2 h-full rounded-lg bg-rose-300 p-3 shadow-lg '
+                    key={recipe.id}
                   >
-                    View recipe
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <div className='items-center md:w-10/12  '>
-                <div className='flex flex-col items-center'>
-                  <XCircle className='h-20 w-20' aria-hidden='true' />
-                  <p className=' mt-3 font-medium text-muted-foreground'>
-                    No recipes found
-                  </p>
-                </div>
+                    <h3 className=' truncate text-lg font-semibold lg:text-2xl'>
+                      {recipe.name}
+                    </h3>
+                    <Badge size='md'>{recipe.category}</Badge>
+                    <div className='flex flex-col gap-2 lg:flex-row'>
+                      <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
+                        Dificulty:
+                        <span className='font-bold'>{recipe.difficulty}</span>
+                      </p>
+                      <p className='text-sm lg:text-lg '>
+                        Cooking time:
+                        <span className='font-bold'>{recipe.prepTime} min</span>
+                      </p>
+                    </div>
+                    <Link
+                      href='/recipes/1'
+                      className={buttonVariants({
+                        className: cn('mt-2 text-sm lg:text-lg'),
+                        variant: 'secondary',
+                        size: 'sm',
+                      })}
+                    >
+                      View recipe
+                    </Link>
+                  </div>
+                ),
+              )}
+            </div>
+          ) : (
+            <div className='items-center md:w-10/12'>
+              <div className='flex flex-col items-center justify-center'>
+                <XCircle className='h-20 w-20' aria-hidden='true' />
+                <p className=' mt-3 font-medium text-muted-foreground'>
+                  No recipes found
+                </p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
     </>
