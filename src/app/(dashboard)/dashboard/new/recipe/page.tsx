@@ -28,7 +28,10 @@ export default async function NewRecipePage() {
         <CardDescription> Add a new recipe to your collection.</CardDescription>
       </CardHeader>
       <CardContent>
-        <AddNewRecipe userId={user.id} userName={user.firstName + ' ' + user.lastName} />
+        <AddNewRecipe
+          userId={user.id}
+          userName={`${user.firstName} ${user.lastName}`}
+        />
       </CardContent>
     </Card>
   )
