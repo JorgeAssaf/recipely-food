@@ -46,48 +46,55 @@ export function MobileNav({ mainNavItemItems }: MobileNavProps) {
             className='flex items-center'
             onClick={() => setIsOpen(false)}
           >
-            <Pizza className='mr-2 h-4 w-4' aria-hidden='true' />
-            <span className='font-bold'>{siteConfig.name}</span>
+            <Pizza
+              className='mr-2 h-[1.15rem] w-[1.15rem]'
+              aria-hidden='true'
+            />
+            <span className='text-lg font-bold'>{siteConfig.name}</span>
           </Link>
         </div>
 
         <ScrollArea className='my-4 h-[calc(100vh-8rem)] px-6 pb-10'>
-          {mainNavItemItems?.map((item, index) =>
+          {mainNavItemItems?.map((item) =>
             item.items ? (
-              <Accordion type='single' collapsible key={index}>
-                <AccordionItem value={item.title}>
-                  <AccordionTrigger className='py-1 text-sm capitalize'>
-                    {item.title}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className='flex flex-col'>
-                      {item.items.map((item, index) => (
-                        <MobileLink
-                          href={item.href!}
-                          key={index + item.title}
-                          className='flex flex-col gap-y-3'
-                          pathname={pathname}
-                          setIsOpen={setIsOpen}
-                        >
-                          <span className='text-sm capitalize'>
-                            {item.title}
-                          </span>
-                        </MobileLink>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <div key={item.title}>
+                <Accordion type='single' collapsible>
+                  <AccordionItem value={item.title}>
+                    <AccordionTrigger className='py-1 text-lg capitalize'>
+                      {item.title}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className='flex flex-col'>
+                        {item.items.map((item) => (
+                          <MobileLink
+                            href={item.href!}
+                            key={item.title}
+                            className='flex flex-col gap-y-3'
+                            pathname={pathname}
+                            setIsOpen={setIsOpen}
+                          >
+                            <span className='text-lg capitalize'>
+                              {item.title}
+                            </span>
+                          </MobileLink>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
             ) : (
               item.href && (
-                <div className='flex flex-col space-y-4 font-medium'>
+                <div
+                  className='flex flex-col space-y-4 font-medium'
+                  key={item.title}
+                >
                   <MobileLink
-                    href={item.href}
-                    key={index + item.title}
+                    href={item.href!}
                     pathname={pathname}
                     setIsOpen={setIsOpen}
                   >
-                    <span className='text-sm capitalize'>{item.title}</span>
+                    <span className='text-lg capitalize'>{item.title}</span>
                   </MobileLink>
                 </div>
               )
