@@ -5,9 +5,28 @@ export const recipesSchema = z.object({
   name: z.string().min(1, {
     message: 'Missing valid recipe name',
   }),
-  description: z.string().min(1, {
-    message: 'Missing valid description',
-  }),
+  description: z
+    .string({
+      required_error: 'Missing description',
+    })
+    .min(10, {
+      message: 'Must be at least 10 characters',
+    })
+    .nonempty({
+      message: 'Missing description',
+    }),
+  image: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      url: z.string().url(),
+      // }, {
+      //   required_error: 'Missing image',
+      // }),
+    })
+    .optional()
+    .nullable(),
+
   difficulty: z
     .enum(recipes.difficulty.enumValues, {
       required_error: 'Must be a valid difficulty',
@@ -15,8 +34,8 @@ export const recipesSchema = z.object({
     .default(recipes.difficulty.enumValues[0]),
   ingredients: z.array(
     z.object({
-      ingredient: z.string().min(1, {
-        message: 'Must be at least 1 character',
+      ingredient: z.string().min(5, {
+        message: 'Must be at least 5 characters',
       }),
 
       unit: z
@@ -37,20 +56,13 @@ export const recipesSchema = z.object({
       required_error: 'Must be a valid category',
     })
     .default(recipes.category.enumValues[0]),
-  prepTime: z
-    .number({
-      required_error: 'Missing prep time',
-    })
-    .positive({
-      message: 'Must be a positive number',
-    })
-    .int({
-      message: 'Must be an integer',
-    }),
-
+  prepTime: z.number().positive().int().default(0),
   steps: z
     .string({
       required_error: 'Missing steps',
+    })
+    .min(10, {
+      message: 'Must be at least 10 characters',
     })
     .nonempty({
       message: 'Missing steps',
