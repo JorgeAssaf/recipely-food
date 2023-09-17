@@ -10,7 +10,6 @@ import { ArrowUpRight, XCircle } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 
-import Combobox from './combobox'
 import { Icons } from './icons'
 import SortButton from './sort-button'
 import { Badge } from './ui/badge'
@@ -124,10 +123,10 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
           </div>
 
           {recipes.length > 0 ? (
-            <div className='grid w-full grid-cols-1 flex-row gap-4 xs:grid-cols-2 md:flex md:w-full md:flex-col'>
+            <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground xs:grid-cols-2 md:flex md:w-full md:flex-col'>
               {recipes.slice(0, 2).map((recipe) =>
                 isPending ? (
-                  <Skeleton className='h-[182px] w-full' key={recipe.id} />
+                  <Skeleton className='h-[180px] w-full' key={recipe.id} />
                 ) : (
                   <div
                     className='my-2 h-full rounded-lg bg-rose-300 p-3 shadow-lg '
@@ -144,11 +143,18 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                       </p>
                       <p className='text-sm lg:text-lg '>
                         Cooking time:
-                        <span className='font-bold'>{recipe.prepTime} min</span>
+                        <span className='font-bold'>
+                          {recipe.prepTime > 60
+                            ? `${Math.floor(recipe.prepTime / 60)}h ${recipe.prepTime % 60 === 0
+                              ? ''
+                              : `${recipe.prepTime % 60}min`
+                            }`
+                            : `${recipe.prepTime}min`}
+                        </span>
                       </p>
                     </div>
                     <Link
-                      href='/recipes/1'
+                      href={`/recipes/${recipe.name}`}
                       className={buttonVariants({
                         className: cn('mt-2 text-sm lg:text-lg'),
                         variant: 'secondary',
@@ -162,7 +168,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
               )}
             </div>
           ) : (
-            <div className='items-center md:w-10/12'>
+            <div className='w-full items-center'>
               <div className='flex flex-col items-center justify-center'>
                 <XCircle className='h-20 w-20' aria-hidden='true' />
                 <p className=' mt-3 font-medium text-muted-foreground'>
