@@ -98,16 +98,16 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
         <div className='flex w-full flex-col items-center gap-10 md:flex-row '>
           <div className='group relative h-full w-full '>
             <Image
-              src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80 '
+              src={`/images/${category ?? 'breakfast'}.webp`}
               width={500}
               height={500}
               priority
-              alt='Picture of the author'
+              alt={category ?? 'breakfast'}
               className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[350px]'
             />
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Link
-                href='/recipes/1'
+                href={`/categories/${category}`}
                 className={cn(
                   buttonVariants({
                     variant: 'secondary',
