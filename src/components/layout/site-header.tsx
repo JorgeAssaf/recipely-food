@@ -28,7 +28,7 @@ import { MainNav } from './main-nav'
 import { MobileNav } from './mobile-nav'
 
 interface SiteHeaderProps {
-  user: User
+  user: User | null
 }
 
 const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
