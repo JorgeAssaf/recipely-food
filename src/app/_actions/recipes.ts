@@ -55,7 +55,6 @@ export async function getRecipesAction(
             ? inArray(recipes.difficulty, difficulty)
             : undefined,
           prepTime ? eq(recipes.prepTime, prepTime) : undefined,
-
         ),
       )
       .groupBy(recipes.id)
@@ -96,17 +95,16 @@ export async function getRecipesAction(
   }
 }
 
-export async function AddRecipeAction(values: z.infer<typeof recipesSchema>) {
-  // const productWithSameName = await db.query.recipes.findFirst({
-  //   columns: {
-  //     id: true,
-  //   },
-  //   where: eq(recipes.name, values.name),
-  // })
+export async function AddRecipeAction(
+  values: z.infer<typeof recipesSchema> & { userId: string; author: string },
+) {
+  const productWithSameName = await db.query.recipes.findFirst({
+    where: eq(recipes.name, values.name),
+  })
 
-  // if (productWithSameName) {
-  //   throw new Error("Product name already taken.")
-  // }
+  if (productWithSameName) {
+    throw new Error('Product name already taken.')
+  }
 
   await db.insert(recipes).values(values)
 
