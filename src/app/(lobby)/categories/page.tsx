@@ -51,27 +51,22 @@ export default async function CategotyPage() {
 
   return (
     <Shell as='div' className='py-3'>
-      <PageHeader
-        size='sm'
-        title='Categories'
-        description='View all categories'
-      />
+      <PageHeader title='Categories' description='View all categories' />
 
-      <section className='grid grid-cols-1 gap-5 rounded-lg p-3 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-lg md:grid-cols-2 lg:grid-cols-3'>
+      <section className='grid grid-cols-1 gap-5 rounded-lg md:grid-cols-2 lg:grid-cols-3'>
         {recipesCategories.map((category) => {
           const LucideIcon = Icons[category.title]
           return (
-
-            <div className='flex items-center gap-1' key={category.title}>
-              <LucideIcon className='mr-2 h-12 w-12' />
-              <div className='space-y-1'>
+            <div className='flex gap-x-2' key={category.title}>
+              <LucideIcon className='mt-1.5 h-8 w-8' />
+              <div>
                 <Link
                   href={`/categories/${category.title}`}
                   className={cn(
                     buttonVariants({
                       variant: 'link',
                     }),
-                    'h-auto p-0 text-xl font-semibold capitalize',
+                    'h-auto p-0 text-[1.715rem] font-semibold capitalize',
                   )}
                 >
                   {category.title}
@@ -88,7 +83,6 @@ export default async function CategotyPage() {
                 </p>
               </div>
             </div>
-
           )
         })}
       </section>
