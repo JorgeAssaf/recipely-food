@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { currentUser } from '@clerk/nextjs'
 
 import { dashboardConfig } from '@/config/dashboard'
@@ -15,6 +16,9 @@ export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
   const user = await currentUser()
+  if (!user) {
+    return redirect('/sign-in')
+  }
 
   return (
     <div className='flex min-h-screen flex-col'>
