@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { type Recipes } from '@/db/schema'
-import { SearchIcon } from 'lucide-react'
+import { CircleIcon, SearchIcon } from 'lucide-react'
 
-import { cn, isMacOs, slugify } from '@/lib/utils'
+import { recipesCategories } from '@/config/recipes'
+import { cn, isMacOs } from '@/lib/utils'
 import { useDebounce } from '@/hooks/useDebounce'
 import {
   CommandDialog,
@@ -20,29 +21,41 @@ import { filterProductsAction } from '@/app/_actions/recipes'
 import { Button } from './ui/button'
 import { Skeleton } from './ui/skeleton'
 
+type RecipeGroup = {
+  category: Recipes['category']
+  recipes: Pick<Recipes, 'id' | 'name' | 'category'>[]
+}
+
 const Combobox = () => {
   const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
   const [query, setQuery] = useState<string>('')
   const [isPending, startTransition] = useTransition()
-  const debounceQuery = useDebounce<string>(query, 300)
-  const [data, setData] = useState<
-    | {
-      category: Recipes['category']
-      recipes: Pick<Recipes, 'id' | 'name' | 'category'>[]
-    }[]
-    | null
-  >(null)
+  const debouncedQuery = useDebounce<string>(query, 300)
+  const [data, setData] = useState<RecipeGroup[] | null>(null)
 
   useEffect(() => {
-    if (debounceQuery === '') setData(null)
-    if (debounceQuery.length > 0) {
+    if (debouncedQuery.length <= 0) {
+      setData(null)
+      return
+    }
+
+    let mounted = true
+    function fetchData() {
       startTransition(async () => {
-        const data = await filterProductsAction(debounceQuery)
-        setData(data)
+        const data = await filterProductsAction(debouncedQuery)
+        if (mounted) {
+          setData(data)
+        }
       })
     }
-  }, [debounceQuery])
+
+    fetchData()
+
+    return () => {
+      mounted = false
+    }
+  }, [debouncedQuery])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -80,17 +93,17 @@ const Combobox = () => {
       </Button>
       <CommandDialog position='top' open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder='Search products...'
           value={query}
           onValueChange={setQuery}
+          placeholder='Search recipes...'
         />
-
         <CommandList>
           <CommandEmpty
             className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
           >
-            No products found.
+            No recipes found.
           </CommandEmpty>
+
           {isPending ? (
             <div className='space-y-1 overflow-hidden px-1 py-2'>
               <Skeleton className='h-4 w-10 rounded' />
@@ -104,20 +117,27 @@ const Combobox = () => {
                 className='capitalize'
                 heading={group.category}
               >
-                {group.recipes.map((item) => (
-                  <CommandItem
-                    key={item.id}
-                    onSelect={() =>
-                      handleSelect(() =>
-                        router.push(
-                          `/recipe/${slugify(item.name!.toString())}`,
-                        ),
-                      )
-                    }
-                  >
-                    {item.name}
-                  </CommandItem>
-                ))}
+                {group.recipes.map((item) => {
+                  const CategoryIcon = recipesCategories.find(
+                    (category) => category.title === group.category,
+                  )?.icon!
+
+                  return (
+                    <CommandItem
+                      key={item.id}
+                      value={item.name}
+                      onSelect={() =>
+                        handleSelect(() => router.push(`/recipe/${item.name}`))
+                      }
+                    >
+                      <CategoryIcon
+                        className='mr-2 h-4 w-4 text-muted-foreground'
+                        aria-hidden='true'
+                      />
+                      <span className='truncate capitalize'>{item.name}</span>
+                    </CommandItem>
+                  )
+                })}
               </CommandGroup>
             ))
           )}
