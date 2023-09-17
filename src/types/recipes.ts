@@ -1,4 +1,4 @@
-import { ingredients } from "@/db/schema"
+import { type FileWithPath } from 'react-dropzone'
 
 export interface RecipesType {
   title: string
@@ -15,3 +15,10 @@ export interface IngredientsType {
   quantity: string
   unit: 'g' | 'kg' | 'ml' | 'l' | 'tsp' | 'tbsp' | 'cup' | 'pinch'
 }
+
+export interface FileUpload {
+  name: string
+  id: string
+  url: string
+}
+export type FileWithPreview = FileWithPath & { preview: string }
