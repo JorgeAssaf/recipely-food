@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Shell>
-      <PageHeader size='sm' title='About' description='About the Recipes' />
+      <PageHeader title='About' description='About the Recipes' />
     </Shell>
   )
 }
