@@ -9,12 +9,13 @@ import {
   varchar,
 } from 'drizzle-orm/mysql-core'
 
-import { IngredientsType } from '@/types/recipes'
+import type { FileUpload, IngredientsType } from '@/types/recipes'
 
 export const recipes = mysqlTable('recipes', {
   id: serial('id').primaryKey(),
-  // userId: int('user_id').notNull(),
+  userId: varchar('user_id', { length: 256 }).notNull(),
   name: varchar('name', { length: 256 }).notNull(),
+  author: varchar('author', { length: 256 }).notNull(),
   description: varchar('description', { length: 1024 }).notNull(),
   difficulty: mysqlEnum('difficulty', ['easy', 'medium', 'hard'])
     .notNull()
@@ -35,7 +36,7 @@ export const recipes = mysqlTable('recipes', {
 
   prepTime: int('prepTime').notNull().default(0),
   steps: varchar('steps', { length: 1024 }),
-  image: varchar('image', { length: 1024 }),
+  image: json('image').$type<FileUpload>(),
   likes: int('likes').default(0),
   dislikes: int('dislikes').default(0),
   updatedAt: timestamp('updatedAt'),

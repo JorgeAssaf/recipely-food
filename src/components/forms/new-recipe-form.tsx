@@ -1,6 +1,6 @@
 'use client'
 
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { ingredients, recipes } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
@@ -8,6 +8,7 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import z from 'zod'
 
+import { FileWithPreview } from '@/types/recipes'
 import { cn } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
@@ -34,13 +35,14 @@ import {
 } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 
-export function AddNewRecipe() {
+export function AddNewRecipe({ userId, userName }: { userId: string, userName: string | null }) {
+  const [files, setFiles] = useState<FileWithPreview[] | null>(null)
   const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof recipesSchema>>({
     resolver: zodResolver(recipesSchema),
     defaultValues: {
-      category: recipes.category.enumValues[0],
-      difficulty: recipes.difficulty.enumValues[0],
+      category: 'breakfast',
+      difficulty: 'easy',
       ingredients: [
         {
           unit: 'kg',
@@ -54,7 +56,7 @@ export function AddNewRecipe() {
     name: `ingredients`,
     rules: {
       maxLength: 10,
-      minLength: 0,
+      minLength: 1,
       required: true,
     },
   })
@@ -62,24 +64,19 @@ export function AddNewRecipe() {
   function onSubmit(data: z.infer<typeof recipesSchema>) {
     startTransition(async () => {
       try {
-        await AddRecipeAction({
-          name: data.name,
-          description: data.description,
-          category: data.category,
-          prepTime: data.prepTime,
-          difficulty: data.difficulty,
-          ingredients: data.ingredients,
-          steps: data.steps,
+        await await AddRecipeAction({
+          ...data,
+          author: userName ?? '',
+          userId: userId,
         })
         toast.success(`The recipe ${data.name} added.`)
         form.reset()
-      } catch (error) {
-        toast.error('Something went wrong.')
+      } catch (error: any) {
+        toast.error(error.message ?? 'Something went wrong.')
       }
     })
     console.log(data)
   }
-
   return (
     <>
       <Form {...form}>
@@ -111,7 +108,26 @@ export function AddNewRecipe() {
               message={form.formState.errors.description?.message}
             />
           </FormItem>
-
+          <FormItem>
+            <FormLabel>Image</FormLabel>
+            {files ? (
+              <div className='flex flex-col gap-5'>
+                {files.map((file) => (
+                  <div key={file.preview}>
+                    <img
+                      className='h-48 w-48 object-cover'
+                      src={file.preview}
+                      alt={file.name}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            <FormControl></FormControl>
+            <UncontrolledFormMessage
+              message={form.formState.errors.image?.message}
+            />
+          </FormItem>
           <FormField
             control={form.control}
             name='category'
@@ -252,26 +268,21 @@ export function AddNewRecipe() {
             Add Ingredient
           </Button>
 
-          <FormField
-            control={form.control}
-            name='prepTime'
-            render={({ field }) => (
-              <FormItem className='w-full'>
-                <FormLabel className={cn('text-primary')}>
-                  Prep Time <FormDescription>(in minutes)</FormDescription>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type='number'
-                    placeholder='Type product prep time here.'
-                    value={field.value}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                  ></Input>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
+          <FormItem className='w-full'>
+            <FormLabel className={cn('text-primary')}>
+              Prep Time <FormDescription>(in minutes)</FormDescription>
+            </FormLabel>
+            <FormControl>
+              <Input
+                type='number'
+                inputMode='numeric'
+                placeholder='How long does it take to prepare the product?'
+                {...form.register('prepTime', { valueAsNumber: true })}
+              />
+            </FormControl>
+            <UncontrolledFormMessage message={form.formState.errors.prepTime?.message ? 'Missing prep time or prep time is not a number' : ''} />
+          </FormItem>
 
           <FormField
             control={form.control}
@@ -353,8 +364,7 @@ export function AddNewRecipe() {
           {isPending ? <Loader2 className='h-3 w-3 animate-spin' /> : null}
           {isPending ? 'Generating...' : 'Generate'}
         </Button>
-      ) : null
-      }
+      ) : null}
     </>
   )
 }
