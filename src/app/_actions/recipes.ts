@@ -39,6 +39,7 @@ export async function getRecipesAction(
   const prepTime = input.prepTime
   const categories =
     (input.categories?.split('.') as Recipes['category'][]) ?? []
+  const author = input.author
   const limit = input.limit ?? 2
   const offset = input.offset ?? 0
 
@@ -73,6 +74,7 @@ export async function getRecipesAction(
       .where(
         and(
           categories.length ? inArray(recipes.category, categories) : undefined,
+          author ? eq(recipes.author, author) : undefined,
           difficulty.length
             ? inArray(recipes.difficulty, difficulty)
             : undefined,
