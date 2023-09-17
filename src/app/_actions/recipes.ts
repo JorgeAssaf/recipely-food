@@ -55,7 +55,6 @@ export async function getRecipesAction(
             ? inArray(recipes.difficulty, difficulty)
             : undefined,
           prepTime ? eq(recipes.prepTime, prepTime) : undefined,
-
         ),
       )
       .groupBy(recipes.id)
