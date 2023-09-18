@@ -8,7 +8,7 @@ import type { Recipes } from '@/db/schema'
 import { ArrowUpRight, XCircle } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
+import { cn, slugify } from '@/lib/utils'
 
 import { Icons } from './icons'
 import SortButton from './sort-button'
@@ -60,7 +60,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
       </section>
       <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
         <div>
-          <div className='flex flex-row flex-wrap gap-3 md:flex-col'>
+          <div className='flex flex-row flex-wrap gap-4 md:flex-col'>
             {siteConfig.recipeNav.map((item) => {
               const LucideIcon = Icons[item.title]
               return (
@@ -76,8 +76,8 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   key={item.title}
                   aria-label={item.title}
                   onClick={() => {
-                    startTransition(async () => {
-                      await router.push(
+                    startTransition(() => {
+                      router.push(
                         `${pathname}?${createQueryString({
                           category: item.title,
                         })}`,
@@ -103,7 +103,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
               height={500}
               priority
               alt={category ?? 'breakfast'}
-              className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[350px]'
+              className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[375px]'
             />
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Link
@@ -129,37 +129,43 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   <Skeleton className='h-[180px] w-full' key={recipe.id} />
                 ) : (
                   <div
-                    className='my-2 h-full rounded-lg bg-rose-300 p-3 shadow-lg '
+                    className=' space-y-2 rounded-md border border-muted-foreground p-4'
                     key={recipe.id}
                   >
-                    <h3 className=' truncate text-lg font-semibold lg:text-2xl'>
+                    <h3 className=' truncate text-xl font-semibold lg:text-3xl'>
                       {recipe.name}
                     </h3>
-                    <Badge size='md'>{recipe.category}</Badge>
+                    <Badge size='md' className='text-sm'>
+                      {recipe.category}
+                    </Badge>
                     <div className='flex flex-col gap-2 lg:flex-row'>
-                      <p className='border-muted-foreground text-sm  md:border-r-2 md:pr-3 lg:text-lg'>
-                        Dificulty:
-                        <span className='font-bold'>{recipe.difficulty}</span>
+                      <p className='border-muted-foreground md:border-r-2 md:pr-3 '>
+                        Dificulty: &nbsp;
+                        <span className='font-bold capitalize'>
+                          {recipe.difficulty}
+                        </span>
                       </p>
-                      <p className='text-sm lg:text-lg '>
-                        Cooking time:
+                      <p className=''>
+                        Cooking time: &nbsp;
                         <span className='font-bold'>
                           {recipe.prepTime > 60
                             ? `${Math.floor(recipe.prepTime / 60)}h ${recipe.prepTime % 60 === 0
                               ? ''
-                              : `${recipe.prepTime % 60}min`
+                              : `${recipe.prepTime % 60} min`
                             }`
-                            : `${recipe.prepTime}min`}
+                            : `${recipe.prepTime} min`}
                         </span>
                       </p>
                     </div>
                     <Link
-                      href={`/recipes/${recipe.name}`}
-                      className={buttonVariants({
-                        className: cn('mt-2 text-sm lg:text-lg'),
-                        variant: 'secondary',
-                        size: 'sm',
-                      })}
+                      href={`/recipe/${slugify(recipe.name)}`}
+                      className={cn(
+                        buttonVariants({
+                          variant: 'secondary',
+                          size: 'sm',
+                        }),
+                        'text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base',
+                      )}
                     >
                       View recipe
                     </Link>
