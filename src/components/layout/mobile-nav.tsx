@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
 import { MenuIcon, Pizza } from 'lucide-react'
 
-import type { MainNavItem } from '@/types/nav'
+import type { MainNavItem, SidebarNavItem } from '@/types/nav'
+import { dashboardConfig } from '@/config/dashboard'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import {
@@ -19,12 +20,13 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 interface MobileNavProps {
-  mainNavItemItems?: MainNavItem[]
-  // sidebarNavItems: SidebarNavItem[]
+  mainNavItems?: MainNavItem[]
+  dashboardItem?: SidebarNavItem[]
 }
 
-export function MobileNav({ mainNavItemItems }: MobileNavProps) {
+export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
   const pathname = usePathname()
+
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -55,7 +57,7 @@ export function MobileNav({ mainNavItemItems }: MobileNavProps) {
         </div>
 
         <ScrollArea className='my-4 h-[calc(100vh-8rem)] px-6 pb-10'>
-          {mainNavItemItems?.map((item) =>
+          {mainNavItems?.map((item) =>
             item.items ? (
               <div key={item.title}>
                 <Accordion type='single' collapsible>
@@ -69,7 +71,50 @@ export function MobileNav({ mainNavItemItems }: MobileNavProps) {
                           <MobileLink
                             href={item.href!}
                             key={item.title}
-                            className='flex flex-col gap-y-3'
+                            pathname={pathname}
+                            setIsOpen={setIsOpen}
+                          >
+                            <span className='text-lg capitalize'>
+                              {item.title}
+                            </span>
+                          </MobileLink>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            ) : (
+              item.href && (
+                <div
+                  className='flex flex-col space-y-4 font-medium'
+                  key={item.title}
+                >
+                  <MobileLink
+                    href={item.href!}
+                    pathname={pathname}
+                    setIsOpen={setIsOpen}
+                  >
+                    <span className='text-lg capitalize'>{item.title}</span>
+                  </MobileLink>
+                </div>
+              )
+            ),
+          )}
+          {dashboardItem?.map((item) =>
+            item.items ? (
+              <div key={item.title}>
+                <Accordion type='single' collapsible>
+                  <AccordionItem value={item.title}>
+                    <AccordionTrigger className='py-1 text-lg capitalize'>
+                      {item.title}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className='flex flex-col'>
+                        {item.items.map((item) => (
+                          <MobileLink
+                            href={item.href!}
+                            key={item.title}
                             pathname={pathname}
                             setIsOpen={setIsOpen}
                           >
@@ -110,7 +155,6 @@ interface MobileLinkProps {
   children?: React.ReactNode
   href: string
   disabled?: boolean
-  className?: string
   pathname: string
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -119,10 +163,8 @@ function MobileLink({
   children,
   href,
   disabled,
-  className,
   pathname,
   setIsOpen,
-  ...props
 }: MobileLinkProps) {
   return (
     <Link
@@ -131,10 +173,8 @@ function MobileLink({
         'text-foreground/70 transition-colors hover:text-foreground',
         pathname === href && 'text-foreground',
         disabled && 'pointer-events-none opacity-60',
-        className,
       )}
       onClick={() => setIsOpen(false)}
-      {...props}
     >
       {children}
     </Link>
