@@ -12,7 +12,7 @@ export interface RecipesType {
 }
 export interface IngredientsType {
   ingredient: string
-  quantity: string
+  quantity: number
   unit: 'g' | 'kg' | 'ml' | 'l' | 'tsp' | 'tbsp' | 'cup' | 'pinch'
 }
 

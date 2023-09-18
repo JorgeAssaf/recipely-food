@@ -35,7 +35,13 @@ import {
 } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 
-export function AddNewRecipe({ userId, userName }: { userId: string, userName: string | null }) {
+export function AddNewRecipe({
+  userId,
+  userName,
+}: {
+  userId: string
+  userName: string | null
+}) {
   const [files, setFiles] = useState<FileWithPreview[] | null>(null)
   const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof recipesSchema>>({
@@ -173,7 +179,7 @@ export function AddNewRecipe({ userId, userName }: { userId: string, userName: s
 
             {fields.map((field, index) => (
               <div key={field.id}>
-                <div className='flex gap-5'>
+                <div className='flex flex-col gap-5 md:flex-row'>
                   <FormItem>
                     <FormControl>
                       <Input
@@ -194,6 +200,7 @@ export function AddNewRecipe({ userId, userName }: { userId: string, userName: s
                     <FormControl>
                       <Input
                         inputMode='numeric'
+                        type='number'
                         placeholder='Insert quantity.'
                         {...form.register(
                           `ingredients.${index}.quantity` as const,
@@ -268,7 +275,6 @@ export function AddNewRecipe({ userId, userName }: { userId: string, userName: s
             Add Ingredient
           </Button>
 
-
           <FormItem className='w-full'>
             <FormLabel className={cn('text-primary')}>
               Prep Time <FormDescription>(in minutes)</FormDescription>
@@ -281,7 +287,13 @@ export function AddNewRecipe({ userId, userName }: { userId: string, userName: s
                 {...form.register('prepTime', { valueAsNumber: true })}
               />
             </FormControl>
-            <UncontrolledFormMessage message={form.formState.errors.prepTime?.message ? 'Missing prep time or prep time is not a number' : ''} />
+            <UncontrolledFormMessage
+              message={
+                form.formState.errors.prepTime?.message
+                  ? 'Missing prep time or prep time is not a number'
+                  : ''
+              }
+            />
           </FormItem>
 
           <FormField
