@@ -268,7 +268,7 @@ export function AddNewRecipe({
               append({
                 ingredient: '',
                 unit: 'kg',
-                quantity: '0',
+                quantity: 0,
               })
             }
           >

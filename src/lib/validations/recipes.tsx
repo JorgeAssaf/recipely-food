@@ -43,9 +43,7 @@ export const recipesSchema = z.object({
           required_error: 'Must be a valid unit',
         })
         .default(ingredients.unit.enumValues[0]),
-      quantity: z.string({
-        required_error: 'Missing quantity',
-      }),
+      quantity: z.number().positive().int().default(0),
     }),
     {
       required_error: 'Missing ingredients',
