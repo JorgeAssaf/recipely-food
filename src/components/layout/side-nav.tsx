@@ -19,7 +19,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
 
   return (
     <div className='flex w-full flex-col gap-2'>
-      {items.map((item, i) => {
+      {items[0].items.map((item, i) => {
         // @ts-ignore
         const LucideIcon = Icons[item.icon]! || Icons.book
 
