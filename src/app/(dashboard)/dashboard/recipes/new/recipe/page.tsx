@@ -33,6 +33,6 @@ export default async function NewRecipePage() {
           userName={`${user.firstName} ${user.lastName}`}
         />
       </CardContent>
-    </Card>
+    </Card >
   )
 }
