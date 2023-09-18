@@ -7,10 +7,15 @@ import { recipesCategories } from '@/config/recipes'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
-import { PageHeader } from '@/components/page-header'
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from '@/components/page-header'
 import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ''),
   title: 'Categories',
   description: 'View all categories',
 }
@@ -51,8 +56,10 @@ export default async function CategotyPage() {
 
   return (
     <Shell as='div' className='py-3'>
-      <PageHeader title='Categories' description='View all categories' />
-
+      <PageHeader>
+        <PageHeaderHeading>Categories</PageHeaderHeading>
+        <PageHeaderDescription>View all categories</PageHeaderDescription>
+      </PageHeader>
       <section className='grid grid-cols-1 gap-5 rounded-lg md:grid-cols-2 lg:grid-cols-3'>
         {recipesCategories.map((category) => {
           const LucideIcon = Icons[category.title]

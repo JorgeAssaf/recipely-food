@@ -16,7 +16,11 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Slider } from '@/components/ui/slider'
-import { PageHeader } from '@/components/page-header'
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from '@/components/page-header'
 import { Shell } from '@/components/shell'
 
 const names = [
@@ -62,11 +66,14 @@ export default function CategoryPage({
   return (
     <Shell as='main'>
       <div>
-        <PageHeader
-          size='sm'
-          title={toTitleCase(params.category.toString())}
-          description='View all recipes in this category'
-        />
+        <PageHeader>
+          <PageHeaderHeading>
+            {toTitleCase(params.category.toString())}
+          </PageHeaderHeading>
+          <PageHeaderDescription>
+            View all recipes in this category
+          </PageHeaderDescription>
+        </PageHeader>
         <div className='flex flex-col space-y-6'>
           <div className='flex items-center space-x-2'>
             <Sheet>

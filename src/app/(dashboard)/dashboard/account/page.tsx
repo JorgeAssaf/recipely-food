@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 
 import { UserProfile } from '@/components/auth/user-profile'
-import { PageHeader } from '@/components/page-header'
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from '@/components/page-header'
 import { Shell } from '@/components/shell'
 
 export const metadata: Metadata = {
@@ -17,8 +21,12 @@ export default function AccountPage() {
         id='account-header'
         aria-labelledby='account-header-heading'
         title='Account'
-        description='Manage your account settings'
-      />
+      >
+        <PageHeaderHeading>Account</PageHeaderHeading>
+        <PageHeaderDescription>
+          Manage your account settings
+        </PageHeaderDescription>
+      </PageHeader>
 
       <section
         id='user-account-info'
