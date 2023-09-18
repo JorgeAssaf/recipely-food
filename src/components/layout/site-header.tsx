@@ -94,7 +94,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                      <Link href='dashboard/account'>
+                      <Link href='/dashboard/account'>
                         <UserIcon className='mr-2 h-4 w-4' aria-hidden='true' />
                         Account
                         <DropdownMenuShortcut>⇧⌘A</DropdownMenuShortcut>
