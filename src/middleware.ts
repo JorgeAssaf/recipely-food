@@ -7,6 +7,7 @@ export default authMiddleware({
   publicRoutes: [
     '/',
     '/recipes',
+    '/recipe/(.*)',
     '/recipes/(.*)',
     '/api/(.*)',
     '/blog',
