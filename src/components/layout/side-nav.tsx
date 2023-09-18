@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useSelectedLayoutSegment } from 'next/navigation'
 
 import type { SidebarNavItem } from '@/types/nav'
 import { cn } from '@/lib/utils'
@@ -13,8 +13,7 @@ export interface SidebarNavProps {
 }
 
 export function SidebarNav({ items }: SidebarNavProps) {
-  const pathname = usePathname()
-
+  const segment = useSelectedLayoutSegment()
   if (!items?.length) return null
 
   return (
@@ -25,7 +24,8 @@ export function SidebarNav({ items }: SidebarNavProps) {
 
         return item.href ? (
           <Link
-            key={i}
+            aria-label={item.title}
+            key={item.title}
             href={item.href}
             target={item.external ? '_blank' : ''}
             rel={item.external ? 'noreferrer' : ''}
@@ -33,19 +33,19 @@ export function SidebarNav({ items }: SidebarNavProps) {
             <span
               className={cn(
                 'group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:bg-muted hover:text-foreground',
-                pathname === item.href
+                item.href.includes(String(segment))
                   ? 'bg-muted font-medium text-foreground'
                   : 'text-muted-foreground',
                 item.disabled && 'pointer-events-none opacity-60',
               )}
             >
-              <LucideIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+              <LucideIcon className='mr-2 h-5 w-5' />
               <span>{item.title}</span>
             </span>
           </Link>
         ) : (
           <span
-            key={item.title + i}
+            key={item.title}
             className='flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground hover:underline'
           >
             {item.title}
