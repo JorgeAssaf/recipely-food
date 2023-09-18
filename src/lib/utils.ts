@@ -15,6 +15,18 @@ export function slugify(text: string) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '')
 }
+
+export const deslugify = (text: string) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/-/g, ' ')
+    .replace(
+      /\w\S*/g,
+      (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
+    )
+}
+
 export function toTitleCase(str: string) {
   return str.replace(
     /\w\S*/g,
