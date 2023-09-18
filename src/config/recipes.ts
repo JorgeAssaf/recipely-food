@@ -26,7 +26,7 @@ export const sortOptions = [
   },
 ] satisfies { label: string; value: string }[]
 
-const CategoryIcon = ({ category }: { category: string }) => {
+const CategoryIcon = (category: string) => {
   switch (category) {
     case 'breakfast':
       return EggFried
@@ -49,7 +49,7 @@ export const recipesCategories = [
   ...recipes.category.enumValues.map((category) => ({
     title: category,
     slug: category.toLocaleLowerCase(),
-    icon: CategoryIcon({ category }),
+    icon: CategoryIcon(category),
     description: `All ${category} recipes`,
   })),
 ]
