@@ -16,21 +16,17 @@ export const dashboardConfig: DashboardConfig = {
           icon: 'user',
           items: [],
         },
+
         {
           title: 'Recipes',
-          href: '/dashboard/recipes',
+          href: '/dashboard/recipes/your-recipes',
           icon: 'book',
           items: [],
         },
+
         {
           title: 'Billing',
           href: '/dashboard/billing',
-          icon: 'creditCard',
-          items: [],
-        },
-        {
-          title: 'Purchases',
-          href: '/dashboard/purchases',
           icon: 'creditCard',
           items: [],
         },
