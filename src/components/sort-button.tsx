@@ -2,7 +2,7 @@
 
 import { useCallback, useTransition, type FC } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ChevronDown } from 'lucide-react'
+import { ChevronUp } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import {
@@ -50,9 +50,16 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button aria-label='Sort products' size='sm'>
+        <Button
+          aria-label='Sort products'
+          size='sm'
+          className='[&[data-state=open]>svg]:rotate-180 '
+        >
           Sort
-          <ChevronDown className='ml-2 h-4 w-4' aria-hidden='true' />
+          <ChevronUp
+            className='ml-2 h-4 w-4 transition-transform'
+            aria-hidden='true'
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-auto'>
