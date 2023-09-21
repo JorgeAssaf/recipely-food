@@ -1,4 +1,5 @@
-import { authMiddleware } from '@clerk/nextjs'
+import { NextResponse } from 'next/server'
+import { authMiddleware, clerkClient } from '@clerk/nextjs'
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
@@ -9,13 +10,33 @@ export default authMiddleware({
     '/signin(.*)',
     '/signup(.*)',
     '/sso-callback(.*)',
-    '/recipe/(.*)',
-    '/recipes/(.*)',
-    '/api/(.*)',
-    '/blog/(.*)',
-    '/categories/(.*)',
-    '/about',
+    '/recipes(.*)',
+    '/recipe(.*)',
+    '/api(.*)',
+    '/blog(.*)',
+    '/categories(.*)',
+    '/about(.*)',
   ],
+  async afterAuth(auth, req) {
+    if (auth.isPublicRoute) NextResponse.next()
+
+    const url = new URL(req.nextUrl.origin)
+
+    if (!auth.userId) {
+      url.pathname = '/signin'
+      return NextResponse.redirect(url)
+    }
+
+    const user = await clerkClient.users.getUser(auth.userId)
+
+    if (!user.publicMetadata.role) {
+      await clerkClient.users.updateUserMetadata(auth.userId, {
+        privateMetadata: {
+          role: 'user_role',
+        },
+      })
+    }
+  },
 })
 
 export const config = {
