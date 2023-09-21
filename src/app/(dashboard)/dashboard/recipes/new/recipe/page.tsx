@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default async function NewRecipePage() {
   const user = await currentUser()
   if (!user) {
-    return redirect('/sign-in')
+    return redirect('/signin')
   }
   return (
     <Card>
@@ -30,9 +30,9 @@ export default async function NewRecipePage() {
       <CardContent>
         <AddNewRecipe
           userId={user.id}
-          userName={`${user.firstName} ${user.lastName}`}
+          userName={`${user.firstName ?? user.username} ${user.lastName ?? ''}`}
         />
       </CardContent>
-    </Card >
+    </Card>
   )
 }
