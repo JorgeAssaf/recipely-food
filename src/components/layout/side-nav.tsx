@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
+import { CircleDashed } from 'lucide-react'
 
 import type { SidebarNavItem } from '@/types/nav'
 import { cn } from '@/lib/utils'
@@ -14,13 +15,13 @@ export interface SidebarNavProps {
 
 export function SidebarNav({ items }: SidebarNavProps) {
   const segment = useSelectedLayoutSegment()
-  if (!items?.length) return null
 
+  if (!items?.length) return null
   return (
     <div className='flex w-full flex-col gap-2'>
-      {items[0].items.map((item, i) => {
-        // @ts-ignore
-        const LucideIcon = Icons[item.icon]! || Icons.book
+      {items[0].items.map((item) => {
+        const LucideIcon =
+          Icons[item.icon as keyof typeof Icons] || CircleDashed
 
         return item.href ? (
           <Link
