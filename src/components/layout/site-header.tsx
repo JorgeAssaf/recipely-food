@@ -37,7 +37,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
     (e) => e.id === user.primaryEmailAddressId,
   )?.emailAddress
 
-  const initials = user?.firstName?.at(0) + user?.lastName?.at(0)!
+  const initials = user?.firstName?.charAt(0) + user?.lastName?.charAt(0)! ?? ''
 
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background'>
@@ -76,7 +76,11 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                         loading='lazy'
                         alt={user.username ?? ''}
                       />
-                      <AvatarFallback>{initials}</AvatarFallback>
+                      <AvatarFallback>
+                        {initials
+                          ? initials
+                          : user.username?.charAt(0).toUpperCase()}
+                      </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
@@ -101,7 +105,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href='/dashboard/recipes'>
+                      <Link href='/dashboard/recipes/your-recipes'>
                         <LayoutDashboard
                           className='mr-2 h-4 w-4'
                           aria-hidden='true'
