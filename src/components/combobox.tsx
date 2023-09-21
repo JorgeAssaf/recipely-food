@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { type Recipes } from '@/db/schema'
-import { CircleIcon, SearchIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react'
 
 import { recipesCategories } from '@/config/recipes'
 import { cn, isMacOs } from '@/lib/utils'
@@ -118,6 +118,7 @@ const Combobox = () => {
                 heading={group.category}
               >
                 {group.recipes.map((item) => {
+
                   const CategoryIcon = recipesCategories.find(
                     (category) => category.title === group.category,
                   )?.icon!
