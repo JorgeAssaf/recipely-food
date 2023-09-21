@@ -1,13 +1,7 @@
-import { recipes } from '@/db/schema'
-import {
-  Apple,
-  CakeSlice,
-  CircleIcon,
-  Coffee,
-  EggFried,
-  Grape,
-  Wine,
-} from 'lucide-react'
+import { type Recipes, recipes } from '@/db/schema'
+import { CircleIcon, LucideIcon } from 'lucide-react'
+
+import { Icons } from '@/components/icons'
 
 export const sortOptions = [
   { label: 'Date: Old to new', value: 'createdAt.asc' },
@@ -26,20 +20,23 @@ export const sortOptions = [
   },
 ] satisfies { label: string; value: string }[]
 
-const CategoryIcon = (category: string) => {
+const CategoryIcon = (category: Recipes['category']) => {
   switch (category) {
     case 'breakfast':
-      return EggFried
+      return Icons['breakfast']
     case 'lunch':
-      return Apple
+      return Icons['lunch']
     case 'dinner':
-      return Coffee
+      return Icons['dinner']
     case 'dessert':
-      return CakeSlice
+      return Icons['dessert']
     case 'snack':
-      return Grape
-    case 'drink':
-      return Wine
+      return Icons['snack']
+    case 'appetizer':
+      return Icons['appetizer']
+    case 'drinks':
+      return Icons['drinks']
+
     default:
       return CircleIcon
   }
@@ -51,5 +48,10 @@ export const recipesCategories = [
     slug: category.toLocaleLowerCase(),
     icon: CategoryIcon(category),
     description: `All ${category} recipes`,
-  })),
+  })) satisfies {
+    title: Recipes['category']
+    slug: string
+    icon: LucideIcon
+    description: string
+  }[]
 ]
