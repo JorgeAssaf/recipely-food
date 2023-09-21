@@ -18,7 +18,10 @@ export default authMiddleware({
     '/about(.*)',
   ],
   async afterAuth(auth, req) {
-    if (auth.isPublicRoute) NextResponse.next()
+
+    if (auth.isPublicRoute) {
+      return NextResponse.next()
+    }
 
     const url = new URL(req.nextUrl.origin)
 
