@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import PasswordInput from '../password-input'
 
 type Inputs = z.infer<typeof signupSchema>
 
@@ -88,7 +89,6 @@ const SignupForm = () => {
                 <FormControl>
                   <Input {...field} placeholder='jondoe@gmail.com' />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -100,7 +100,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} type='password' placeholder='******' />
+                  <PasswordInput {...field} placeholder='********' />
                 </FormControl>
                 <FormMessage />
               </FormItem>

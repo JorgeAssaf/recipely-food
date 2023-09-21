@@ -26,7 +26,7 @@ const ResetPasswordPage = () => {
             password.
           </CardDescription>
         </CardHeader>
-        <CardContent className='grid gap-4'>
+        <CardContent>
           <NewPasswordForm />
         </CardContent>
       </Card>
