@@ -35,16 +35,18 @@ import {
 } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 
+type Inputs = z.infer<typeof recipesSchema>
+
 export function AddNewRecipe({
   userId,
   userName,
 }: {
   userId: string
-  userName: string | null
+  userName: string
 }) {
   const [files, setFiles] = useState<FileWithPreview[] | null>(null)
   const [isPending, startTransition] = useTransition()
-  const form = useForm<z.infer<typeof recipesSchema>>({
+  const form = useForm<Inputs>({
     resolver: zodResolver(recipesSchema),
     defaultValues: {
       category: 'breakfast',
@@ -67,12 +69,12 @@ export function AddNewRecipe({
     },
   })
 
-  function onSubmit(data: z.infer<typeof recipesSchema>) {
+  function onSubmit(data: Inputs) {
     startTransition(async () => {
       try {
-        await await AddRecipeAction({
+        await AddRecipeAction({
           ...data,
-          author: userName ?? '',
+          author: userName,
           userId: userId,
         })
         toast.success(`The recipe ${data.name} added.`)
@@ -202,8 +204,8 @@ export function AddNewRecipe({
                         inputMode='numeric'
                         type='number'
                         placeholder='Insert quantity.'
-                        {...form.register(
-                          `ingredients.${index}.quantity` as const,
+                        {...form.register(`ingredients.${index}.quantity` as const,
+                          { valueAsNumber: true },
                         )}
                       />
                     </FormControl>
