@@ -2,25 +2,25 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Command as CommandPrimitive } from 'cmdk'
-import { Option, X } from 'lucide-react'
+import { X } from 'lucide-react'
 
+import { Option } from '@/types/recipes'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Command, CommandGroup, CommandItem } from '@/components/ui/command'
 
-type Option = {
-  label: string
-  value: string
+type MultiSelectProps = React.HTMLAttributes<HTMLDivElement> & {
+  options: Option[]
+  selected?: Option[]
+  setSelected: React.Dispatch<React.SetStateAction<Option[]>>
 }
 
-export const MultiSelect = () => {
-  const options = [
-    { label: 'Option 1', value: 'option-1' },
-    { label: 'Option 2', value: 'option-2' },
-    { label: 'Option 3', value: 'option-3' },
-  ]
-
-  const [selected, setSelected] = useState<Option[]>([])
+export const MultiSelect = ({
+  options,
+  selected,
+  setSelected,
+  ...props
+}: MultiSelectProps) => {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -68,7 +68,7 @@ export const MultiSelect = () => {
       className='h-auto overflow-visible bg-transparent'
     >
       <div className='group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2'>
-        <div className='flex flex-wrap gap-1'>
+        <div className='flex flex-wrap gap-1 capitalize'>
           {selected?.map((option) => {
             return (
               <Badge
@@ -119,7 +119,7 @@ export const MultiSelect = () => {
                 return (
                   <CommandItem
                     key={option.value}
-                    className='px-2 py-1.5 text-sm'
+                    className='px-2 py-1.5 text-sm capitalize'
                     onMouseDown={(e) => {
                       e.preventDefault()
                       e.stopPropagation()
