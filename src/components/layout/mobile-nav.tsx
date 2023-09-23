@@ -1,12 +1,11 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { MenuIcon, Pizza } from 'lucide-react'
 
 import type { MainNavItem, SidebarNavItem } from '@/types/nav'
-import { dashboardConfig } from '@/config/dashboard'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import {
