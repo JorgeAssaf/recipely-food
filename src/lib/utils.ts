@@ -55,6 +55,12 @@ export function catchClerkError(err: unknown) {
     return toast.error(unknownErr)
   }
 }
+export const isArrayOfFile = (val: unknown): val is File[] => {
+  const isArray = Array.isArray(val)
+  if (!isArray) return false
+  return val.every((file) => file instanceof File)
+}
+
 export type As<
   DefaultTag extends React.ElementType,
   T1 extends React.ElementType,
