@@ -2,10 +2,11 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
-import { ingredients, Recipes, recipes } from '@/db/schema'
-import { and, asc, desc, eq, inArray, like, sql } from 'drizzle-orm'
+import { recipes, savedRecipes, type Recipes } from '@/db/schema'
+import { and, asc, desc, eq, gte, inArray, like, not, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
+import type { FileUpload } from '@/types/recipes'
 import { getRecipesSchema, recipesSchema } from '@/lib/validations/recipes'
 
 export async function filterProductsAction(query: string) {
@@ -39,10 +40,10 @@ export async function getRecipesAction(
   const prepTime = input.prepTime
   const categories =
     (input.categories?.split('.') as Recipes['category'][]) ?? []
-  const author = input.author
+  const category = (input.category as Recipes['category']) ?? undefined
+  const author = (input.author?.split('.') as Recipes['author'][]) ?? []
   const limit = input.limit ?? 2
   const offset = input.offset ?? 0
-
   const { items, count } = await db.transaction(async (tx) => {
     const items = await tx
       .select()
@@ -51,11 +52,12 @@ export async function getRecipesAction(
       .offset(offset)
       .where(
         and(
+          category ? eq(recipes.category, category) : undefined,
           categories.length ? inArray(recipes.category, categories) : undefined,
           difficulty.length
             ? inArray(recipes.difficulty, difficulty)
             : undefined,
-          prepTime ? eq(recipes.prepTime, prepTime) : undefined,
+          prepTime ? gte(recipes.prepTime, prepTime) : undefined,
         ),
       )
       .groupBy(recipes.id)
@@ -73,12 +75,13 @@ export async function getRecipesAction(
       .from(recipes)
       .where(
         and(
+          category ? eq(recipes.category, category) : undefined,
           categories.length ? inArray(recipes.category, categories) : undefined,
-          author ? eq(recipes.author, author) : undefined,
+          author.length ? inArray(recipes.author, author) : undefined,
           difficulty.length
             ? inArray(recipes.difficulty, difficulty)
             : undefined,
-          prepTime ? eq(recipes.prepTime, prepTime) : undefined,
+          prepTime ? gte(recipes.prepTime, prepTime) : undefined,
         ),
       )
       .groupBy(recipes.id)
@@ -98,13 +101,17 @@ export async function getRecipesAction(
 }
 
 export async function AddRecipeAction(
-  values: z.infer<typeof recipesSchema> & { userId: string; author: string },
+  values: z.infer<typeof recipesSchema> & {
+    userId: string
+    author: string
+    images: FileUpload[] | null
+  },
 ) {
-  const productWithSameName = await db.query.recipes.findFirst({
+  const recipeWithSameName = await db.query.recipes.findFirst({
     where: eq(recipes.name, values.name),
   })
 
-  if (productWithSameName) {
+  if (recipeWithSameName) {
     throw new Error('Product name already taken.')
   }
 
@@ -113,11 +120,51 @@ export async function AddRecipeAction(
   revalidatePath(`/dashboard/recipes`)
 }
 
-export async function AddIngredientsAction(values: any) {
-  const recipe = await db.select().from(recipes)
+export async function UpdateRecipeAction(
+  values: z.infer<typeof recipesSchema> & {
+    id: number
+    images: FileUpload[] | null
+  },
+) {
+  const recipe = await db.query.recipes.findFirst({
+    where: eq(recipes.id, values.id),
+  })
+  const recipeWithSameName = await db.query.recipes.findFirst({
+    where: values.id
+      ? and(eq(recipes.name, values.name), not(eq(recipes.id, values.id)))
+      : eq(recipes.name, values.name),
+  })
 
-  await db.insert(ingredients).values(values)
+  if (recipeWithSameName) {
+    throw new Error('Product name already taken.')
+  }
+  if (!recipe) {
+    throw new Error('Recipe not found.')
+  }
+
+  await db
+    .update(recipes)
+    .set({
+      ...values,
+      updatedAt: new Date(),
+    })
+    .where(eq(recipes.id, values.id))
+
+  revalidatePath(`/dashboard/recipes`)
 }
+
+export async function DeleteRecipeAction({ id: id }: { id: number }) {
+  const recipe = await db.query.recipes.findFirst({
+    where: eq(recipes.id, id),
+  })
+  if (!recipe) {
+    throw new Error('Recipe not found.')
+  }
+  await db.delete(recipes).where(eq(recipes.id, id))
+
+  revalidatePath(`/dashboard/recipes/your-recipes`)
+}
+
 export async function DeleteRecipesAction() {
-  return await db.delete(recipes)
+  return await db.delete(savedRecipes)
 }
