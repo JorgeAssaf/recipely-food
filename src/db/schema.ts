@@ -1,5 +1,6 @@
 import { InferSelectModel, relations } from 'drizzle-orm'
 import {
+  boolean,
   int,
   json,
   mysqlEnum,
@@ -21,7 +22,7 @@ export const recipes = mysqlTable('recipes', {
     .notNull()
     .default('easy'),
   rating: int('rating').default(0),
-  ingredients: json('ingredients').$type<IngredientsType[]>().default([]),
+  ingredients: json('ingredients').$type<IngredientsType[]>().notNull(),
   category: mysqlEnum('category', [
     'breakfast',
     'lunch',
@@ -36,7 +37,8 @@ export const recipes = mysqlTable('recipes', {
 
   prepTime: int('prepTime').notNull().default(0),
   steps: varchar('steps', { length: 1024 }),
-  image: json('image').$type<FileUpload>(),
+
+  images: json('images').$type<FileUpload[]>(),
   likes: int('likes').default(0),
   dislikes: int('dislikes').default(0),
   updatedAt: timestamp('updatedAt'),
@@ -47,7 +49,8 @@ export const recipesRelations = relations(recipes, ({ many }) => ({
   ingredients: many(ingredients),
 }))
 
-export type Recipes = InferSelectModel<typeof recipes>
+export type Recipes = typeof recipes.$inferSelect
+export type NewRecipes = typeof recipes.$inferInsert
 
 export const ingredients = mysqlTable('ingredients', {
   id: serial('id').primaryKey(),
@@ -74,3 +77,12 @@ export const ingredientsRelations = relations(ingredients, ({ one }) => ({
     references: [recipes.id],
   }),
 }))
+
+export const savedRecipes = mysqlTable('saved_recipes', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId', { length: 191 }).notNull(),
+  recipeId: int('recipeId').notNull(),
+  closed: boolean('closed').notNull().default(false),
+  createdAt: timestamp('createdAt').defaultNow(),
+})
+export type SavedRecipes = typeof savedRecipes.$inferSelect
