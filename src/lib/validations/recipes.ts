@@ -1,5 +1,7 @@
-import { ingredients, recipes } from '@/db/schema'
-import z from 'zod'
+import { recipes } from '@/db/schema'
+import { z } from 'zod'
+
+import { Units } from '@/types/recipes'
 
 export const recipesSchema = z.object({
   name: z.string().min(1, {
@@ -15,40 +17,40 @@ export const recipesSchema = z.object({
     .nonempty({
       message: 'Missing description',
     }),
-  image: z
-    .object({
-      id: z.string(),
-      name: z.string(),
-      url: z.string().url(),
-      // }, {
-      //   required_error: 'Missing image',
-      // }),
-    })
+  images: z
+    .unknown()
+    .refine((val) => {
+      if (!Array.isArray(val)) return false
+      if (val.some((file) => !(file instanceof File))) return false
+      return true
+    }, 'Must be an array of File')
     .optional()
-    .nullable(),
+    .nullable()
+    .default(null),
 
   difficulty: z
     .enum(recipes.difficulty.enumValues, {
       required_error: 'Must be a valid difficulty',
     })
     .default(recipes.difficulty.enumValues[0]),
-  ingredients: z.array(
-    z.object({
-      ingredient: z.string().min(5, {
-        message: 'Must be at least 5 characters',
-      }),
+  ingredients: z
+    .array(
+      z.object({
+        ingredient: z.string().min(5, {
+          message: 'Must be at least 5 characters',
+        }),
 
-      unit: z
-        .enum(ingredients.unit.enumValues, {
-          required_error: 'Must be a valid unit',
-        })
-        .default(ingredients.unit.enumValues[0]),
-      quantity: z.number().positive().int().default(0),
+        units: z.nativeEnum(Units).default(Units.kilogram),
+
+        quantity: z.number().positive().int().default(0),
+      }),
+      {
+        required_error: 'Missing ingredients',
+      },
+    )
+    .nonempty({
+      message: 'Missing ingredients',
     }),
-    {
-      required_error: 'Missing ingredients',
-    },
-  ),
   category: z
     .enum(recipes.category.enumValues, {
       required_error: 'Must be a valid category',
@@ -75,7 +77,7 @@ export const getRecipesSchema = z.object({
     .regex(/^\d+.\d+$/)
     .optional()
     .nullable(),
-
+  category: z.string().optional().nullable(),
   sort: z
     .string()
     .regex(/^\w+.(asc|desc)$/)
@@ -84,5 +86,4 @@ export const getRecipesSchema = z.object({
   author: z.string().optional().nullable(),
   prepTime: z.number().optional(),
   difficulty: z.string().optional().nullable(),
-  category: z.enum(recipes.category.enumValues).optional().nullable(),
 })
