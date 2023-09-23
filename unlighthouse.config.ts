@@ -15,13 +15,13 @@ const config = {
   hooks: {
     async authenticate(page: Page) {
       // login to the page
-      await page.goto('https://recipely-food.vercel.app/sign-in', {
+      await page.goto('https://recipely-food.vercel.app/signin', {
         waitUntil: 'networkidle0',
       })
       const emailInput = await page.$('input[type="text"]')
-      await emailInput?.type('unlighthouse180@gmail.com')
+      await emailInput?.type('demo@demo.com')
       const passwordInput = await page.$('input[type="password"]')
-      await passwordInput?.type('unlighT/18!House')
+      await passwordInput?.type('Demo123.')
       const submitButton = await page.$('button[type="submit"]')
       await Promise.all([
         await submitButton?.click(),
