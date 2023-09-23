@@ -28,14 +28,14 @@ export async function getSavedRecipesAction(
   })
   console.log(cart);
 
-  const recipesSaved = await db.query.recipes.findMany({
-    where: and(
-      eq(recipes.id, cart?.recipeId),
+  // const recipesSaved = await db.query.recipes.findMany({
+  //   where: and(
+  //     eq(recipes.id, cart?.recipeId),
 
-    ),
-    orderBy: desc(recipes.createdAt),
-  })
-  console.log(recipesSaved);
+  //   ),
+  //   orderBy: desc(recipes.createdAt),
+  // })
+
 
 }
 
