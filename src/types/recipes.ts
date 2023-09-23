@@ -1,5 +1,9 @@
 import { type FileWithPath } from 'react-dropzone'
 
+export type Option = {
+  label: string
+  value: string
+}
 export interface RecipesType {
   title: string
   description: string
@@ -10,10 +14,26 @@ export interface RecipesType {
   ingredients: IngredientsType[]
   instructions: string[]
 }
+
+export enum Units {
+  gram = 'g',
+  milligram = 'mg',
+  kilogram = 'kg',
+  millilitre = 'ml',
+  litre = 'l',
+  teaspoon = 'tsp',
+  tablespoon = 'tbsp',
+  cup = 'cup',
+  pinch = 'pinch',
+  unit = 'unit',
+  drop = 'drop',
+
+}
+
 export interface IngredientsType {
   ingredient: string
   quantity: number
-  unit: 'g' | 'kg' | 'ml' | 'l' | 'tsp' | 'tbsp' | 'cup' | 'pinch'
+  units: Units
 }
 
 export interface FileUpload {
