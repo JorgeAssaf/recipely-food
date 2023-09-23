@@ -1,15 +1,16 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { ingredients, recipes } from '@/db/schema'
+import { recipes } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import z from 'zod'
 
-import { FileWithPreview } from '@/types/recipes'
-import { cn } from '@/lib/utils'
+import { FileWithPreview, Units } from '@/types/recipes'
+import { cn, isArrayOfFile } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
 import {
@@ -24,7 +25,9 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { AddRecipeAction, DeleteRecipesAction } from '@/app/_actions/recipes'
+import { OurFileRouter } from '@/app/api/uploadthing/core'
 
+import FileDialog from '../file-dialog'
 import {
   Select,
   SelectContent,
@@ -34,8 +37,10 @@ import {
   SelectValue,
 } from '../ui/select'
 import { Textarea } from '../ui/textarea'
+import { Zoom } from '../zoom-image'
 
 type Inputs = z.infer<typeof recipesSchema>
+const { useUploadThing } = generateReactHelpers<OurFileRouter>()
 
 export function AddNewRecipe({
   userId,
@@ -45,6 +50,7 @@ export function AddNewRecipe({
   userName: string
 }) {
   const [files, setFiles] = useState<FileWithPreview[] | null>(null)
+  const { isUploading, startUpload } = useUploadThing('recipeUpload')
   const [isPending, startTransition] = useTransition()
   const form = useForm<Inputs>({
     resolver: zodResolver(recipesSchema),
@@ -53,7 +59,7 @@ export function AddNewRecipe({
       difficulty: 'easy',
       ingredients: [
         {
-          unit: 'kg',
+          units: Units.kilogram,
         },
       ],
     },
@@ -72,19 +78,33 @@ export function AddNewRecipe({
   function onSubmit(data: Inputs) {
     startTransition(async () => {
       try {
+        const images = isArrayOfFile(data.images)
+          ? await startUpload(data.images).then((res) => {
+            const formattedImages = res?.map((image) => ({
+              id: image.key,
+              name: image.name,
+              url: image.url,
+            }))
+
+            return formattedImages ?? null
+          })
+          : null
+
         await AddRecipeAction({
           ...data,
           author: userName,
           userId: userId,
+          images,
         })
         toast.success(`The recipe ${data.name} added.`)
+
         form.reset()
       } catch (error: any) {
         toast.error(error.message ?? 'Something went wrong.')
       }
     })
-    console.log(data)
   }
+
   return (
     <>
       <Form {...form}>
@@ -116,24 +136,36 @@ export function AddNewRecipe({
               message={form.formState.errors.description?.message}
             />
           </FormItem>
-          <FormItem>
+          <FormItem className='flex w-full flex-col gap-1.5'>
             <FormLabel>Image</FormLabel>
             {files ? (
-              <div className='flex flex-col gap-5'>
-                {files.map((file) => (
-                  <div key={file.preview}>
+              <div className='flex items-center gap-2'>
+                {files.map((file, i) => (
+                  <Zoom key={i}>
                     <img
-                      className='h-48 w-48 object-cover'
                       src={file.preview}
                       alt={file.name}
+                      className='h-24 w-24 shrink-0 rounded-md object-cover object-center'
+                      loading='lazy'
                     />
-                  </div>
+                  </Zoom>
                 ))}
               </div>
             ) : null}
-            <FormControl></FormControl>
+            <FormControl>
+              <FileDialog
+                setValue={form.setValue}
+                name='images'
+                maxFiles={3}
+                maxSize={1024 * 1024 * 4}
+                files={files}
+                setFiles={setFiles}
+                isUploading={isUploading}
+                disabled={isPending}
+              />
+            </FormControl>
             <UncontrolledFormMessage
-              message={form.formState.errors.image?.message}
+              message={form.formState.errors.images?.message}
             />
           </FormItem>
           <FormField
@@ -204,7 +236,8 @@ export function AddNewRecipe({
                         inputMode='numeric'
                         type='number'
                         placeholder='Insert quantity.'
-                        {...form.register(`ingredients.${index}.quantity` as const,
+                        {...form.register(
+                          `ingredients.${index}.quantity` as const,
                           { valueAsNumber: true },
                         )}
                       />
@@ -217,36 +250,40 @@ export function AddNewRecipe({
                     />
                   </FormItem>
 
-                  <FormItem>
-                    <FormControl>
-                      <Select>
-                        <SelectTrigger className='capitalize'>
-                          <SelectValue placeholder={field.unit} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            {Object.values(ingredients.unit.enumValues).map(
-                              (option) => (
-                                <SelectItem
-                                  key={option}
-                                  value={option}
-                                  className='capitalize'
-                                >
-                                  {option}
-                                </SelectItem>
-                              ),
-                            )}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <UncontrolledFormMessage
-                      message={
-                        form.formState.errors.ingredients?.[index]?.unit
-                          ?.message
-                      }
-                    />
-                  </FormItem>
+                  <FormField
+                    control={form.control}
+                    name={`ingredients.${index}.units` as const}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Select
+                            value={field.value}
+                            onValueChange={(value: typeof field.value) =>
+                              field.onChange(value)
+                            }
+                          >
+                            <SelectTrigger className='capitalize'>
+                              <SelectValue placeholder={field.value} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                {Object.values(Units).map((option) => (
+                                  <SelectItem
+                                    key={option}
+                                    value={option}
+                                    className='capitalize'
+                                  >
+                                    {option}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
                   <Button
                     type='button'
@@ -269,7 +306,7 @@ export function AddNewRecipe({
             onClick={() =>
               append({
                 ingredient: '',
-                unit: 'kg',
+                units: Units.kilogram,
                 quantity: 0,
               })
             }
