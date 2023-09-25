@@ -25,7 +25,7 @@ export default async function NewRecipePage() {
     <Card>
       <CardHeader className='space-y-1'>
         <CardTitle className='text-2xl'>Add New Recipe</CardTitle>
-        <CardDescription> Add a new recipe to your collection.</CardDescription>
+        <CardDescription>Add a new recipe to your collection.</CardDescription>
       </CardHeader>
       <CardContent>
         <AddNewRecipe

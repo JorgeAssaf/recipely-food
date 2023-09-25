@@ -1,62 +1,65 @@
-import { db } from '@/db'
+import type { Metadata } from 'next'
+import { recipes } from '@/db/schema'
+import { currentUser } from '@clerk/nextjs'
 
-import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from '@/components/page-header'
+import { Recipes } from '@/components/recipes'
 import { Shell } from '@/components/shell'
+import { getRecipesAction } from '@/app/_actions/recipes'
 
-const getRecipeByTimeOfDay = async () => {
-  const recipes = await db.query.recipes.findMany()
-  // const timeOfDay = new Date().getHours()
-  // const category =
-  //   timeOfDay < 12 ? 'breakfast' : timeOfDay < 18 ? 'lunch' : 'dinner'
-  // const recipe = recipes.filter((recipe) => recipe.category === category)
-
-  return recipes
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ''),
+  title: 'All Recipes',
+  description: 'Find your favorite recipes here',
 }
 
-export default async function RecipePage() {
-  const recipes = await getRecipeByTimeOfDay()
+interface RecipePageProps {
+  searchParams: {
+    [key: string]: string | string[] | undefined
+  }
+}
+
+export default async function RecipesPage({ searchParams }: RecipePageProps) {
+  const user = await currentUser()
+
+  const { page, per_page, sort, categories, prepTime, difficulty, authors } =
+    searchParams ?? {}
+
+  const limit = typeof per_page === 'string' ? parseInt(per_page) : 8
+  const offset = typeof page === 'string' ? (parseInt(page) - 1) * limit : 0
+
+  const recipesTransaction = await getRecipesAction({
+    limit,
+    offset,
+    sort: typeof sort === 'string' ? sort : null,
+    categories: typeof categories === 'string' ? categories : null,
+    prepTime: typeof prepTime === 'string' ? parseInt(prepTime) : null ?? 0,
+    difficulty: typeof difficulty === 'string' ? difficulty : null,
+    author: typeof authors === 'string' ? authors : null,
+  })
+
+  const pageCount = Math.ceil(recipesTransaction.count / limit)
 
   return (
-    <Shell as='section'>
-      <div className='mx-auto w-full rounded-2xl bg-foreground text-background '>
-        <div className='mx-auto flex w-full justify-center py-10  text-center'>
-          <div>
-            <h1 className='flex flex-col gap-y-2 text-5xl font-bold '>
-              Recipe of the day
-            </h1>
-            <div></div>
-          </div>
-        </div>
+    <Shell as='main'>
+      <div>
+        <PageHeader>
+          <PageHeaderHeading>Recipes</PageHeaderHeading>
+          <PageHeaderDescription>
+            Find your favorite recipes here
+          </PageHeaderDescription>
+        </PageHeader>
+        <Recipes
+          recipes={recipesTransaction.items}
+          userId={user?.id ?? ''}
+          categories={Object.values(recipes.category.enumValues)}
+          pageCount={pageCount}
+        />
       </div>
-      <section className='mt-4 '>
-        {recipes.map((recipe) =>
-          recipe ? (
-            <Card key={recipe.id}>
-              <div className='mx-auto flex w-full justify-center py-10  text-center'>
-                <div>
-                  <h1 className='flex flex-col gap-y-2 text-5xl font-bold '>
-                    {recipe.name}
-                  </h1>
-                  <div>
-                    <Badge>{recipe.category}</Badge>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ) : (
-            <div className='mx-auto w-full rounded-2xl bg-foreground text-background '>
-              <div className='mx-auto flex w-full justify-center py-10  text-center'>
-                <div>
-                  <h1 className='flex flex-col gap-y-2 text-5xl font-bold '>
-                    No recipe of the day
-                  </h1>
-                </div>
-              </div>
-            </div>
-          ),
-        )}
-      </section>
     </Shell>
   )
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { currentUser } from '@clerk/nextjs'
 
+import { SavedRecipes } from '@/components/saved-recipes'
 import { getSavedRecipesAction } from '@/app/_actions/save'
 
 export const metadata: Metadata = {
@@ -10,22 +11,18 @@ export const metadata: Metadata = {
 }
 
 const SaveRecipesPage = async () => {
-  // const user = await currentUser()
-  // const savedRecipes = await getSavedRecipesAction({
-  //   userId: user?.id ?? '',
-  // })
-  // console.log(savedRecipes)
+  const user = await currentUser()
+  const savedRecipes = await getSavedRecipesAction({
+    userId: user?.id ?? '',
+  })
+  console.log(savedRecipes)
+
   return (
     <section>
       <div className='flex flex-col gap-4'>
         <h1 className='text-3xl font-bold'>Saved Recipes</h1>
       </div>
-      {/* {savedRecipes.map((recipe) => (
-        <div key={recipe.id} className='flex flex-col gap-4'>
-          <h1 className='text-3xl font-bold'>{recipe.name}</h1>
-          <p>{recipe.id}</p>
-        </div>
-      ))} */}
+      <SavedRecipes savedRecipes={savedRecipes} userId={user?.id ?? ''} />
     </section>
   )
 }
