@@ -1,14 +1,11 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { cookies } from 'next/headers'
 import { db } from '@/db'
 import { recipes, savedRecipes } from '@/db/schema'
-import { and, desc, eq, inArray } from 'drizzle-orm'
+import { and, eq, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 
-import { FileUpload } from '@/types/recipes'
-import { recipesSchema } from '@/lib/validations/recipes'
 import {
   addSaveRecipeSchema,
   getSavedRecipeSchema,
@@ -17,75 +14,109 @@ import {
 export async function getSavedRecipesAction(
   input: z.infer<typeof getSavedRecipeSchema>,
 ) {
-  const cartId = cookies().get('cartId')?.value
+  const savedRecipe = await db.query.savedRecipes.findMany({
+    where: eq(savedRecipes.userId, input.userId),
+  })
 
-  if (!cartId) {
-    return null
+  const recipesIds = savedRecipe.map((recipe) => recipe.recipeId)
+
+  if (recipesIds.length === 0) return []
+
+  const uniqueRecipesIds = [...new Set(recipesIds)]
+
+  const allRecipes = await db
+    .select()
+    .from(recipes)
+    .where(and(inArray(recipes.id, uniqueRecipesIds)))
+    .groupBy(recipes.id)
+    .execute()
+
+  return allRecipes
+}
+
+export async function addToSavedAction(
+  input: z.infer<typeof addSaveRecipeSchema>,
+) {
+  const checkIfSaved = await db.query.savedRecipes.findFirst({
+    where: and(
+      eq(savedRecipes.recipeId, input.recipeId),
+      eq(savedRecipes.userId, input.userId),
+    ),
+  })
+
+  if (checkIfSaved) {
+    throw new Error('Recipe already saved.')
   }
 
-  const cart = await db.query.savedRecipes.findFirst({
-    where: eq(savedRecipes.id, Number(cartId)),
+  await db.insert(savedRecipes).values({
+    recipeId: input.recipeId,
+    userId: input.userId,
+    createdAt: new Date(),
   })
-  console.log(cart);
 
-  // const recipesSaved = await db.query.recipes.findMany({
-  //   where: and(
-  //     eq(recipes.id, cart?.recipeId),
-
-  //   ),
-  //   orderBy: desc(recipes.createdAt),
-  // })
-
+  revalidatePath('/')
 
 }
 
-export async function AddCartAction(
-  input: z.infer<typeof addSaveRecipeSchema>,
+// export async function UpdateRecipeAction(
+//   values: z.infer<typeof recipesSchema> & {
+//     id: number
+//     images: FileUpload[] | null
+//   },
+// ) {
+//   const recipe = await db.query.recipes.findFirst({
+//     where: eq(recipes.id, values.id),
+//   })
+//   const recipeWithSameName = await db.query.recipes.findFirst({
+//     where: values.id
+//       ? and(eq(recipes.name, values.name), not(eq(recipes.id, values.id)))
+//       : eq(recipes.name, values.name),
+//   })
+
+//   if (recipeWithSameName) {
+//     throw new Error('Product name already taken.')
+//   }
+//   if (!recipe) {
+//     throw new Error('Recipe not found.')
+//   }
+
+//   await db
+//     .update(recipes)
+//     .set({
+//       ...values,
+//       updatedAt: new Date(),
+//     })
+//     .where(eq(recipes.id, values.id))
+
+//   revalidatePath(`/dashboard/recipes`)
+// }
+
+// export async function DeleteRecipeAction({ id: id }: { id: number }) {
+//   const recipe = await db.query.recipes.findFirst({
+//     where: eq(recipes.id, id),
+//   })
+//   if (!recipe) {
+//     throw new Error('Recipe not found.')
+//   }
+//   await db.delete(recipes).where(eq(recipes.id, id))
+
+//   revalidatePath(`/dashboard/recipes/your-recipes`)
+// }
+
+export async function DeleteSavedRecipeAction(
+  input: z.infer<typeof getSavedRecipeSchema>,
 ) {
-  const cookieStore = cookies()
-  const cartId = cookieStore.get('cartId')?.value
+  const saveRecipe = await db.query.savedRecipes.findFirst()
 
-  if (!cartId) {
-    const cart = await db.insert(savedRecipes).values({
-      userId: input.userId,
-      recipeId: input.recipeId,
-      closed: input.closed,
-    })
+  console.log(saveRecipe)
 
-    // Note: .set() is only available in a Server Action or Route Handler
-    cookieStore.set('cartId', String(cart.insertId))
-
-    revalidatePath('/')
-    return
+  if (!saveRecipe) {
+    throw new Error('Recipe not found.')
   }
 
-  const cart = await db.query.savedRecipes.findFirst({
-    where: eq(savedRecipes.id, Number(cartId)),
-  })
-  if (!cart) {
-    cookieStore.set({
-      name: 'cartId',
-      value: '',
-      expires: new Date(0),
-    })
+  await db
+    .delete(savedRecipes)
+    .where(eq(savedRecipes.recipeId, input.recipeId ?? 0))
 
-    await db.delete(savedRecipes).where(eq(savedRecipes.id, Number(cartId)))
-
-    throw new Error('Cart not found, please try again.')
-  }
-
-  // If cart is closed, delete it and create a new one
-  if (cart.closed) {
-    await db.delete(savedRecipes).where(eq(savedRecipes.id, Number(cartId)))
-
-    const newCart = await db.insert(savedRecipes).values({
-      userId: input.userId,
-      recipeId: input.recipeId,
-      closed: input.closed,
-    })
-
-    cookieStore.set('cartId', String(newCart.insertId))
-
-    revalidatePath('/')
-  }
+  revalidatePath(`/dashboard/recipes/saved-recipes`)
 }

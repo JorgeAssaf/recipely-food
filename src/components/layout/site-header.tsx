@@ -2,7 +2,6 @@ import { type FC } from 'react'
 import Link from 'next/link'
 import { User } from '@clerk/nextjs/server'
 import {
-  BookmarkIcon,
   LayoutDashboard,
   LogOut,
   Settings,
@@ -23,6 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import Combobox from '../combobox'
+import { SavedRecipesIcon } from '../saved-recipes-icon'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button, buttonVariants } from '../ui/button'
 import { MainNav } from './main-nav'
@@ -50,18 +50,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
         <div className='flex flex-1 items-center justify-end space-x-4'>
           <nav className='flex items-center space-x-2'>
             <Combobox />
-            {user ? (
-              <Link
-                href='/dashboard/recipes'
-                className={buttonVariants({
-                  variant: 'ghost',
-                  size: 'icon',
-                })}
-              >
-                <BookmarkIcon className='h-6 w-6' aria-hidden='true' />
-                <span className='sr-only'>View saved recipes</span>
-              </Link>
-            ) : null}
+            <SavedRecipesIcon userId={user?.id ?? ''} />
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
