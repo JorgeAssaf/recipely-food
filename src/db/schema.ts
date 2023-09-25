@@ -14,7 +14,7 @@ import type { FileUpload, IngredientsType } from '@/types/recipes'
 
 export const recipes = mysqlTable('recipes', {
   id: serial('id').primaryKey(),
-  userId: varchar('user_id', { length: 256 }).notNull(),
+  userId: varchar('userId', { length: 256 }).notNull(),
   name: varchar('name', { length: 256 }).notNull(),
   author: varchar('author', { length: 256 }).notNull(),
   description: varchar('description', { length: 1024 }).notNull(),
@@ -34,10 +34,8 @@ export const recipes = mysqlTable('recipes', {
   ])
     .notNull()
     .default('breakfast'),
-
   prepTime: int('prepTime').notNull().default(0),
   steps: varchar('steps', { length: 1024 }),
-
   images: json('images').$type<FileUpload[]>(),
   likes: int('likes').default(0),
   dislikes: int('dislikes').default(0),
@@ -85,4 +83,5 @@ export const savedRecipes = mysqlTable('saved_recipes', {
   closed: boolean('closed').notNull().default(false),
   createdAt: timestamp('createdAt').defaultNow(),
 })
+
 export type SavedRecipes = typeof savedRecipes.$inferSelect
