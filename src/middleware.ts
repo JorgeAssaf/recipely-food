@@ -16,6 +16,7 @@ export default authMiddleware({
     '/blog(.*)',
     '/categories(.*)',
     '/about(.*)',
+
   ],
   async afterAuth(auth, req) {
 
@@ -43,5 +44,5 @@ export default authMiddleware({
 })
 
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }
