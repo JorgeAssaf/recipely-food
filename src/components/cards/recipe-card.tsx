@@ -90,6 +90,9 @@ export const RecipeCard = ({
             className=' h-8 w-8 '
             variant='secondary'
             onClick={() => {
+              if (!userId) {
+                return toast.error('You must be logged in to save a recipe.')
+              }
               startTransition(async () => {
                 try {
                   await addToSavedAction({
