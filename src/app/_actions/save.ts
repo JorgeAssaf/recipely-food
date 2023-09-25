@@ -44,7 +44,7 @@ export async function addToSavedAction(
     ),
   })
 
-  if (checkIfSaved) {
+  if (checkIfSaved?.recipeId === input.recipeId) {
     throw new Error('Recipe already saved.')
   }
 
@@ -55,7 +55,6 @@ export async function addToSavedAction(
   })
 
   revalidatePath('/')
-
 }
 
 // export async function UpdateRecipeAction(

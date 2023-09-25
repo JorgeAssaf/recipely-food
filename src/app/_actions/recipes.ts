@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
-import { recipes, type Recipes } from '@/db/schema'
+import { recipes, savedRecipes, type Recipes } from '@/db/schema'
 import { and, asc, desc, eq, gte, inArray, like, not, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
@@ -166,5 +166,6 @@ export async function DeleteRecipeAction({ id: id }: { id: number }) {
 }
 
 export async function DeleteRecipesAction() {
-  return await db.delete(recipes)
+  return await db.delete(savedRecipes)
 }
+
