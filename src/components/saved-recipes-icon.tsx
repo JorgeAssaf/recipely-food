@@ -9,7 +9,7 @@ import { buttonVariants } from './ui/button'
 export const SavedRecipesIcon = async ({ userId }: { userId: string }) => {
 
   const savedRecipes = await getSavedRecipesAction({
-    userId: userId,
+    userId: userId ?? '',
   })
   const itemCount = savedRecipes.length
 
