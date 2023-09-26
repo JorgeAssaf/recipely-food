@@ -9,10 +9,9 @@ import { Button } from './ui/button'
 
 type SavedRecipesProps = {
   savedRecipes: Recipes[]
-  userId: string
 }
 
-export const SavedRecipes = ({ savedRecipes, userId }: SavedRecipesProps) => {
+export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
   const [isPending, startTransition] = useTransition()
   return (
     <div>
@@ -24,7 +23,6 @@ export const SavedRecipes = ({ savedRecipes, userId }: SavedRecipesProps) => {
             onClick={() => {
               startTransition(async () => {
                 await DeleteSavedRecipeAction({
-                  userId,
                   recipeId: recipe.id,
                 })
               })
