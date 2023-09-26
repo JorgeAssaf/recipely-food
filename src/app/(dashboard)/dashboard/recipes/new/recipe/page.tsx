@@ -1,6 +1,4 @@
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-import { currentUser } from '@clerk/nextjs/server'
 
 import {
   Card,
@@ -17,10 +15,6 @@ export const metadata: Metadata = {
 }
 
 export default async function NewRecipePage() {
-  const user = await currentUser()
-  if (!user) {
-    return redirect('/signin')
-  }
   return (
     <Card>
       <CardHeader className='space-y-1'>
@@ -28,10 +22,7 @@ export default async function NewRecipePage() {
         <CardDescription>Add a new recipe to your collection.</CardDescription>
       </CardHeader>
       <CardContent>
-        <AddNewRecipe
-          userId={user.id}
-          userName={`${user.firstName ?? user.username} ${user.lastName ?? ''}`}
-        />
+        <AddNewRecipe />
       </CardContent>
     </Card>
   )

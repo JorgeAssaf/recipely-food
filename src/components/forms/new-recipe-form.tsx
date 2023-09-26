@@ -42,13 +42,7 @@ import { Zoom } from '../zoom-image'
 type Inputs = z.infer<typeof recipesSchema>
 const { useUploadThing } = generateReactHelpers<OurFileRouter>()
 
-export function AddNewRecipe({
-  userId,
-  userName,
-}: {
-  userId: string
-  userName: string
-}) {
+export function AddNewRecipe() {
   const [files, setFiles] = useState<FileWithPreview[] | null>(null)
   const { isUploading, startUpload } = useUploadThing('recipeUpload')
   const [isPending, startTransition] = useTransition()
@@ -92,8 +86,6 @@ export function AddNewRecipe({
 
         await AddRecipeAction({
           ...data,
-          author: userName,
-          userId: userId,
           images,
         })
         toast.success(`The recipe ${data.name} added.`)

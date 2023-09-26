@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 import Link from 'next/link'
-import { User } from '@clerk/nextjs/server'
+import type { User } from '@clerk/nextjs/server'
 import {
   LayoutDashboard,
   LogOut,

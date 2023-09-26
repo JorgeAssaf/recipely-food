@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
 import { recipes, savedRecipes, type Recipes } from '@/db/schema'
+import { currentUser } from '@clerk/nextjs'
 import { and, asc, desc, eq, gte, inArray, like, not, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
@@ -102,11 +103,11 @@ export async function getRecipesAction(
 
 export async function AddRecipeAction(
   values: z.infer<typeof recipesSchema> & {
-    userId: string
-    author: string
     images: FileUpload[] | null
   },
 ) {
+  const user = await currentUser()
+  console.log(user?.id)
   const recipeWithSameName = await db.query.recipes.findFirst({
     where: eq(recipes.name, values.name),
   })
@@ -115,7 +116,11 @@ export async function AddRecipeAction(
     throw new Error('Product name already taken.')
   }
 
-  await db.insert(recipes).values(values)
+  await db.insert(recipes).values({
+    ...values,
+    userId: user?.id as string,
+    author: String(user?.firstName + ' ' + user?.lastName ?? user?.username),
+  })
 
   revalidatePath(`/dashboard/recipes`)
 }
@@ -167,4 +172,3 @@ export async function DeleteRecipeAction({ id: id }: { id: number }) {
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
-

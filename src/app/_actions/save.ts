@@ -14,7 +14,7 @@ import {
 
 export async function getSavedRecipesAction() {
   const { userId } = auth()
-  console.log(userId)
+
 
   const savedRecipe = await db.query.savedRecipes.findMany({
     where: eq(savedRecipes.userId, String(userId)),
