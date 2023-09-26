@@ -16,10 +16,8 @@ export default authMiddleware({
     '/blog(.*)',
     '/categories(.*)',
     '/about(.*)',
-
   ],
   async afterAuth(auth, req) {
-
     if (auth.isPublicRoute) {
       return NextResponse.next()
     }
