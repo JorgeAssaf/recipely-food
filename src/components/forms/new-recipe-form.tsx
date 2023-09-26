@@ -396,18 +396,6 @@ export function AddNewRecipe() {
           </Button>
         </form>
       </Form>
-      {process.env.NODE_ENV === 'development' ? (
-        <Button
-          onClick={() => {
-            startTransition(async () => {
-              await DeleteRecipesAction()
-            })
-          }}
-        >
-          {isPending ? <Loader2 className='h-3 w-3 animate-spin' /> : null}
-          {isPending ? 'Generating...' : 'Generate'}
-        </Button>
-      ) : null}
     </>
   )
 }

@@ -419,6 +419,10 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     'description',
                     'prepTime',
                     'steps',
+                    'category',
+                    'difficulty',
+                    'ingredients',
+
                   ])
                   await DeleteRecipeAction({
                     id: recipe.id,
