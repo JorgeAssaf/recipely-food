@@ -146,7 +146,6 @@ export async function UpdateRecipeAction(
     .update(recipes)
     .set({
       ...values,
-      updatedAt: new Date(),
     })
     .where(eq(recipes.id, values.id))
 

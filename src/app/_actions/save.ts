@@ -51,7 +51,6 @@ export async function addToSavedAction(
   await db.insert(savedRecipes).values({
     recipeId: input.recipeId,
     userId: input.userId,
-    createdAt: new Date(),
   })
 
   revalidatePath('/')
