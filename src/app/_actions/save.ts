@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
 import { recipes, savedRecipes } from '@/db/schema'
+import { auth } from '@clerk/nextjs'
 import { and, eq, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 
@@ -11,13 +12,13 @@ import {
   getSavedRecipeSchema,
 } from '@/lib/validations/save-recipes'
 
-export async function getSavedRecipesAction(
-  input: z.infer<typeof getSavedRecipeSchema>,
-) {
-  const savedRecipe = await db.query.savedRecipes.findMany({
-    where: eq(savedRecipes.userId, input.userId),
-  })
+export async function getSavedRecipesAction() {
+  const { userId } = auth()
+  console.log(userId)
 
+  const savedRecipe = await db.query.savedRecipes.findMany({
+    where: eq(savedRecipes.userId, String(userId)),
+  })
   const recipesIds = savedRecipe.map((recipe) => recipe.recipeId)
 
   if (recipesIds.length === 0) return []
@@ -37,10 +38,11 @@ export async function getSavedRecipesAction(
 export async function addToSavedAction(
   input: z.infer<typeof addSaveRecipeSchema>,
 ) {
+  const { userId } = auth()
   const checkIfSaved = await db.query.savedRecipes.findFirst({
     where: and(
       eq(savedRecipes.recipeId, input.recipeId),
-      eq(savedRecipes.userId, input.userId),
+      eq(savedRecipes.userId, String(input.userId)),
     ),
   })
 
@@ -50,7 +52,7 @@ export async function addToSavedAction(
 
   await db.insert(savedRecipes).values({
     recipeId: input.recipeId,
-    userId: input.userId,
+    userId: String(userId),
   })
 
   revalidatePath('/')
@@ -105,8 +107,6 @@ export async function DeleteSavedRecipeAction(
   input: z.infer<typeof getSavedRecipeSchema>,
 ) {
   const saveRecipe = await db.query.savedRecipes.findFirst()
-
-  console.log(saveRecipe)
 
   if (!saveRecipe) {
     throw new Error('Recipe not found.')

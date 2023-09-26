@@ -12,10 +12,7 @@ export const metadata: Metadata = {
 
 const SaveRecipesPage = async () => {
   const user = await currentUser()
-  const savedRecipes = await getSavedRecipesAction({
-    userId: user?.id ?? '',
-  })
-  console.log(savedRecipes)
+  const savedRecipes = await getSavedRecipesAction()
 
   return (
     <section>

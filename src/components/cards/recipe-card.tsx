@@ -97,7 +97,6 @@ export const RecipeCard = ({
                 try {
                   await addToSavedAction({
                     recipeId: recipe.id,
-                    userId: userId ?? '',
                   })
                   toast.success('Added to cart.')
                 } catch (err) {

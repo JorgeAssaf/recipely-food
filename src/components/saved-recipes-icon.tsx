@@ -1,4 +1,3 @@
-import { forwardRef } from 'react'
 import Link from 'next/link'
 import { Bookmark } from 'lucide-react'
 
@@ -7,17 +6,13 @@ import { getSavedRecipesAction } from '@/app/_actions/save'
 import { Badge } from './ui/badge'
 import { buttonVariants } from './ui/button'
 
-export const SavedRecipesIcon = forwardRef<
-  HTMLAnchorElement,
-  { userId: string }
->(async ({ userId }, ref) => {
-  const savedRecipes = await getSavedRecipesAction({
-    userId: userId ?? '',
-  })
-  const itemCount = savedRecipes.length
+
+
+export async function SavedRecipesIcon() {
+  const savedRecipes = await getSavedRecipesAction()
+  const itemCount = savedRecipes?.length ?? 0
   return (
     <Link
-      ref={ref}
       href='/dashboard/recipes/saved-recipes'
       className={buttonVariants({
         variant: 'ghost',
@@ -37,4 +32,4 @@ export const SavedRecipesIcon = forwardRef<
       <Bookmark aria-label='Saved Recipes' className='h-6 w-6' />
     </Link>
   )
-})
+}
