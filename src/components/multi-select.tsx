@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Command as CommandPrimitive } from 'cmdk'
 import { X } from 'lucide-react'
 
@@ -12,12 +12,14 @@ import { Command, CommandGroup, CommandItem } from '@/components/ui/command'
 type MultiSelectProps = React.HTMLAttributes<HTMLDivElement> & {
   options: Option[]
   selected?: Option[]
+  onChange?: (value: Option[] | null) => void
   setSelected: React.Dispatch<React.SetStateAction<Option[]>>
 }
 
 export const MultiSelect = ({
   options,
   selected,
+  onChange,
   setSelected,
   ...props
 }: MultiSelectProps) => {
@@ -25,6 +27,9 @@ export const MultiSelect = ({
   const [isOpen, setIsOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    if (onChange) onChange(selected?.length ? selected : null)
+  }, [onChange, selected])
   const filteredOptions = useMemo(
     () =>
       options.filter((option) => {
@@ -64,6 +69,7 @@ export const MultiSelect = ({
 
   return (
     <Command
+      {...props}
       onKeyDown={handleKeyDown}
       className='h-auto overflow-visible bg-transparent'
     >
