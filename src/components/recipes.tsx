@@ -78,6 +78,9 @@ export const Recipes = ({
         `${pahname}?${createQueryString({
           prepTime: `${min}-${max}`,
         })}`,
+        {
+          scroll: false,
+        }
       )
     })
   }, [debouncedPrepTime])
@@ -89,6 +92,9 @@ export const Recipes = ({
         `${pahname}?${createQueryString({
           difficulty: difficulty?.length ? difficulty.join('.') : null,
         })}`,
+        {
+          scroll: false,
+        },
       )
     })
   }, [difficulty])
@@ -103,6 +109,9 @@ export const Recipes = ({
       `${pahname}?${createQueryString({
         authors: authors?.length ? slugify(authors.join('.')) : null,
       })}`,
+      {
+        scroll: false,
+      }
     )
   }, [authors])
 
@@ -115,6 +124,9 @@ export const Recipes = ({
             ? slugify(selectedCategories.map((c) => c.value).join('.'))
             : null,
         })}`,
+        {
+          scroll: false,
+        }
       )
     })
   }, [selectedCategories])

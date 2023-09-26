@@ -23,25 +23,25 @@ export const metadata: Metadata = {
   title: 'Your Recipes',
   description: 'View your recipes.',
 }
-const getRecipes = async (userId: string) => {
-  const recipes = await db
-    .select()
-    .from(recipesDB)
-    .where(eq(recipesDB.userId, userId))
-  return recipes
-}
+
 
 const YourRecipesPage = async () => {
   const user = await currentUser()
   if (!user) {
     return redirect('/signin')
   }
-  const recipes = await getRecipes(user.id)
+  const allRecipes = await db
+    .select()
+    .from(recipesDB)
+
+    .groupBy(recipesDB.id)
+
+    .where(eq(recipesDB.userId, user.id))
   return (
     <section>
-      {recipes.length > 0 ? (
+      {allRecipes.length > 0 ? (
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-          {recipes.map((recipe) => (
+          {allRecipes.map((recipe) => (
             <Card key={recipe.id}>
               <CardHeader>
                 <CardTitle>{recipe.name}</CardTitle>

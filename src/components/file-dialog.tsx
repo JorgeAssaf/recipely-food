@@ -100,8 +100,10 @@ const FileDialog = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     return () => {
+
       if (!files) return
-      files?.forEach((file) => URL.revokeObjectURL(file.preview))
+      files.forEach((file) => URL.revokeObjectURL(file.preview))
+
     }
   }, [])
   return (
