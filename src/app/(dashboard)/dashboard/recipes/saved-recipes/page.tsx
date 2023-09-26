@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 }
 
 const SaveRecipesPage = async () => {
-  const user = await currentUser()
   const savedRecipes = await getSavedRecipesAction()
 
   return (
@@ -19,7 +18,7 @@ const SaveRecipesPage = async () => {
       <div className='flex flex-col gap-4'>
         <h1 className='text-3xl font-bold'>Saved Recipes</h1>
       </div>
-      <SavedRecipes savedRecipes={savedRecipes} userId={user?.id ?? ''} />
+      <SavedRecipes savedRecipes={savedRecipes} />
     </section>
   )
 }
