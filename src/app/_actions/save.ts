@@ -46,7 +46,7 @@ export async function addToSavedAction(
     ),
   })
 
-  if (checkIfSaved?.recipeId === input.recipeId) {
+  if (checkIfSaved) {
     throw new Error('Recipe already saved.')
   }
 
