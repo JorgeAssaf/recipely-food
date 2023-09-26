@@ -1,4 +1,4 @@
-import { Image } from 'lucide-react'
+import { ImageIcon } from 'lucide-react'
 
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
@@ -18,12 +18,12 @@ export default function RecipesLoading() {
           <Skeleton className='h-9 w-20' />
         </div>
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {Array.from({ length: 8 }).map((_, i) => (
+          {new Array(6).fill(0).map((_, i) => (
             <Card key={i} className='rounded-sm'>
               <CardHeader className='border-b p-0'>
-                <AspectRatio ratio={4 / 3}>
+                <AspectRatio ratio={16 / 9}>
                   <div className='flex h-full items-center justify-center bg-secondary'>
-                    <Image
+                    <ImageIcon
                       className='h-9 w-9 text-muted-foreground'
                       aria-hidden='true'
                     />
