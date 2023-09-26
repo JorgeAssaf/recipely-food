@@ -15,7 +15,6 @@ import {
 export async function getSavedRecipesAction() {
   const { userId } = auth()
 
-
   const savedRecipe = await db.query.savedRecipes.findMany({
     where: eq(savedRecipes.userId, String(userId)),
   })
@@ -42,7 +41,7 @@ export async function addToSavedAction(
   const checkIfSaved = await db.query.savedRecipes.findFirst({
     where: and(
       eq(savedRecipes.recipeId, input.recipeId),
-      eq(savedRecipes.userId, String(input.userId)),
+      eq(savedRecipes.userId, String(userId)),
     ),
   })
 
