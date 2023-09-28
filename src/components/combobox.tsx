@@ -6,7 +6,7 @@ import { type Recipes } from '@/db/schema'
 import { SearchIcon } from 'lucide-react'
 
 import { recipesCategories } from '@/config/recipes'
-import { cn, isMacOs } from '@/lib/utils'
+import { cn, isMacOs, slugify } from '@/lib/utils'
 import { useDebounce } from '@/hooks/useDebounce'
 import {
   CommandDialog,
@@ -133,7 +133,9 @@ const Combobox = () => {
                       key={item.id}
                       value={item.name}
                       onSelect={() =>
-                        handleSelect(() => router.push(`/recipe/${item.name}`))
+                        handleSelect(() =>
+                          router.push(`/recipe/${slugify(item.name)}`),
+                        )
                       }
                     >
                       <CategoryIcon
