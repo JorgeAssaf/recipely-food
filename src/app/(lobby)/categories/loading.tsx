@@ -1,7 +1,7 @@
 import { Image } from 'lucide-react'
 
 import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Shell } from '@/components/shell'
 
@@ -30,13 +30,6 @@ export default function CategoriesLoading() {
                   </div>
                 </AspectRatio>
               </CardHeader>
-              <CardContent className='grid gap-2.5 p-4'>
-                <Skeleton className='h-4 w-1/2' />
-                <Skeleton className='h-4 w-1/4' />
-              </CardContent>
-              <CardFooter className='p-4'>
-                <Skeleton className='h-8 w-full rounded-sm' />
-              </CardFooter>
             </Card>
           ))}
         </div>
