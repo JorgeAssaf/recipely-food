@@ -1,5 +1,5 @@
-import { type Recipes, recipes } from '@/db/schema'
-import { CircleIcon, LucideIcon } from 'lucide-react'
+import { recipes, type Recipes } from '@/db/schema'
+import { CircleIcon } from 'lucide-react'
 
 import { Icons } from '@/components/icons'
 
@@ -20,38 +20,16 @@ export const sortOptions = [
   },
 ] satisfies { label: string; value: string }[]
 
-const CategoryIcon = (category: Recipes['category']) => {
-  switch (category) {
-    case 'breakfast':
-      return Icons['breakfast']
-    case 'lunch':
-      return Icons['lunch']
-    case 'dinner':
-      return Icons['dinner']
-    case 'dessert':
-      return Icons['dessert']
-    case 'snack':
-      return Icons['snack']
-    case 'appetizer':
-      return Icons['appetizer']
-    case 'drinks':
-      return Icons['drinks']
-
-    default:
-      return CircleIcon
-  }
-}
-
 export const recipesCategories = [
-  ...recipes.category.enumValues.map((category) => ({
+  ...(recipes.category.enumValues.map((category) => ({
     title: category,
     slug: category.toLocaleLowerCase(),
-    icon: CategoryIcon(category),
+    icon: Icons[category] ?? CircleIcon,
     description: `All ${category} recipes`,
   })) satisfies {
     title: Recipes['category']
     slug: string
-    icon: LucideIcon
+    icon: React.FC
     description: string
-  }[]
+  }[]),
 ]

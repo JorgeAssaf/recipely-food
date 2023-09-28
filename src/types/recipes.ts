@@ -19,15 +19,19 @@ export enum Units {
   gram = 'g',
   milligram = 'mg',
   kilogram = 'kg',
+  package = 'package',
+  piece = 'piece',
+  pound = 'pond',
+  pieces = 'pieces',
   millilitre = 'ml',
   litre = 'l',
+  onz = 'oz',
   teaspoon = 'tsp',
   tablespoon = 'tbsp',
   cup = 'cup',
   pinch = 'pinch',
   unit = 'unit',
   drop = 'drop',
-
 }
 
 export interface IngredientsType {
