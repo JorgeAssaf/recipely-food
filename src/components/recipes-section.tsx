@@ -33,7 +33,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  const category = searchParams.get('category')
+  const category = searchParams.get('category') ?? 'breakfast'
 
   const createQueryString = useCallback(
     (params: Record<string, string | number | null>) => {
@@ -60,7 +60,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
       </section>
       <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
         <div>
-          <div className='flex flex-row flex-wrap gap-4 md:flex-col'>
+          <div className='flex flex-row flex-wrap gap-3 md:flex-col'>
             {siteConfig.recipeNav.map((item) => {
               const LucideIcon = Icons[item.title]
               return (
@@ -98,12 +98,12 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
         <div className='flex w-full flex-col items-center gap-10 md:flex-row '>
           <div className='group relative h-full w-full '>
             <Image
-              src={`/images/${category ?? 'breakfast'}.webp`}
+              src={`/images/${category}.webp`}
               width={500}
               height={500}
               priority
-              alt={category ?? 'breakfast'}
-              className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[375px]'
+              alt={category}
+              className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[405px]'
             />
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Link
