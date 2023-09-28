@@ -98,6 +98,7 @@ const Combobox = () => {
       </Button>
       <CommandDialog position='top' open={open} onOpenChange={setOpen}>
         <CommandInput
+          role='search'
           value={query}
           onValueChange={setQuery}
           placeholder='Search recipes...'
