@@ -1,5 +1,6 @@
 import {
   Apple,
+  Beef,
   Book,
   Bookmark,
   CakeSlice,
@@ -19,6 +20,7 @@ export const Icons = {
   creditCard: CreditCard,
   book: Book,
   user: User2,
+  meal: Beef,
   breakfast: EggFried,
   lunch: Apple,
   dinner: Coffee,
