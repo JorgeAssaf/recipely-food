@@ -177,3 +177,6 @@ export async function DeleteRecipeAction({ id: id }: { id: number }) {
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
+export const generateRecipes = async () => {
+
+}
