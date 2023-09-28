@@ -30,7 +30,6 @@ interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
   pageCount: number
   categories?: RecipesSchema['category'][]
   category?: RecipesSchema['category']
-  author?: RecipesSchema['author'][]
   userId?: string
 }
 
@@ -39,7 +38,6 @@ export const Recipes = ({
   pageCount,
   categories,
   category,
-  author,
   userId,
   ...props
 }: RecipesProps) => {
@@ -51,6 +49,13 @@ export const Recipes = ({
   const page = searchParams?.get('page') ?? '1'
   const per_page = searchParams?.get('per_page') ?? '8'
   const sort = searchParams?.get('sort') ?? 'createdAt.desc'
+
+  const prepTimeParams = searchParams?.get('prepTime') ?? '0-500'
+  const minPrepTimeParams = +prepTimeParams.split('-')[0] ?? 0
+  const maxPrepTimeParams = +prepTimeParams.split('-')[1] ?? 500
+
+  const difficultyParams = searchParams?.get('difficulty') ?? null
+  const authorsParams = searchParams?.get('authors') ?? []
 
   const createQueryString = useCallback(
     (params: Record<string, string | number | null>) => {
@@ -68,7 +73,10 @@ export const Recipes = ({
     },
     [searchParams],
   )
-  const [prepTime, setPrepTime] = useState<[number, number]>([0, 500])
+  const [prepTime, setPrepTime] = useState<[number, number]>([
+    minPrepTimeParams,
+    maxPrepTimeParams,
+  ])
   const debouncedPrepTime = useDebounce(prepTime, 500)
 
   useEffect(() => {
@@ -80,12 +88,14 @@ export const Recipes = ({
         })}`,
         {
           scroll: false,
-        }
+        },
       )
     })
   }, [debouncedPrepTime])
 
-  const [difficulty, setDifficulty] = useState<string[] | null>(null)
+  const [difficulty, setDifficulty] = useState<string[] | null>(
+    difficultyParams?.split('.') ?? null,
+  )
   useEffect(() => {
     startTransition(() => {
       router.push(
@@ -103,15 +113,16 @@ export const Recipes = ({
 
   const [authors, setAuthors] = useState<string[] | null>(null)
   const currentAuthors = new Set(recipes.map((recipe) => recipe.author))
+  console.log()
 
   useEffect(() => {
     router.push(
       `${pahname}?${createQueryString({
-        authors: authors?.length ? slugify(authors.join('.')) : null,
+        authors: authors?.length ? authors.join('.') : null,
       })}`,
       {
         scroll: false,
-      }
+      },
     )
   }, [authors])
 
@@ -126,7 +137,7 @@ export const Recipes = ({
         })}`,
         {
           scroll: false,
-        }
+        },
       )
     })
   }, [selectedCategories])
@@ -170,8 +181,9 @@ export const Recipes = ({
                 <Slider
                   variant='range'
                   thickness='thin'
-                  defaultValue={[0, 500]}
+                  min={0}
                   max={500}
+                  defaultValue={[0, 500]}
                   step={1}
                   value={prepTime}
                   onValueChange={(value: typeof prepTime) => {
@@ -198,7 +210,7 @@ export const Recipes = ({
                     min={prepTime[0]}
                     max={500}
                     className='h-9'
-                    value={prepTime[1]}
+                    value={prepTime[1] ?? maxPrepTimeParams}
                     onChange={(e) => {
                       const value = Number(e.target.value)
                       setPrepTime([prepTime[0], value])
@@ -212,7 +224,7 @@ export const Recipes = ({
                   <div className='flex items-center space-x-2' key={dificulty}>
                     <Checkbox
                       id={dificulty}
-                      checked={difficulty?.includes(dificulty)}
+                      checked={difficulty?.includes(dificulty) ?? false}
                       onCheckedChange={(checked) => {
                         if (checked) {
                           setDifficulty([...(difficulty ?? []), dificulty])
@@ -241,32 +253,35 @@ export const Recipes = ({
                   </div>
                   <ScrollArea className='h-96'>
                     <div className='space-y-4'>
-                      {Array.from(currentAuthors).map((author) => (
-                        <div
-                          key={author}
-                          className='flex items-center space-x-2'
-                        >
-                          <Checkbox
-                            id={author}
-                            checked={authors?.includes(author)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                setAuthors([...(authors ?? []), author])
-                              } else {
-                                setAuthors(
-                                  authors?.filter((a) => a !== author) ?? [],
-                                )
-                              }
-                            }}
-                          />
-                          <Label
-                            htmlFor={author}
-                            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                      {Array.from(currentAuthors)?.length
+                        ? Array.from(currentAuthors).map((author) => (
+                          <div
+                            key={author}
+                            className='flex items-center space-x-2'
                           >
-                            {author}
-                          </Label>
-                        </div>
-                      ))}
+                            <Checkbox
+                              id={author}
+                              checked={authors?.includes(author)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setAuthors([...(authors ?? []), author])
+                                } else {
+                                  setAuthors(
+                                    authors?.filter((a) => a !== author) ??
+                                    [],
+                                  )
+                                }
+                              }}
+                            />
+                            <Label
+                              htmlFor={author}
+                              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                            >
+                              {author}
+                            </Label>
+                          </div>
+                        ))
+                        : null}
                     </div>
                   </ScrollArea>
                 </div>
