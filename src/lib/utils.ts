@@ -10,8 +10,11 @@ export function cn(...inputs: ClassValue[]) {
 
 export function slugify(text: string) {
   return text
+    .trim()
     .toString()
     .toLowerCase()
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[ñÑ]/g, 'n')
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/[^\w-]+/g, '') // Remove all non-word chars
     .replace(/--+/g, '-') // Replace multiple - with single -
