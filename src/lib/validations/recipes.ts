@@ -36,13 +36,13 @@ export const recipesSchema = z.object({
   ingredients: z
     .array(
       z.object({
-        ingredient: z.string().min(5, {
-          message: 'Must be at least 5 characters',
+        ingredient: z.string().min(2, {
+          message: 'Must be at least 2 characters',
         }),
 
         units: z.nativeEnum(Units).default(Units.kilogram),
 
-        quantity: z.number().positive().int().default(0),
+        quantity: z.number().positive().default(0),
       }),
       {
         required_error: 'Missing ingredients',
