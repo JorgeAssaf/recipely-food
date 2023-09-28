@@ -24,7 +24,7 @@ import {
   UncontrolledFormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { AddRecipeAction } from '@/app/_actions/recipes'
+import { AddRecipeAction, generateRecipes } from '@/app/_actions/recipes'
 import { OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
@@ -406,6 +406,34 @@ export function AddNewRecipe() {
             Add Product
             <span className='sr-only'>Add Product</span>
           </Button>
+          {process.env.NODE_ENV === 'development' ? (
+            <Button
+              type='button'
+              onClick={() => {
+                startTransition(async () => {
+                  try {
+                    await generateRecipes()
+                    toast.success('Recipes generated successfully.')
+                  } catch (error) {
+                    if (error instanceof Error) {
+                      toast.error(error.message)
+                    }
+                  }
+                })
+              }}
+              className='w-fit'
+              disabled={isPending}
+            >
+              {isPending && (
+                <Loader2
+                  className='mr-2 h-4 w-4 animate-spin'
+                  aria-hidden='true'
+                />
+              )}
+              Generate Recipes
+              <span className='sr-only'>Generate Recipes</span>
+            </Button>
+          ) : null}
         </form>
       </Form>
     </>
