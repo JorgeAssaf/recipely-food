@@ -24,7 +24,7 @@ import {
   UncontrolledFormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { AddRecipeAction, generateRecipes } from '@/app/_actions/recipes'
+import { AddRecipeAction } from '@/app/_actions/recipes'
 import { OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
