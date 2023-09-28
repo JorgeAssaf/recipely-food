@@ -95,15 +95,34 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
           })
           : null
 
-        await UpdateRecipeAction({
-          ...data,
-          id: recipe.id,
-          images: images ?? recipe.images,
-        })
+        toast.promise(
+          UpdateRecipeAction({
+            ...data,
+            id: recipe.id,
+            images: images ?? recipe.images,
+          }),
+          {
+            loading: 'Updating recipe...',
+            success: () => {
+              form.reset()
+              setFiles(null)
+              return 'Recipe updated successfully.'
+            },
+            error: (err: unknown) => {
+              if (err instanceof Error) {
+                return err.message
+              }
+              return 'Something went wrong.'
+            },
+          },
+        )
 
-        toast.success('Recipe updated successfully.')
         router.push(`/dashboard/recipes/your-recipes`)
-      } catch (error) { }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message)
+        }
+      }
     })
   }
   const { fields, append, remove } = useFieldArray({
@@ -240,7 +259,6 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     <FormControl>
                       <Input
                         inputMode='numeric'
-                        type='number'
                         placeholder='Insert quantity.'
                         {...form.register(
                           `ingredients.${index}.quantity` as const,
@@ -406,14 +424,14 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                   aria-hidden='true'
                 />
               )}
-              Add Product
-              <span className='sr-only'>Add Product</span>
+              Update Recipe
+              <span className='sr-only'>Update Recipe</span>
             </Button>
             <Button
               variant='destructive'
               disabled={isPending}
               onClick={() => {
-                startTransition(async () => {
+                startTransition(() => {
                   void form.trigger([
                     'name',
                     'description',
@@ -422,11 +440,23 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     'category',
                     'difficulty',
                     'ingredients',
-
                   ])
-                  await DeleteRecipeAction({
-                    id: recipe.id,
-                  })
+                  toast.promise(
+                    DeleteRecipeAction({ id: recipe.id }),
+
+                    {
+                      loading: 'Deleting recipe...',
+                      success: () => {
+                        return 'Recipe deleted successfully.'
+                      },
+                      error: (err: unknown) => {
+                        if (err instanceof Error) {
+                          return err.message
+                        }
+                        return 'Something went wrong.'
+                      },
+                    },
+                  )
                 })
                 router.push(`/dashboard/recipes/your-recipes`)
               }}

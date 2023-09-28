@@ -24,7 +24,7 @@ import {
   UncontrolledFormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { AddRecipeAction, DeleteRecipesAction } from '@/app/_actions/recipes'
+import { AddRecipeAction, generateRecipes } from '@/app/_actions/recipes'
 import { OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
@@ -84,13 +84,26 @@ export function AddNewRecipe() {
           })
           : null
 
-        await AddRecipeAction({
-          ...data,
-          images,
-        })
-        toast.success(`The recipe ${data.name} added.`)
-
-        form.reset()
+        toast.promise(
+          AddRecipeAction({
+            ...data,
+            images,
+          }),
+          {
+            loading: 'Adding recipe...',
+            success: () => {
+              form.reset()
+              setFiles(null)
+              return 'Recipe added successfully.'
+            },
+            error: (err: unknown) => {
+              if (err instanceof Error) {
+                return err.message
+              }
+              return 'Something went wrong.'
+            },
+          },
+        )
       } catch (error: any) {
         toast.error(error.message ?? 'Something went wrong.')
       }
@@ -226,7 +239,6 @@ export function AddNewRecipe() {
                     <FormControl>
                       <Input
                         inputMode='numeric'
-                        type='number'
                         placeholder='Insert quantity.'
                         {...form.register(
                           `ingredients.${index}.quantity` as const,
