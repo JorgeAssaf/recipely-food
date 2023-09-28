@@ -53,6 +53,7 @@ export async function getRecipesAction(
       .offset(offset)
       .where(
         and(
+          author.length ? inArray(recipes.author, author) : undefined,
           category ? eq(recipes.category, category) : undefined,
           categories.length ? inArray(recipes.category, categories) : undefined,
           difficulty.length
@@ -107,7 +108,10 @@ export async function AddRecipeAction(
   },
 ) {
   const user = await currentUser()
-  console.log(user?.id)
+
+  if (!user) {
+    throw new Error('You must be logged in to add a recipe.')
+  }
   const recipeWithSameName = await db.query.recipes.findFirst({
     where: eq(recipes.name, values.name),
   })
@@ -118,8 +122,8 @@ export async function AddRecipeAction(
 
   await db.insert(recipes).values({
     ...values,
-    userId: user?.id as string,
-    author: String(user?.firstName + ' ' + user?.lastName ?? user?.username),
+    userId: user.id,
+    author: `${user.firstName ?? user.username} ${user.lastName ?? ''}`,
   })
 
   revalidatePath(`/dashboard/recipes`)
@@ -151,6 +155,7 @@ export async function UpdateRecipeAction(
     .update(recipes)
     .set({
       ...values,
+      updatedAt: new Date(),
     })
     .where(eq(recipes.id, values.id))
 
