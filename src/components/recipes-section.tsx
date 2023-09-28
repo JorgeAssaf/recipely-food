@@ -68,7 +68,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   variant='secondary'
                   disabled={isPending}
                   className={cn(
-                    'justify-start space-x-2 text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base',
+                    'grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:justify-start md:text-base',
                     {
                       'bg-[hsl(343,88%,66%)]': category === item.title,
                     },
