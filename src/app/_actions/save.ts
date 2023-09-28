@@ -38,6 +38,7 @@ export async function addToSavedAction(
   input: z.infer<typeof addSaveRecipeSchema>,
 ) {
   const { userId } = auth()
+
   const checkIfSaved = await db.query.savedRecipes.findFirst({
     where: and(
       eq(savedRecipes.recipeId, input.recipeId),
@@ -57,63 +58,18 @@ export async function addToSavedAction(
   revalidatePath('/')
 }
 
-// export async function UpdateRecipeAction(
-//   values: z.infer<typeof recipesSchema> & {
-//     id: number
-//     images: FileUpload[] | null
-//   },
-// ) {
-//   const recipe = await db.query.recipes.findFirst({
-//     where: eq(recipes.id, values.id),
-//   })
-//   const recipeWithSameName = await db.query.recipes.findFirst({
-//     where: values.id
-//       ? and(eq(recipes.name, values.name), not(eq(recipes.id, values.id)))
-//       : eq(recipes.name, values.name),
-//   })
-
-//   if (recipeWithSameName) {
-//     throw new Error('Product name already taken.')
-//   }
-//   if (!recipe) {
-//     throw new Error('Recipe not found.')
-//   }
-
-//   await db
-//     .update(recipes)
-//     .set({
-//       ...values,
-//       updatedAt: new Date(),
-//     })
-//     .where(eq(recipes.id, values.id))
-
-//   revalidatePath(`/dashboard/recipes`)
-// }
-
-// export async function DeleteRecipeAction({ id: id }: { id: number }) {
-//   const recipe = await db.query.recipes.findFirst({
-//     where: eq(recipes.id, id),
-//   })
-//   if (!recipe) {
-//     throw new Error('Recipe not found.')
-//   }
-//   await db.delete(recipes).where(eq(recipes.id, id))
-
-//   revalidatePath(`/dashboard/recipes/your-recipes`)
-// }
-
 export async function DeleteSavedRecipeAction(
   input: z.infer<typeof getSavedRecipeSchema>,
 ) {
-  const saveRecipe = await db.query.savedRecipes.findFirst()
+  const saveRecipe = await db.query.savedRecipes.findFirst({
+    where: eq(savedRecipes.recipeId, input.recipeId),
+  })
 
   if (!saveRecipe) {
     throw new Error('Recipe not found.')
   }
 
-  await db
-    .delete(savedRecipes)
-    .where(eq(savedRecipes.recipeId, input.recipeId ?? 0))
+  await db.delete(savedRecipes).where(eq(savedRecipes.recipeId, input.recipeId))
 
   revalidatePath(`/dashboard/recipes/saved-recipes`)
 }
