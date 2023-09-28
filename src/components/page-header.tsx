@@ -12,7 +12,7 @@ interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 function PageHeader({
   className,
   children,
-  as: Comp = 'section',
+  as: Comp = 'hgroup',
   ...props
 }: PageHeaderProps) {
   return (
