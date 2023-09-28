@@ -59,13 +59,18 @@ export default async function RecipePage({ params }: RecipePageProps) {
           height={600}
         />
       ) : null}
-      <ul className='mt-4 flex flex-wrap gap-2'>
+      <h1 className='text-3xl'>{recipe.name}</h1>
+      <ul className='mt-4 flex flex-col flex-wrap gap-2'>
         {recipe.ingredients.map((ingredient, index) => (
           <li key={index} className='list-inside list-disc'>
-            {ingredient.ingredient}
+            {ingredient.quantity} {ingredient.units} of{' '}
+            <span className='font-semibold'>{ingredient.ingredient}</span>
           </li>
         ))}
       </ul>
+      <article className='prose  text-primary'>
+        <p>{recipe.steps}</p>
+      </article>
     </Shell>
   )
 }
