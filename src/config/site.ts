@@ -84,7 +84,7 @@ export const siteConfig = {
       items: [
         {
           title: 'Twitter',
-          href: 'https://twitter.com/JorgeAssaf',
+          href: 'https://twitter.com/AssafEnrique',
           external: true,
         },
         {
