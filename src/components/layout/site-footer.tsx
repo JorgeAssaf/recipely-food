@@ -1,49 +1,103 @@
+import Link from 'next/link'
+import { Github, Pizza } from 'lucide-react'
+
+import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
+
+import { Shell } from '../shell'
+import { buttonVariants } from '../ui/button'
 
 const SiteFooter = () => {
   return (
     <footer className=' w-full border-t bg-background'>
-      <div className='container flex h-16 items-center'>
-        <div className='flex flex-col items-center justify-center gap-4  text-center md:flex-row md:justify-between '>
-          <div className='flex flex-col items-center gap-4 md:flex-row md:gap-8'>
-            <a
-              href='#'
-              className='flex items-center gap-2 text-2xl font-bold tracking-tight '
+      <Shell as='section' className='py-8 md:py-12 lg:py-16'>
+        <section
+          id='footer-content'
+          aria-labelledby='footer-content-heading'
+          className='flex flex-col gap-10 lg:flex-row lg:gap-20'
+        >
+          <section
+            id='footer-branding'
+            aria-labelledby='footer-branding-heading'
+          >
+            <Link href='/' className='flex w-fit items-center space-x-2'>
+              <Pizza className='h-6 w-6' aria-hidden='true' />
+              <span className='font-bold'>{siteConfig.name}</span>
+              <span className='sr-only'>Home</span>
+            </Link>
+          </section>
+          <section
+            id='footer-links'
+            aria-labelledby='footer-links-heading'
+            className='xxs:grid-cols-2 grid flex-1 grid-cols-1 gap-5 sm:grid-cols-3'
+          >
+            {siteConfig.footerNav.map((item) => (
+              <div key={item.title} className='space-y-3'>
+                <h4 className='text-base font-medium'>{item.title}</h4>
+                <ul className='space-y-3'>
+                  {item.items.map((link) => (
+                    <li key={link.title}>
+                      <Link
+                        href={link.href}
+                        target={link?.external ? '_blank' : undefined}
+                        rel={link?.external ? 'noreferrer' : undefined}
+                        className='text-sm text-muted-foreground transition-colors hover:text-foreground'
+                      >
+                        {link.title}
+                        <span className='sr-only'>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+          <section
+            id='newsletter'
+            aria-labelledby='newsletter-heading'
+            className='space-y-3'
+          >
+            <h4 className='text-base font-medium'>
+              Subscribe to our newsletter (Coming Soon)
+            </h4>
+          </section>
+        </section>
+        <section
+          id='footer-bottom'
+          aria-labelledby='footer-bottom-heading'
+          className='flex items-center space-x-4'
+        >
+          <div className='flex-1 text-left text-sm leading-loose text-muted-foreground'>
+            Built by{' '}
+            <Link
+              href='https://twitter.com/jorgeassaf'
+              target='_blank'
+              rel='noreferrer'
+              className='font-semibold transition-colors hover:text-foreground'
             >
-              <span className='sr-only'>Recipe</span>
-              <span className='text-3xl font-bold tracking-tight '>
-                Recipe
-              </span>
-            </a>
-            <div className='flex items-center gap-6 text-gray-500'>
-              <a href='#' className='hover:'>
-                <span className='sr-only'>About</span>
-                <svg
-                  className='h-6 w-6'
-                  aria-hidden='true'
-                  fill='currentColor'
-                  viewBox='0 0 24 24'
-                >
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2ZM12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4Z'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M12 6C11.447 6 11 6.447 11 7V11C11 11.553 11.447 12 12 12C12.553 12 13 11.553 13 11V7C13 6.447 12.553 6 12 6Z'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M12 14C11.447 14 11 14.447 11 15C11 15.553 11.447 16 12 16C12.553 16 13 15.553 13 15C13 14.447 12.553 14 12 14Z'
-                  />
-                </svg>
-              </a>
-            </div>
+              Jorge Assaf
+              <span className='sr-only'>Twitter</span>
+            </Link>
+            .
           </div>
-        </div>
-      </div>
+          <div className='flex items-center space-x-1'>
+            <Link
+              href={siteConfig.sourceCode}
+              target='_blank'
+              rel='noreferrer'
+              className={cn(
+                buttonVariants({
+                  size: 'icon',
+                  variant: 'ghost',
+                }),
+              )}
+            >
+              <Github className='h-4 w-4' aria-hidden='true' />
+              <span className='sr-only'>GitHub</span>
+            </Link>
+          </div>
+        </section>
+      </Shell>
     </footer>
   )
 }
