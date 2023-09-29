@@ -50,10 +50,10 @@ const YourRecipesPage = async () => {
                 <CardDescription>{recipe.description}</CardDescription>
               </CardContent>
               <CardFooter>
-                <div className='flex justify-end'>
+                <div className='flex justify-end gap-4'>
                   <Link
                     href={`/recipe/${slugify(recipe.name)}`}
-                    className='text-primary'
+                    className={cn(buttonVariants({ variant: 'secondary' }))}
                   >
                     View
                   </Link>
