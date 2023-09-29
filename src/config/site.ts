@@ -92,6 +92,11 @@ export const siteConfig = {
           href: 'https://github.com/JorgeAssaf',
           external: true,
         },
+        {
+          title: 'LinkedIn',
+          href: 'https://www.linkedin.com/in/jorge-enrique-assaf/',
+          external: true,
+        },
       ],
     },
   ],
