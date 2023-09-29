@@ -31,7 +31,7 @@ export const RecipeCard = ({
   const LucideIcon = Icons[recipe.category]
   return (
     <Card className={cn('relative h-full ', className)} {...props}>
-      <CardHeader className='border-b p-0'>
+      <CardHeader className=' p-0'>
         <AspectRatio ratio={16 / 9} className={cn('h-full w-full', className)}>
           {recipe?.images?.length ? (
             <Image
@@ -58,7 +58,7 @@ export const RecipeCard = ({
         </AspectRatio>
       </CardHeader>
 
-      <div className='absolute inset-4 h-10 flex-col '>
+      <div className='absolute inset-4 h-10'>
         <div className='flex items-start justify-between space-x-4'>
           <div
             className={cn(
@@ -102,9 +102,9 @@ export const RecipeCard = ({
         </div>
       </div>
 
-      <div className='z-30 space-y-2 p-4'>
-        <div className='border-b'>
-          <p className='text-3xl font-semibold text-foreground'>
+      <div className='space-y-2 px-4'>
+        <div className='border-b py-3'>
+          <p className='text-2xl font-semibold text-foreground'>
             <Link
               href={`/recipe/${slugify(recipe.name)}`}
               className='cursor-pointer'
