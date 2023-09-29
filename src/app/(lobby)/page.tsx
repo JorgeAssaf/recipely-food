@@ -11,6 +11,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { CounterUp } from '@/components/counter-up'
 import { RecipesSection } from '@/components/recipes-section'
 import { Shell } from '@/components/shell'
+import { Construction } from 'lucide-react'
 
 const getRecipes = async (sort: string, category: Recipes['category']) => {
   const [column, order] =
@@ -89,6 +90,37 @@ export default async function Home({ searchParams }: HomeProps) {
       </section>
 
       <RecipesSection sortOptions={sortOptions} recipes={recipes} />
-    </Shell>
+
+      <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
+        <h3 className='text-3xl font-bold text-center'>
+          Top Comments (Coming Soon)
+        </h3>
+
+        <div className='flex flex-col items-center justify-center gap-4'>
+          <Construction className='h-36 w-36 text-muted-foreground' />
+        </div>
+
+      </section>
+      <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
+        <h3 className='text-3xl font-bold text-center'>
+          Our Blog (Coming Soon)
+        </h3>
+
+        <div className='flex flex-col items-center justify-center gap-4'>
+          <Construction className='h-36 w-36 text-muted-foreground' />
+        </div>
+
+      </section>
+      <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
+        <h3 className='text-3xl font-bold text-center'>
+          Gallery (Coming Soon)
+        </h3>
+
+        <div className='flex flex-col items-center justify-center gap-4'>
+          <Construction className='h-36 w-36 text-muted-foreground' />
+        </div>
+
+      </section>
+    </Shell >
   )
 }
