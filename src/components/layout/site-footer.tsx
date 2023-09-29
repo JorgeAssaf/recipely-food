@@ -10,7 +10,7 @@ import { buttonVariants } from '../ui/button'
 const SiteFooter = () => {
   return (
     <footer className=' w-full border-t bg-background'>
-      <Shell as='section' className='py-8 md:py-12 lg:py-16'>
+      <Shell as='section' className='py-8'>
         <section
           id='footer-content'
           aria-labelledby='footer-content-heading'

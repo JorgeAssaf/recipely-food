@@ -117,23 +117,28 @@ export const RecipeCard = ({
 
           <CardDescription>{recipe.description}</CardDescription>
           <div className='flex flex-col justify-between'>
-            <span>
+            <p className='text-foreground font-semibold'>
               Prep Time:{' '}
-              {recipe.prepTime > 60
-                ? `${Math.floor(recipe.prepTime / 60)}h ${recipe.prepTime % 60 === 0
-                  ? ''
-                  : `${recipe.prepTime % 60} min`
-                }`
-                : `${recipe.prepTime} min`}
-            </span>
-            <span>Difficulty: {recipe.difficulty}</span>
+              <span className='text-primary/70'>
+                {recipe.prepTime > 60
+                  ? `${Math.floor(recipe.prepTime / 60)}h ${recipe.prepTime % 60 === 0
+                    ? ''
+                    : `${recipe.prepTime % 60} min`
+                  }`
+                  : `${recipe.prepTime} min`}
+              </span>
+            </p>
+            <p className='text-foreground font-semibold'>
+              Difficulty: <span className='text-primary/70 capitalize'>
+                {recipe.difficulty}
+              </span>
+            </p>
           </div>
           <div className='flex flex-col'>
-            <span>Author: {recipe.author}</span>
-            <span>Category: {recipe.category}</span>
+            <p className='text-foreground font-semibold'>Author: <span className='text-primary/70'>{recipe.author}</span></p>
           </div>
         </div>
       </Link>
-    </Card>
+    </Card >
   )
 }
