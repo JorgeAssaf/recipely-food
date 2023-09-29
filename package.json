@@ -15,10 +15,10 @@
     "db:push": "drizzle-kit push:mysql",
     "db:introspect": "drizzle-kit introspect:mysql",
     "db:studio": "drizzle-kit studio",
-    "unlighthouse": "pnpm dlx unlighthouse --site https://recipely-food.vercel.app/ "
+    "unlighthouse": "pnpm dlx unlighthouse --site https://recipely-food.vercel.app/ --desktop --no-cache "
   },
   "dependencies": {
-    "@clerk/nextjs": "4.24.1",
+    "@clerk/nextjs": "4.24.2",
     "@clerk/themes": "1.7.6",
     "@hookform/resolvers": "3.3.1",
     "@planetscale/database": "1.11.0",
@@ -64,13 +64,13 @@
     "zod": "3.22.2"
   },
   "devDependencies": {
-    "@clerk/types": "3.52.0",
+    "@clerk/types": "3.52.1",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
     "@next/eslint-plugin-next": "13.5.3",
     "@tailwindcss/typography": "0.5.10",
-    "@types/node": "20.7.0",
-    "@types/react": "18.2.22",
-    "@types/react-dom": "18.2.7",
+    "@types/node": "20.7.1",
+    "@types/react": "18.2.23",
+    "@types/react-dom": "18.2.8",
     "@typescript-eslint/eslint-plugin": "6.7.3",
     "@typescript-eslint/parser": "6.7.3",
     "autoprefixer": "10.4.16",
@@ -78,7 +78,7 @@
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.3",
     "eslint-config-prettier": "9.0.0",
-    "postcss": "8.4.30",
+    "postcss": "8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.4",
     "tailwindcss": "3.3.3"
