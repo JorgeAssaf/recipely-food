@@ -8,7 +8,7 @@ import type { Recipes } from '@/db/schema'
 import { ArrowUpRight, XCircle } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
-import { cn, slugify } from '@/lib/utils'
+import { cn, formatPrepTime, slugify } from '@/lib/utils'
 
 import { Icons } from './icons'
 import SortButton from './sort-button'
@@ -148,12 +148,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                       <p className=''>
                         Cooking time: &nbsp;
                         <span className='font-bold'>
-                          {recipe.prepTime > 60
-                            ? `${Math.floor(recipe.prepTime / 60)}h ${recipe.prepTime % 60 === 0
-                              ? ''
-                              : `${recipe.prepTime % 60} min`
-                            }`
-                            : `${recipe.prepTime} min`}
+                          {formatPrepTime(recipe.prepTime)}
                         </span>
                       </p>
                     </div>

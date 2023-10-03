@@ -7,7 +7,7 @@ import { type Recipes as RecipesSchema } from '@/db/schema'
 import { Bookmark, ImageIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { cn, slugify } from '@/lib/utils'
+import { cn, formatPrepTime, slugify } from '@/lib/utils'
 import { Card, CardDescription, CardHeader } from '@/components/ui/card'
 import { addToSavedAction } from '@/app/_actions/save'
 
@@ -104,28 +104,22 @@ export const RecipeCard = ({
 
       <div className='space-y-2 px-4'>
         <div className='border-b py-3'>
-          <p className='text-2xl font-semibold text-foreground'>
+          <p className='line-clamp-1 text-xl font-semibold '>
             <Link
               href={`/recipe/${slugify(recipe.name)}`}
               className='cursor-pointer'
             >
-              {' '}
               {recipe.name}
             </Link>
           </p>
         </div>
 
         <CardDescription>{recipe.description}</CardDescription>
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-between '>
           <p className='font-semibold text-foreground'>
             Prep Time:{' '}
             <span className='text-primary/70'>
-              {recipe.prepTime > 60
-                ? `${Math.floor(recipe.prepTime / 60)}h ${recipe.prepTime % 60 === 0
-                  ? ''
-                  : `${recipe.prepTime % 60} min`
-                }`
-                : `${recipe.prepTime} min`}
+              {formatPrepTime(recipe.prepTime)}
             </span>
           </p>
           <p className='font-semibold text-foreground'>
@@ -136,7 +130,7 @@ export const RecipeCard = ({
           </p>
         </div>
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col pb-10'>
           <p className='font-semibold text-foreground'>
             Author: <span className='text-primary/70'>{recipe.author}</span>
           </p>

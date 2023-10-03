@@ -33,6 +33,17 @@ export const deslugify = (text: string) => {
     )
 }
 
+export const formatPrepTime = (prepTime: number) => {
+  const hours = Math.floor(prepTime / 60)
+  const minutes = prepTime % 60
+
+  if (hours === 0) {
+    return `${minutes} min`
+  }
+
+  return `${hours}h ${minutes} min`
+}
+
 export function toTitleCase(str: string) {
   return str.replace(
     /\w\S*/g,
