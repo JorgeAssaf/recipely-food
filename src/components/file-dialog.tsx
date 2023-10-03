@@ -100,17 +100,16 @@ const FileDialog = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     return () => {
-
       if (!files) return
       files.forEach((file) => URL.revokeObjectURL(file.preview))
-
     }
   }, [])
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant='outline'>
-          Upload images
+          Upload images{' '}
+          <UploadIcon className='ml-2 h-4 w-4' aria-hidden='true' />
           <span className='sr-only' aria-hidden='true'>
             Upload images
           </span>
