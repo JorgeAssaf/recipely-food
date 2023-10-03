@@ -4,13 +4,17 @@ import { z } from 'zod'
 import { Units } from '@/types/recipes'
 
 export const recipesSchema = z.object({
-  name: z.string().min(1, {
-    message: 'Missing valid recipe name',
-  }).regex(/^[a-zA-Z0-9 ]+$/, {
-    message: 'Recipe name must be alphanumeric no - or _',
-  }).nonempty({
-    message: 'Missing valid recipe name',
-  }),
+  name: z
+    .string()
+    .min(1, {
+      message: 'Missing valid recipe name',
+    })
+    .regex(/^[a-zA-Z0-9 ]+$/, {
+      message: 'Recipe name must be alphanumeric no - or _',
+    })
+    .nonempty({
+      message: 'Missing valid recipe name',
+    }),
   description: z
     .string({
       required_error: 'Missing description',
@@ -88,6 +92,10 @@ export const getRecipesSchema = z.object({
     .optional()
     .nullable(),
   author: z.string().optional().nullable(),
-  prepTime: z.number().optional(),
+  prepTime: z
+    .string()
+    .regex(/^\d+.\d+$/)
+    .optional()
+    .nullable(),
   difficulty: z.string().optional().nullable(),
 })
