@@ -84,7 +84,7 @@ export default async function CategotyPage() {
   })
 
   return (
-    <Shell as='div' className='py-10'>
+    <Shell as='main'>
       <PageHeader>
         <PageHeaderHeading>Categories</PageHeaderHeading>
         <PageHeaderDescription>View all categories</PageHeaderDescription>
