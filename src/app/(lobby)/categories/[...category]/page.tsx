@@ -48,7 +48,7 @@ export default async function CategoryPage({
     limit,
     offset,
     category,
-    prepTime: time,
+    prepTime: typeof prepTime === 'string' ? String(prepTime) : null,
     difficulty: typeof difficulty === 'string' ? difficulty : null,
     author: typeof authors === 'string' ? authors : null,
     sort: typeof sort === 'string' ? sort : null,
