@@ -84,12 +84,12 @@ export default async function CategotyPage() {
   })
 
   return (
-    <Shell as='section'>
+    <Shell>
       <PageHeader>
         <PageHeaderHeading>Categories</PageHeaderHeading>
         <PageHeaderDescription>View all categories</PageHeaderDescription>
       </PageHeader>
-      <section className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {recipesCategories.map((category) => {
           return (
             <Link
@@ -143,7 +143,7 @@ export default async function CategotyPage() {
             </Link>
           )
         })}
-      </section>
+      </div>
     </Shell>
   )
 }

@@ -7,7 +7,7 @@ import { Shell } from '@/components/shell'
 
 export default function CategoriesLoading() {
   return (
-    <Shell as='section'>
+    <Shell>
       <div className='space-y-2'>
         <Skeleton className='h-10 w-36' />
         <Skeleton className='h-4 w-48' />

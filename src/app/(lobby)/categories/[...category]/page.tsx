@@ -57,7 +57,7 @@ export default async function CategoryPage({
   const pageCount = Math.ceil(recipesTransaction.count / limit)
 
   return (
-    <Shell as='section'>
+    <Shell>
       <div>
         <PageHeader>
           <PageHeaderHeading>
