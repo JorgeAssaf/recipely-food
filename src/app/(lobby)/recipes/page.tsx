@@ -45,7 +45,7 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
   const pageCount = Math.ceil(recipesTransaction.count / limit)
 
   return (
-    <Shell as='main'>
+    <Shell as='section'>
       <div>
         <PageHeader>
           <PageHeaderHeading>Recipes</PageHeaderHeading>

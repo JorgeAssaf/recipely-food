@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <Shell as='main'>
+    <Shell as='section'>
       <PageHeader>
         <PageHeaderHeading>Blog</PageHeaderHeading>
         <PageHeaderDescription>Read the new Recipes</PageHeaderDescription>

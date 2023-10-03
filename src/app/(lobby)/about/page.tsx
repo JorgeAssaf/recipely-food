@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 export default function AboutPage() {
   return (
-    <Shell as='main'>
+    <Shell as='section'>
       <PageHeader>
         <PageHeaderHeading>About</PageHeaderHeading>
         <PageHeaderDescription>About the Recipes</PageHeaderDescription>

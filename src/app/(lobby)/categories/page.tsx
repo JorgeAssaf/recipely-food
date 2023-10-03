@@ -84,7 +84,7 @@ export default async function CategotyPage() {
   })
 
   return (
-    <Shell as='main'>
+    <Shell as='section'>
       <PageHeader>
         <PageHeaderHeading>Categories</PageHeaderHeading>
         <PageHeaderDescription>View all categories</PageHeaderDescription>
