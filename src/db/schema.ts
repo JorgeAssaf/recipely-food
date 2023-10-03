@@ -21,7 +21,7 @@ export const recipes = mysqlTable('recipes', {
   difficulty: mysqlEnum('difficulty', ['easy', 'medium', 'hard'])
     .notNull()
     .default('easy'),
-  rating: int('rating').default(0).notNull(),
+  rating: int('rating').default(0),
   ingredients: json('ingredients').$type<IngredientsType[]>().notNull(),
   category: mysqlEnum('category', [
     'breakfast',
