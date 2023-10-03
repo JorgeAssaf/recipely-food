@@ -37,7 +37,7 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
     offset,
     sort: typeof sort === 'string' ? sort : null,
     categories: typeof categories === 'string' ? categories : null,
-    prepTime: typeof prepTime === 'string' ? parseInt(prepTime) : null ?? 0,
+    prepTime: typeof prepTime === 'string' ? String(prepTime) : null,
     difficulty: typeof difficulty === 'string' ? difficulty : null,
     author: typeof authors === 'string' ? authors : null,
   })
