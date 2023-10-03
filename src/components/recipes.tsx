@@ -24,6 +24,7 @@ import { Slider } from '@/components/ui/slider'
 
 import { RecipeCard } from './cards/recipe-card'
 import { MultiSelect } from './multi-select'
+import { PaginationButton } from './pagination-buttons'
 
 interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
   recipes: RecipesSchema[]
@@ -184,7 +185,7 @@ export const Recipes = ({
                   min={0}
                   max={500}
                   defaultValue={[0, 500]}
-                  step={1}
+                  step={5}
                   value={prepTime}
                   onValueChange={(value: typeof prepTime) => {
                     setPrepTime(value)
@@ -305,6 +306,15 @@ export const Recipes = ({
           ))}
         </div>
       </div>
+      {recipes.length ? (
+        <PaginationButton
+          pageCount={pageCount}
+          page={page}
+          per_page={per_page}
+          createQueryString={createQueryString}
+          sort={sort}
+        />
+      ) : null}
     </section>
   )
 }
