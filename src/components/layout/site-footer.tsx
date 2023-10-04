@@ -33,7 +33,7 @@ const SiteFooter = () => {
           >
             {siteConfig.footerNav.map((item) => (
               <div key={item.title} className='space-y-3'>
-                <h4 className='text-base font-medium'>{item.title}</h4>
+                <p className='text-base font-medium'>{item.title}</p>
                 <ul className='space-y-3'>
                   {item.items.map((link) => (
                     <li key={link.title}>
@@ -57,9 +57,9 @@ const SiteFooter = () => {
             aria-labelledby='newsletter-heading'
             className='space-y-3'
           >
-            <h4 className='text-base font-medium'>
+            <p className='text-base font-medium'>
               Subscribe to our newsletter (Coming Soon)
-            </h4>
+            </p>
           </section>
         </section>
         <section
