@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
 
 import { deslugify } from '@/lib/utils'
 import { Shell } from '@/components/shell'
+import SingleRecipe from '@/components/single-recipe'
 
 type MetaProps = {
   params: { name: string }
@@ -50,27 +50,10 @@ export default async function RecipePage({ params }: RecipePageProps) {
   }
 
   return (
-    <Shell as='div'>
-      {recipe.images && recipe.images.length > 0 ? (
-        <Image
-          src={recipe.images[0].url}
-          alt={recipe.name}
-          width={900}
-          height={600}
-        />
-      ) : null}
-      <h1 className='text-3xl'>{recipe.name}</h1>
-      <ul className='mt-4 flex flex-col flex-wrap gap-2'>
-        {recipe.ingredients.map((ingredient, index) => (
-          <li key={index} className='list-inside list-disc'>
-            {ingredient.quantity} {ingredient.units} of{' '}
-            <span className='font-semibold'>{ingredient.ingredient}</span>
-          </li>
-        ))}
-      </ul>
-      <article className='prose  text-primary'>
-        <p>{recipe.steps}</p>
-      </article>
+    <Shell>
+      <div>
+        <SingleRecipe recipe={recipe} />
+      </div>
     </Shell>
   )
 }
