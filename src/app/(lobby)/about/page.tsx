@@ -15,10 +15,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Shell>
-      <PageHeader>
-        <PageHeaderHeading>About</PageHeaderHeading>
-        <PageHeaderDescription>About the Recipes</PageHeaderDescription>
-      </PageHeader>
+      <div>
+        <PageHeader>
+          <PageHeaderHeading>About</PageHeaderHeading>
+          <PageHeaderDescription>About the Recipes</PageHeaderDescription>
+        </PageHeader>
+      </div>
     </Shell>
   )
 }
