@@ -78,71 +78,73 @@ function RecipeSlogan({ category, className, ...props }: RecipeSloganProps) {
   }
 }
 
-export default async function CategotyPage() {
+export default async function CategoryPage() {
   const countRecipesByCategory = await db.query.recipes.findMany({
     columns: { category: true },
   })
 
   return (
     <Shell>
-      <PageHeader>
-        <PageHeaderHeading>Categories</PageHeaderHeading>
-        <PageHeaderDescription>View all categories</PageHeaderDescription>
-      </PageHeader>
-      <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-        {recipesCategories.map((category) => {
-          return (
-            <Link
-              href={`/categories/${category.title}`}
-              className='group relative overflow-hidden rounded-md border'
-              key={category.title}
-            >
-              <AspectRatio ratio={16 / 9}>
-                <div className='absolute inset-0 z-10 bg-zinc-950/70 transition-colors group-hover:bg-zinc-950/75' />
-                <Image
-                  src={`/images/${category.title}.webp`}
-                  alt={`${category.title} category`}
-                  className='object-cover transition-transform group-hover:scale-105'
-                  sizes='(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw'
-                  fill
-                  priority={true}
-                />
-              </AspectRatio>
-              <div className='absolute inset-4 z-20 flex flex-col'>
-                <div className='flex items-start justify-between space-x-4'>
-                  <div
-                    className={cn(
-                      buttonVariants({
-                        size: 'icon',
-                        className:
-                          'pointer-events-none h-8 w-8 bg-zinc-100 text-zinc-950',
-                      }),
-                    )}
-                    aria-hidden='true'
-                  >
-                    <category.icon className='h-5 w-5' />
+      <div className='space-y-8'>
+        <PageHeader>
+          <PageHeaderHeading>Categories</PageHeaderHeading>
+          <PageHeaderDescription>View all categories</PageHeaderDescription>
+        </PageHeader>
+        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+          {recipesCategories.map((category) => {
+            return (
+              <Link
+                href={`/categories/${category.title}`}
+                className='group relative overflow-hidden rounded-md border'
+                key={category.title}
+              >
+                <AspectRatio ratio={16 / 9}>
+                  <div className='absolute inset-0 z-10 bg-zinc-950/70 transition-colors group-hover:bg-zinc-950/75' />
+                  <Image
+                    src={`/images/${category.title}.webp`}
+                    alt={`${category.title} category`}
+                    className='object-cover transition-transform group-hover:scale-105'
+                    sizes='(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw'
+                    fill
+                    priority
+                  />
+                </AspectRatio>
+                <div className='absolute inset-4 z-20 flex flex-col'>
+                  <div className='flex items-start justify-between space-x-4'>
+                    <div
+                      className={cn(
+                        buttonVariants({
+                          size: 'icon',
+                          className:
+                            'pointer-events-none h-8 w-8 bg-zinc-100 text-zinc-950',
+                        }),
+                      )}
+                      aria-hidden='true'
+                    >
+                      <category.icon className='h-5 w-5' />
+                    </div>
+                    <p className='text-sm text-zinc-200'>
+                      {
+                        countRecipesByCategory.filter(
+                          (recipe) => recipe.category === category.title,
+                        ).length
+                      }{' '}
+                      recipes
+                    </p>
                   </div>
-                  <p className='text-sm text-zinc-200'>
-                    {
-                      countRecipesByCategory.filter(
-                        (recipe) => recipe.category === category.title,
-                      ).length
-                    }{' '}
-                    recipes
-                  </p>
+                  <h3 className='mt-auto text-xl font-medium capitalize text-zinc-200'>
+                    {category.title}
+                  </h3>
+                  <RecipeSlogan
+                    category={category}
+                    className='text-muted-foreground'
+                  />
                 </div>
-                <h3 className='mt-auto text-xl font-medium capitalize text-zinc-200'>
-                  {category.title}
-                </h3>
-                <RecipeSlogan
-                  category={category}
-                  className='text-muted-foreground'
-                />
-              </div>
-              <span className='sr-only'>{category.title}</span>
-            </Link>
-          )
-        })}
+                <span className='sr-only'>{category.title}</span>
+              </Link>
+            )
+          })}
+        </div>
       </div>
     </Shell>
   )
