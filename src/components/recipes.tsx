@@ -148,7 +148,12 @@ export const Recipes = ({
       <div className='flex items-center space-x-2'>
         <Sheet>
           <SheetTrigger asChild>
-            <Button aria-label='Filter products' className='my-3' size='sm'>
+            <Button
+              aria-label='Filter products'
+              className='my-3'
+              size='sm'
+              disabled={isPending || !recipes?.length}
+            >
               Filter
             </Button>
           </SheetTrigger>
