@@ -48,9 +48,13 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
     <Shell>
       <div>
         <PageHeader>
-          <PageHeaderHeading>Recipes</PageHeaderHeading>
+          <PageHeaderHeading>
+            {recipesTransaction.count > 0 ? 'All Recipes' : 'No recipes found'}
+          </PageHeaderHeading>
           <PageHeaderDescription>
-            Find your favorite recipes here
+            {recipesTransaction.count > 0
+              ? 'Find your favorite recipes here'
+              : 'No recipes found'}
           </PageHeaderDescription>
         </PageHeader>
         <Recipes

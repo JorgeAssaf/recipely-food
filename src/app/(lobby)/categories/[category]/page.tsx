@@ -25,18 +25,21 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   return {
-    title: params.category === null ? 'No category found' : toTitleCase(params.category),
-    description: `View all recipes in the ${toTitleCase(params.category ?? 'No category found')} category`,
+    title:
+      params.category === null
+        ? 'No category found'
+        : toTitleCase(params.category),
+    description: `View all recipes in the ${toTitleCase(
+      params.category ?? 'No category found',
+    )} category`,
   }
 }
-
 
 export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
   const { category } = params ?? 'No category found'
-
 
   const { page, per_page, sort, prepTime, difficulty, authors } = searchParams
 
@@ -53,7 +56,6 @@ export default async function CategoryPage({
     sort: typeof sort === 'string' ? sort : null,
   })
 
-
   const pageCount = Math.ceil(recipesTransaction.count / limit)
 
   return (
@@ -61,10 +63,14 @@ export default async function CategoryPage({
       <div>
         <PageHeader>
           <PageHeaderHeading>
-            {recipesTransaction.count > 0 ? toTitleCase(category) : 'No category found'}
+            {recipesTransaction.count > 0
+              ? toTitleCase(category)
+              : 'No category found'}
           </PageHeaderHeading>
           <PageHeaderDescription>
-            {recipesTransaction.count > 0 ? `View all recipes in the ${toTitleCase(category)} category` : 'No category found'}
+            {recipesTransaction.count > 0
+              ? `View all recipes in the ${toTitleCase(category)} category`
+              : 'No category found'}
           </PageHeaderDescription>
         </PageHeader>
         <Recipes
