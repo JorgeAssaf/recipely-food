@@ -152,7 +152,7 @@ export const Recipes = ({
               aria-label='Filter products'
               className='my-3'
               size='sm'
-              disabled={isPending || !recipes?.length}
+              disabled={isPending}
             >
               Filter
             </Button>
