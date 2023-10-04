@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import { db } from '@/db'
-import { recipes as recipesDB, type Recipes } from '@/db/schema'
-import { asc, desc, like } from 'drizzle-orm'
+import { type Recipes } from '@/db/schema'
 import { Balancer } from 'react-wrap-balancer'
 
 import { sortOptions } from '@/config/recipes'
@@ -11,29 +9,8 @@ import { buttonVariants } from '@/components/ui/button'
 import { CounterUp } from '@/components/counter-up'
 import { RecipesSection } from '@/components/recipes-section'
 import { Shell } from '@/components/shell'
-import { Construction } from 'lucide-react'
 
-const getRecipes = async (sort: string, category: Recipes['category']) => {
-  const [column, order] =
-    (sort?.split('.') as [
-      keyof Recipes | undefined,
-      'asc' | 'desc' | undefined,
-    ]) ?? []
-
-  const recipes = await db
-    .select()
-    .from(recipesDB)
-    .where(like(recipesDB.category, `%${category}%`))
-    .orderBy(
-      column && column in recipesDB
-        ? order === 'asc'
-          ? asc(recipesDB[column])
-          : desc(recipesDB[column])
-        : desc(recipesDB.createdAt),
-    )
-    .limit(2)
-  return recipes
-}
+import { getRecipesAction } from '../_actions/recipes'
 
 type HomeProps = {
   searchParams: { sort: string; category: Recipes['category'] }
@@ -42,7 +19,13 @@ type HomeProps = {
 export default async function Home({ searchParams }: HomeProps) {
   const { sort, category } = searchParams ?? {}
 
-  const recipes = await getRecipes(sort, category ?? 'breakfast')
+  const recipesTransaction = await getRecipesAction({
+    limit: 2,
+    offset: 0,
+    sort,
+    category: category ?? 'breakfast',
+  })
+  const recipes = recipesTransaction.items
 
   return (
     <Shell as='div' className='py-3'>
@@ -55,7 +38,7 @@ export default async function Home({ searchParams }: HomeProps) {
           className='flex gap-1 px-4 py-2 text-sm font-bold md:text-base'
           variant='outline'
         >
-          More than <CounterUp count={1000} /> recipes
+          More than <CounterUp count={500} /> recipes
         </Badge>
         <h1 className='text-4xl font-bold  md:text-5xl lg:text-6xl lg:leading-[1.1]'>
           Discover simple, delicious and{' '}
@@ -91,36 +74,33 @@ export default async function Home({ searchParams }: HomeProps) {
 
       <RecipesSection sortOptions={sortOptions} recipes={recipes} />
 
-      <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
-        <h3 className='text-3xl font-bold text-center'>
+      {/* <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
+        <h3 className='text-center text-3xl font-bold'>
           Top Comments (Coming Soon)
         </h3>
 
         <div className='flex flex-col items-center justify-center gap-4'>
           <Construction className='h-36 w-36 text-muted-foreground' />
         </div>
-
       </section>
       <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
-        <h3 className='text-3xl font-bold text-center'>
+        <h3 className='text-center text-3xl font-bold'>
           Our Blog (Coming Soon)
         </h3>
 
-        <div className='flex flex-col items-center justify-center gap-4'>
+        <div>
           <Construction className='h-36 w-36 text-muted-foreground' />
         </div>
-
       </section>
       <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-12 lg:py-16'>
-        <h3 className='text-3xl font-bold text-center'>
+        <h3 className='text-center text-3xl font-bold'>
           Gallery (Coming Soon)
         </h3>
 
-        <div className='flex flex-col items-center justify-center gap-4'>
-          <Construction className='h-36 w-36 text-muted-foreground' />
-        </div>
 
-      </section>
-    </Shell >
+
+        <Construction className='h-36 w-36 text-muted-foreground' />
+      </section> */}
+    </Shell>
   )
 }
