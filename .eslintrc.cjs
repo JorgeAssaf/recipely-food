@@ -6,9 +6,8 @@ const config = {
   },
   plugins: ['@typescript-eslint', 'tailwindcss'],
   extends: [
-    'plugin:@next/next/recommended',
-    'plugin:@typescript-eslint/recommended-type-checked',
     'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended-type-checked',
     'prettier',
     'plugin:tailwindcss/recommended',
   ],
@@ -24,8 +23,9 @@ const config = {
   },
   settings: {
     tailwindcss: {
-      callees: ['cn'],
+      callees: ['cn', 'cva'],
       config: './tailwind.config.ts',
+      classRegex: '^(class(Name)?|tw)$',
     },
     next: {
       rootDir: ['./'],
