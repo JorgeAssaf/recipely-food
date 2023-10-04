@@ -151,7 +151,6 @@ export function AddNewRecipe() {
                       src={file.preview}
                       alt={file.name}
                       className='h-24 w-24 shrink-0 rounded-md object-cover object-center'
-                      loading='lazy'
                     />
                   </Zoom>
                 ))}

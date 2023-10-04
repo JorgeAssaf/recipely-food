@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { Recipes, recipes } from '@/db/schema'
+import { recipes, type Recipes } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
@@ -39,6 +39,7 @@ import {
 } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 import { Zoom } from '../zoom-image'
+import Image from 'next/image'
 
 type Inputs = z.infer<typeof recipesSchema>
 
@@ -171,7 +172,6 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                       src={file.preview}
                       alt={file.name}
                       className='h-24 w-24 shrink-0 rounded-md object-cover object-center'
-                      loading='lazy'
                     />
                   </Zoom>
                 ))}
