@@ -10,7 +10,6 @@ export function GET(req: Request) {
 
     const { mode, title, description, type } = parsedValues
     const paint = mode === 'dark' ? '#fff' : '#000'
-    console.log(parsedValues)
     return new ImageResponse(
       (
         <div
