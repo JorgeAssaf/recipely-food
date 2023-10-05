@@ -9,7 +9,7 @@ export const recipesSchema = z.object({
     .min(1, {
       message: 'Missing valid recipe name',
     })
-    .regex(/^[a-zA-Z0-9 ]+$/, {
+    .regex(/^[a-zA-Z0-9-ñ ]+$/, {
       message: 'Recipe name must be alphanumeric no - or _',
     })
     .nonempty({
