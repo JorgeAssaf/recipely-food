@@ -9,11 +9,8 @@ export const recipesSchema = z.object({
     .min(1, {
       message: 'Missing valid recipe name',
     })
-    .regex(/^[a-zA-Z0-9-ñ ]+$/, {
+    .regex(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/g, {
       message: 'Recipe name must be alphanumeric no - or _',
-    })
-    .nonempty({
-      message: 'Missing valid recipe name',
     }),
   description: z
     .string({
@@ -21,9 +18,6 @@ export const recipesSchema = z.object({
     })
     .min(10, {
       message: 'Must be at least 10 characters',
-    })
-    .nonempty({
-      message: 'Missing description',
     }),
   images: z
     .unknown()
@@ -35,7 +29,6 @@ export const recipesSchema = z.object({
     .optional()
     .nullable()
     .default(null),
-
   difficulty: z
     .enum(recipes.difficulty.enumValues, {
       required_error: 'Must be a valid difficulty',
@@ -71,9 +64,6 @@ export const recipesSchema = z.object({
     })
     .min(10, {
       message: 'Must be at least 10 characters',
-    })
-    .nonempty({
-      message: 'Missing steps',
     }),
 })
 
