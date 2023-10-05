@@ -16,7 +16,7 @@ import { Badge } from './ui/badge'
 import { Button, buttonVariants } from './ui/button'
 import { Skeleton } from './ui/skeleton'
 
-interface RecipeSectionProps {
+interface RecipeSectionProps extends React.ComponentPropsWithoutRef<'section'> {
   sortOptions: {
     label: string
     value: string
@@ -27,6 +27,7 @@ interface RecipeSectionProps {
 export const RecipesSection: FC<RecipeSectionProps> = ({
   sortOptions,
   recipes,
+  className,
 }) => {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
@@ -54,7 +55,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
 
   return (
     <>
-      <section className='flex items-center justify-between'>
+      <section className={cn('flex items-center justify-between', className)}>
         <h2 className='text-3xl font-bold md:text-5xl'>Recipes</h2>
         <SortButton sortOptions={sortOptions} />
       </section>
