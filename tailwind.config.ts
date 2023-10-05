@@ -17,6 +17,8 @@ module.exports = {
     },
     extend: {
       screens: {
+        '2xl': '1400px',
+        sx: '500px',
         xs: '380px',
       },
       flex: {

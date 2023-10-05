@@ -1,6 +1,5 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import classnames from 'classnames'
 
 import { As, cn } from '@/lib/utils'
 
@@ -26,10 +25,7 @@ interface HeadingOwnProps {
 
 type HeadingProps = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'> & HeadingOwnProps
 
-export const Heading = React.forwardRef<
-  HTMLHeadingElement,
-  Readonly<HeadingProps>
->(
+export const Heading = forwardRef<HTMLHeadingElement, Readonly<HeadingProps>>(
   (
     {
       as: Tag = 'h1',
