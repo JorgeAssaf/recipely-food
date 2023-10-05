@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { Recipes } from '@/db/schema'
-import { ArrowUpRight, XCircle } from 'lucide-react'
+import { Clock, Flame, XCircle } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
 import { cn, formatPrepTime, slugify } from '@/lib/utils'
@@ -105,7 +105,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
               alt={category}
               className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[405px]'
             />
-            <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
+            <div className='duration-400 absolute inset-0 flex h-full items-center justify-center opacity-0 transition group-hover:opacity-100'>
               <Link
                 href={`/categories/${category}`}
                 className={cn(
@@ -116,20 +116,19 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                 )}
                 aria-label='View recipe'
               >
-                <span>View category</span>
-                <ArrowUpRight className='ml-2 h-5 w-5' aria-hidden='true' />
+                <p>View category</p>
               </Link>
             </div>
           </div>
 
           {recipes.length > 0 ? (
-            <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground xs:grid-cols-2 md:flex md:w-full md:flex-col'>
+            <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground sx:grid-cols-2 md:flex md:w-full md:flex-col'>
               {recipes.slice(0, 2).map((recipe) =>
                 isPending ? (
                   <Skeleton className='h-[180px] w-full' key={recipe.id} />
                 ) : (
                   <div
-                    className=' space-y-2 rounded-md border border-muted-foreground p-4'
+                    className=' space-y-3 rounded-md border-2 border-muted-foreground p-4'
                     key={recipe.id}
                   >
                     <h3 className=' truncate text-xl font-semibold lg:text-3xl'>
@@ -139,14 +138,16 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                       {recipe.category}
                     </Badge>
                     <div className='flex flex-col gap-2 lg:flex-row'>
-                      <p className='border-muted-foreground md:border-r-2 md:pr-3 '>
-                        Dificulty: &nbsp;
+                      <p className='flex items-center gap-1 md:border-l-2 md:pl-3 md:pr-3'>
+                        <Flame className='h-5 w-5' aria-hidden='true' />
+                        Dificulty:
                         <span className='font-bold capitalize'>
                           {recipe.difficulty}
                         </span>
                       </p>
-                      <p className=''>
-                        Cooking time: &nbsp;
+                      <p className='flex items-center gap-1 md:border-l-2  md:pl-3 md:pr-3'>
+                        <Clock className='h-5 w-5' aria-hidden='true' />
+                        Time:
                         <span className='font-bold'>
                           {formatPrepTime(recipe.prepTime)}
                         </span>
