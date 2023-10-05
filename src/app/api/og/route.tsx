@@ -1,6 +1,5 @@
 import type { ServerRuntime } from 'next'
 import { ImageResponse } from 'next/server'
-import { PizzaIcon } from 'lucide-react'
 
 export const runtime: ServerRuntime = 'edge'
 
