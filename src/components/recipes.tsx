@@ -1,5 +1,6 @@
 'use client'
 
+import type { FC } from 'react'
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type Recipes as RecipesSchema } from '@/db/schema'
@@ -34,14 +35,14 @@ interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
   userId?: string
 }
 
-export const Recipes = ({
+export const Recipes: FC<RecipesProps> = ({
   recipes,
   pageCount,
   categories,
   category,
   userId,
   ...props
-}: RecipesProps) => {
+}) => {
   const [isPending, startTransition] = useTransition()
   const searchParams = useSearchParams()
   const pahname = usePathname()
