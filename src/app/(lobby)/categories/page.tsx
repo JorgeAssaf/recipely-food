@@ -43,6 +43,12 @@ function RecipeSlogan({ category, className, ...props }: RecipeSloganProps) {
           Time to refuel and get back to work!
         </p>
       )
+    case 'meal':
+      return (
+        <p {...props} className={cn(className)}>
+          Imagination is the only limit!
+        </p>
+      )
     case 'dinner':
       return (
         <p {...props} className={cn(className)}>
