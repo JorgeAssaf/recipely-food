@@ -69,9 +69,9 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   variant='secondary'
                   disabled={isPending}
                   className={cn(
-                    'grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:justify-start md:text-base',
+                    'grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors hover:bg-color-accent md:justify-start md:text-base',
                     {
-                      'bg-[hsl(343,88%,66%)]': category === item.title,
+                      'bg-color-accent': category === item.title,
                     },
                   )}
                   key={item.title}
@@ -98,18 +98,16 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
         </div>
         <div className='flex w-full flex-col items-center gap-10 md:flex-row '>
           <div className='group relative h-full w-full '>
-            {isPending ? (
-              <Skeleton className='h-[250px] w-full md:h-[405px]' />
-            ) : (
-              <Image
-                src={`/images/${category}.webp`}
-                width={500}
-                height={500}
-                priority
-                alt={category}
-                className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[405px]'
-              />
-            )}
+
+            <Image
+              src={`/images/${category}.webp`}
+              width={500}
+              height={500}
+              priority
+              alt={category}
+              className='h-[250px] w-full transform rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[405px]'
+            />
+
             <div className='duration-400 absolute inset-0 flex h-full items-center justify-center opacity-0 transition group-hover:opacity-100'>
               <Link
                 href={`/categories/${category}`}
@@ -117,7 +115,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   buttonVariants({
                     variant: 'secondary',
                   }),
-                  'text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base',
+                  'text-sm capitalize transition-colors hover:bg-color-accent md:text-base',
                 )}
                 aria-label='View recipe'
               >
@@ -128,9 +126,9 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
 
           {recipes.length > 0 ? (
             <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground sx:grid-cols-2 md:flex md:flex-col'>
-              {recipes.slice(0, 2).map((recipe) =>
+              {recipes.map((recipe) =>
                 isPending ? (
-                  <Skeleton className='h-[180px] w-full' key={recipe.id} />
+                  <Skeleton className='h-[190px] w-full' key={recipe.id} />
                 ) : (
                   <div
                     className='space-y-3 rounded-md border-2 border-muted-foreground p-4'
@@ -164,7 +162,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                           variant: 'secondary',
                           size: 'sm',
                         }),
-                        'text-sm capitalize transition-colors hover:bg-[hsl(343,88%,66%)] md:text-base',
+                        'text-sm capitalize transition-colors hover:bg-color-accent md:text-base',
                       )}
                     >
                       View recipe

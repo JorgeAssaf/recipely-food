@@ -25,6 +25,7 @@ module.exports = {
         full: '0 0 100%',
       },
       colors: {
+        'color-accent': { DEFAULT: 'hsl(343,88%,66%)' },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

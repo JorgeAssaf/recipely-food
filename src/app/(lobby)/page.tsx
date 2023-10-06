@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: HomeProps) {
         </Badge>
         <h1 className='text-4xl font-bold  md:text-5xl lg:text-6xl lg:leading-[1.1]'>
           Discover simple, delicious and{' '}
-          <span className='text-[hsl(343,88%,66%)]'>fast recipes!</span>
+          <span className='text-color-accent'>fast recipes!</span>
         </h1>
         <Balancer
           className='max-w-[46rem] text-base font-medium text-muted-foreground md:text-xl'
