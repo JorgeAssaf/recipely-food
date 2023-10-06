@@ -1,10 +1,15 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
+import { Bookmark, CircleDashed, ClockIcon, Utensils } from 'lucide-react'
 
-import { deslugify } from '@/lib/utils'
+import { cn, deslugify, formatPrepTime, slugify } from '@/lib/utils'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import Breadcrumbs from '@/components/breadcrumbs'
+import { Icons } from '@/components/icons'
+import { RecipeImageCarrousel } from '@/components/recipe-image-carousel'
 import { Shell } from '@/components/shell'
-import SingleRecipe from '@/components/single-recipe'
 
 type MetaProps = {
   params: { name: string }
@@ -48,12 +53,178 @@ export default async function RecipePage({ params }: RecipePageProps) {
   if (!recipe) {
     notFound()
   }
+  const LucideIcon = Icons[recipe.category]
 
   return (
     <Shell>
-      <div>
-        <SingleRecipe recipe={recipe} />
-      </div>
+      <Breadcrumbs
+        segments={[
+          {
+            title: 'Recipes',
+            href: '/recipes',
+          },
+          {
+            title: recipe.category,
+            href: `/categories/${recipe.category}`,
+          },
+          {
+            title: recipe.name,
+            href: `/recipe/${slugify(recipe.name)}`,
+          },
+        ]}
+      />
+      <section className='grid grid-cols-1 gap-7 md:grid-cols-2'>
+        <div>
+          <RecipeImageCarrousel
+            images={recipe.images}
+            options={{
+              loop: true,
+            }}
+          />
+        </div>
+
+        <div className='h-auto rounded-2xl rounded-bl-2xl bg-foreground px-5 py-6 text-background '>
+          <div className='flex flex-col space-y-4 '>
+            <div className='flex items-center gap-2 text-lg font-semibold'>
+              <div
+                className={cn(
+                  buttonVariants({
+                    size: 'icon',
+                    className:
+                      'pointer-events-none h-8 w-8 bg-foreground text-background',
+                  }),
+                )}
+                aria-hidden='true'
+              >
+                <LucideIcon className='h-5 w-5' />
+              </div>
+              <span className='capitalize'>{recipe.category}</span>
+            </div>
+
+            <h1 className='text-4xl font-bold'>{recipe.name}</h1>
+            <p className=' capitalize text-background/90'>
+              Author: {recipe.author}
+            </p>
+            <Tabs defaultValue='ingredients'>
+              <TabsList className=' mb-5 flex items-center space-x-2 rounded-3xl  bg-[#e4e5eb] px-5 py-7 sm:justify-between '>
+                {['ingredients', 'steps', 'reviews', 'save'].map(
+                  (item, index) => {
+                    const LucideIcon =
+                      Icons[item as keyof typeof Icons] || CircleDashed
+                    return (
+                      <div key={index}>
+                        {item === 'save' ? (
+                          <Button
+                            variant='secondary'
+                            className='flex items-center text-lg font-semibold'
+                          >
+                            <Bookmark className=' h-5 w-5 md:h-[1.7rem] md:w-[1.7rem]' />
+                            <span className='sr-only'>Save</span>
+                          </Button>
+                        ) : (
+                          <TabsTrigger
+                            asChild
+                            className='data-[state=active]:bg-foreground data-[state=inactive]:bg-transparent data-[state=active]:text-background data-[state=active]:shadow-lg'
+                            value={item}
+                          >
+                            <Button>
+                              <LucideIcon className=' h-5 w-5 md:h-[1.55rem] md:w-[1.55rem]' />
+                              <span className='sr-only'>{item}</span>
+                            </Button>
+                          </TabsTrigger>
+                        )}
+                      </div>
+                    )
+                  },
+                )}
+              </TabsList>
+              <div>
+                <TabsContent
+                  value='steps'
+                  className='min-h-[24rem] w-full rounded-md'
+                >
+                  <h3 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                    Steps
+                  </h3>
+                  <div>
+                    {recipe.steps?.length ? (
+                      <div className='flex flex-col space-y-2'>
+                        <ol className=' flex flex-col flex-wrap gap-2'>
+                          <li className='list-inside list-decimal'>
+                            {recipe.steps}
+                          </li>
+                        </ol>
+                      </div>
+                    ) : null}
+                  </div>
+                </TabsContent>
+                <TabsContent
+                  value='ingredients'
+                  className='min-h-[24rem] w-full rounded-md'
+                >
+                  <div className='flex flex-col space-y-5'>
+                    <p className='flex items-center gap-2 text-lg font-semibold'>
+                      <Utensils className='h-6 w-6' />
+                      <span className='capitalize'>{recipe.difficulty}</span>
+                    </p>
+                    <p className='flex items-center gap-2 text-lg font-semibold'>
+                      <ClockIcon className='h-6 w-6' />
+                      <span className='capitalize'>
+                        {formatPrepTime(recipe.prepTime)}
+                      </span>
+                    </p>
+                  </div>
+                  {recipe.ingredients?.length ? (
+                    <div className='mt-5 flex flex-col space-y-3'>
+                      <h3 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                        Ingredients
+                      </h3>
+                      <ul className='space-y-2'>
+                        {recipe.ingredients.map((ingredient, index) => (
+                          <li
+                            key={index}
+                            className='list-inside list-disc text-lg'
+                          >
+                            {ingredient.quantity} {ingredient.units} of{' '}
+                            <span className='font-semibold'>
+                              {ingredient.ingredient}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </TabsContent>
+
+                <TabsContent
+                  value='reviews'
+                  className=' min-h-[24rem] w-full rounded-md'
+                >
+                  <h2>Reviews</h2>
+                </TabsContent>
+              </div>
+            </Tabs>
+          </div>
+        </div>
+      </section>
     </Shell>
   )
 }
+
+// {
+//   recipe.ingredients?.length ? (
+//     <div className='flex flex-col space-y-2'>
+//       <h3 className='text-2xl font-bold'>Ingredients</h3>
+//       <ul className=' flex flex-col flex-wrap gap-2'>
+//         {recipe.ingredients.map((ingredient, index) => (
+//           <li key={index} className='list-inside list-disc'>
+//             {ingredient.quantity} {ingredient.units} of{' '}
+//             <span className='font-semibold'>
+//               {ingredient.ingredient}
+//             </span>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   ) : null
+// }
