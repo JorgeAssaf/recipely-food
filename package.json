@@ -18,8 +18,8 @@
     "unlighthouse": "pnpm dlx unlighthouse --site https://recipely-food.vercel.app/ --desktop --no-cache "
   },
   "dependencies": {
-    "@clerk/nextjs": "4.25.1",
-    "@clerk/themes": "1.7.6",
+    "@clerk/nextjs": "4.25.2",
+    "@clerk/themes": "1.7.7",
     "@hookform/resolvers": "3.3.1",
     "@planetscale/database": "1.11.0",
     "@radix-ui/react-accordion": "1.1.2",
@@ -64,7 +64,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@clerk/types": "3.53.0",
+    "@clerk/types": "3.54.0",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
     "@tailwindcss/typography": "0.5.10",
     "@types/node": "20.8.2",
