@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { Recipes } from '@/db/schema'
-import { Clock, Flame, XCircle } from 'lucide-react'
+import { Clock, Utensils, XCircle } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
 import { cn, formatPrepTime, slugify } from '@/lib/utils'
@@ -123,32 +123,31 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
           </div>
 
           {recipes.length > 0 ? (
-            <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground sx:grid-cols-2 md:flex md:w-full md:flex-col'>
+            <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground sx:grid-cols-2 md:flex md:flex-col'>
               {recipes.slice(0, 2).map((recipe) =>
                 isPending ? (
                   <Skeleton className='h-[180px] w-full' key={recipe.id} />
                 ) : (
                   <div
-                    className=' space-y-3 rounded-md border-2 border-muted-foreground p-4'
+                    className='space-y-3 rounded-md border-2 border-muted-foreground p-4'
                     key={recipe.id}
                   >
-                    <h3 className=' truncate text-xl font-semibold lg:text-3xl'>
+                    <h3 className='truncate text-xl font-semibold lg:text-3xl'>
                       {recipe.name}
                     </h3>
                     <Badge size='md' className='text-sm'>
                       {recipe.category}
                     </Badge>
-                    <div className='flex flex-col gap-2 lg:flex-row'>
-                      <p className='flex items-center gap-1 md:border-l-2 md:pl-3 md:pr-3'>
-                        <Flame className='h-5 w-5' aria-hidden='true' />
-                        Dificulty:
+                    <div className='flex flex-col gap-2 md:flex-row'>
+                      <p className='flex items-center gap-2 md:border-l-2 md:pl-2 md:pr-3'>
+                        <Utensils className='h-5 w-5' aria-hidden='true' />
+
                         <span className='font-bold capitalize'>
                           {recipe.difficulty}
                         </span>
                       </p>
-                      <p className='flex items-center gap-1 md:border-l-2  md:pl-3 md:pr-3'>
+                      <p className='flex items-center gap-2 md:border-l-2  md:pl-3 md:pr-3'>
                         <Clock className='h-5 w-5' aria-hidden='true' />
-                        Time:
                         <span className='font-bold'>
                           {formatPrepTime(recipe.prepTime)}
                         </span>
