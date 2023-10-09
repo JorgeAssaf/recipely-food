@@ -133,6 +133,7 @@ export function AddNewRecipe() {
             <FormLabel>Description</FormLabel>
             <FormControl>
               <Textarea
+                className='max-h-44 resize-y'
                 placeholder='Type product description here.'
                 {...form.register('description')}
               />
@@ -380,6 +381,7 @@ export function AddNewRecipe() {
             <FormLabel>Steps</FormLabel>
             <FormControl>
               <Textarea
+                className='max-h-96 resize-y'
                 placeholder='Type product steps here.'
                 {...form.register('steps')}
               />

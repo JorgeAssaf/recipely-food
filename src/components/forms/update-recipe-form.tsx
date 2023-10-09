@@ -39,7 +39,6 @@ import {
 } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 import { Zoom } from '../zoom-image'
-import Image from 'next/image'
 
 type Inputs = z.infer<typeof recipesSchema>
 
@@ -154,6 +153,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
             <FormLabel>Description</FormLabel>
             <FormControl>
               <Textarea
+                className='max-h-44 resize-y'
                 placeholder='Type product description here.'
                 {...form.register('description')}
               />
@@ -401,6 +401,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
             <FormLabel>Steps</FormLabel>
             <FormControl>
               <Textarea
+                className='max-h-96 resize-y'
                 placeholder='Type product steps here.'
                 {...form.register('steps')}
               />
