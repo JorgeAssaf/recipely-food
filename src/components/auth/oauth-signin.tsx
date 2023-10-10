@@ -28,7 +28,7 @@ const OauthProviders = () => {
       setIsLoading(provider)
       await signIn?.authenticateWithRedirect({
         strategy: provider,
-        redirectUrl: '/',
+        redirectUrl: '/sso-callback',
         redirectUrlComplete: '/',
       })
     } catch (error) {
@@ -45,7 +45,6 @@ const OauthProviders = () => {
   return (
     <div className='grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4'>
       {oauthProviders.map((provider) => {
-
         const Icon = Icons[provider.icon]
 
         return (
