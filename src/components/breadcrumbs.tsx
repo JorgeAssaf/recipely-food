@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment } from 'react'
+import { forwardRef, Fragment } from 'react'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 
@@ -13,8 +13,8 @@ type BreadcrumbsProps = React.ComponentPropsWithoutRef<'nav'> & {
   truncationLength?: number
 }
 
-const Breadcrumbs = forwardRef<HTMLDivElement, BreadcrumbsProps>(
-  ({ className, segments, separator, truncationLength, ...props }, ref) => {
+export const Breadcrumbs = forwardRef<HTMLDivElement, BreadcrumbsProps>(
+  ({ className, segments, separator, ...props }, ref) => {
     const SeparatorIcon = separator ?? ChevronLeft
     return (
       <nav
@@ -51,5 +51,4 @@ const Breadcrumbs = forwardRef<HTMLDivElement, BreadcrumbsProps>(
     )
   },
 )
-
-export default Breadcrumbs
+Breadcrumbs.displayName = 'Breadcrumbs'

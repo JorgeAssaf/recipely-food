@@ -6,7 +6,7 @@ import { Bookmark, CircleDashed, ClockIcon, Utensils } from 'lucide-react'
 import { cn, deslugify, formatPrepTime, slugify } from '@/lib/utils'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import Breadcrumbs from '@/components/breadcrumbs'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 import { Icons } from '@/components/icons'
 import { RecipeImageCarrousel } from '@/components/recipe-image-carousel'
 import { Shell } from '@/components/shell'
@@ -53,6 +53,12 @@ export default async function RecipePage({ params }: RecipePageProps) {
   if (!recipe) {
     notFound()
   }
+
+  const isSaved = await db.query.savedRecipes.findFirst({
+    where: (savedRecipes, { eq }) =>
+      eq(savedRecipes.recipeId, recipe?.id ? recipe.id : 0),
+  })
+
   const LucideIcon = Icons[recipe.category]
 
   return (
@@ -73,7 +79,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
           },
         ]}
       />
-      <section className='grid grid-cols-1 gap-7 md:grid-cols-2'>
+      <section className='grid grid-cols-1 gap-10 md:grid-cols-2'>
         <div>
           <RecipeImageCarrousel
             images={recipe.images}
@@ -83,8 +89,8 @@ export default async function RecipePage({ params }: RecipePageProps) {
           />
         </div>
 
-        <div className='h-auto rounded-2xl rounded-bl-2xl bg-foreground px-5 py-6 text-background '>
-          <div className='flex flex-col space-y-4 '>
+        <div className='h-fit rounded-2xl bg-foreground px-5 py-6 text-background '>
+          <div className='space-y-4'>
             <div className='flex items-center gap-2 text-lg font-semibold'>
               <div
                 className={cn(
@@ -106,11 +112,11 @@ export default async function RecipePage({ params }: RecipePageProps) {
               Author: {recipe.author}
             </p>
             <Tabs defaultValue='ingredients'>
-              <TabsList className=' mb-5 flex items-center space-x-2 rounded-3xl  bg-[#e4e5eb] px-5 py-7 sm:justify-between '>
+              <TabsList className=' mb-5 flex items-center space-x-2 rounded-3xl bg-[#e4e5eb] px-5 py-7 sm:justify-between '>
                 {['ingredients', 'steps', 'reviews', 'save'].map(
                   (item, index) => {
                     const LucideIcon =
-                      Icons[item as keyof typeof Icons] || CircleDashed
+                      Icons[item as keyof typeof Icons] ?? CircleDashed
                     return (
                       <div key={index}>
                         {item === 'save' ? (
@@ -118,7 +124,12 @@ export default async function RecipePage({ params }: RecipePageProps) {
                             variant='secondary'
                             className='flex items-center text-lg font-semibold'
                           >
-                            <Bookmark className=' h-5 w-5 md:h-[1.7rem] md:w-[1.7rem]' />
+                            {isSaved ? (
+                              <Bookmark className='h-6 w-6 fill-color-accent text-color-accent' />
+                            ) : (
+                              <Bookmark className='h-6 w-6' />
+                            )}
+
                             <span className='sr-only'>Save</span>
                           </Button>
                         ) : (
@@ -148,7 +159,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   </h3>
                   <div>
                     {recipe.steps?.length ? (
-                      <div className='flex flex-col space-y-2'>
+                      <div className='flex flex-col space-y-2 text-lg'>
                         <ol className=' flex flex-col flex-wrap gap-2'>
                           <li className='list-inside list-decimal'>
                             {recipe.steps}
@@ -200,7 +211,9 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   value='reviews'
                   className=' min-h-[24rem] w-full rounded-md'
                 >
-                  <h2>Reviews</h2>
+                  <h3 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                    Reviews
+                  </h3>
                 </TabsContent>
               </div>
             </Tabs>
@@ -210,21 +223,3 @@ export default async function RecipePage({ params }: RecipePageProps) {
     </Shell>
   )
 }
-
-// {
-//   recipe.ingredients?.length ? (
-//     <div className='flex flex-col space-y-2'>
-//       <h3 className='text-2xl font-bold'>Ingredients</h3>
-//       <ul className=' flex flex-col flex-wrap gap-2'>
-//         {recipe.ingredients.map((ingredient, index) => (
-//           <li key={index} className='list-inside list-disc'>
-//             {ingredient.quantity} {ingredient.units} of{' '}
-//             <span className='font-semibold'>
-//               {ingredient.ingredient}
-//             </span>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   ) : null
-// }

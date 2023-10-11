@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import { Input, type InputProps } from './ui/input'
 
-const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
+export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     return (
@@ -40,5 +40,3 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   },
 )
 PasswordInput.displayName = 'PasswordInput'
-
-export default PasswordInput
