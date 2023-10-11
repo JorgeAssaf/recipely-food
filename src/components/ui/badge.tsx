@@ -17,9 +17,9 @@ const badgeVariants = cva(
         outline: 'text-foreground',
       },
       size: {
-        sm: 'text-xs px-2.5 py-0.5',
-        md: 'text-sm px-3 py-0.5',
-        lg: 'text-base px-4 py-1',
+        sm: 'px-2.5 py-0.5 text-xs',
+        md: 'px-3 py-0.5 text-sm',
+        lg: 'px-4 py-1 text-base',
       },
     },
     defaultVariants: {
@@ -35,7 +35,10 @@ export interface BadgeProps
 
 function Badge({ className, size, variant, ...props }: BadgeProps) {
   return (
-    <div className={cn(badgeVariants({ size, variant }), className)} {...props} />
+    <div
+      className={cn(badgeVariants({ size, variant }), className)}
+      {...props}
+    />
   )
 }
 
