@@ -50,7 +50,7 @@ export default async function SigninPage() {
         <CardFooter className='flex flex-col items-center justify-between gap-y-1 text-sm sm:flex-row'>
           <div>
             <span className='text-muted-foreground'>
-              Don't have an account? &nbsp;
+              Don&apos;t have an account? &nbsp;
             </span>
             <Link href='/signup' className='font-medium text-primary'>
               Sign up
