@@ -11,7 +11,7 @@ import { type z } from 'zod'
 import { catchClerkError } from '@/lib/utils'
 import { NewPasswordSchema } from '@/lib/validations/auth'
 
-import PasswordInput from '../password-input'
+import { PasswordInput } from '../password-input'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
@@ -72,7 +72,12 @@ const NewPasswordForm = () => {
                 <FormItem className='w-full'>
                   <Label>Code</Label>
                   <FormControl>
-                    <Input type='text' inputMode='numeric' placeholder='169420' {...field} />
+                    <Input
+                      type='text'
+                      inputMode='numeric'
+                      placeholder='169420'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

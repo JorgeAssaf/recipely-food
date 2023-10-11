@@ -20,7 +20,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import PasswordInput from '../password-input'
+
+import { PasswordInput } from '../password-input'
 
 type Inputs = z.infer<typeof signupSchema>
 
