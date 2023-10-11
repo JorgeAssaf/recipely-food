@@ -1,4 +1,4 @@
-import { Image } from 'lucide-react'
+import { ImageIcon } from 'lucide-react'
 
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Card, CardHeader } from '@/components/ui/card'
@@ -19,7 +19,7 @@ export default function CategoriesLoading() {
               <CardHeader className='border-b p-0'>
                 <AspectRatio ratio={16 / 9}>
                   <div className='flex h-full items-center justify-center bg-secondary'>
-                    <Image
+                    <ImageIcon
                       className='h-9 w-9 text-muted-foreground'
                       aria-hidden='true'
                     />
