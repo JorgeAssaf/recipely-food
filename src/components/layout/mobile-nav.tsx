@@ -90,7 +90,7 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
                   key={item.title}
                 >
                   <MobileLink
-                    href={item.href!}
+                    href={item.href}
                     pathname={pathname}
                     setIsOpen={setIsOpen}
                   >
@@ -134,7 +134,7 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
                   key={item.title}
                 >
                   <MobileLink
-                    href={item.href!}
+                    href={item.href}
                     pathname={pathname}
                     setIsOpen={setIsOpen}
                   >
