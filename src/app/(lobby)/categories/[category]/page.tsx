@@ -21,9 +21,9 @@ interface CategoryPageProps {
   }
 }
 
-export async function generateMetadata({
+export function generateMetadata({
   params,
-}: CategoryPageProps): Promise<Metadata> {
+}: CategoryPageProps): Metadata {
   return {
     title:
       params.category === null

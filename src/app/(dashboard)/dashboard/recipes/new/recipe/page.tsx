@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Add a new recipe to your collection.',
 }
 
-export default async function NewRecipePage() {
+export default function NewRecipePage() {
   return (
     <Card>
       <CardHeader className='space-y-1'>

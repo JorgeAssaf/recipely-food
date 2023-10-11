@@ -10,7 +10,7 @@ interface LobbyLayoutProps {
   children: React.ReactNode
 }
 
-export default async function RecipesLayout({ children }: LobbyLayoutProps) {
+export default function RecipesLayout({ children }: LobbyLayoutProps) {
   return (
     <Shell variant='sidebar'>
       <div className='xxs:flex-row flex flex-col gap-4 pr-1'>
