@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { isClerkAPIResponseError, useSignIn } from '@clerk/nextjs'
-import { OAuthStrategy } from '@clerk/types'
+import { type OAuthStrategy } from '@clerk/types'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 

@@ -6,7 +6,7 @@ import { useSignUp } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
+import { type z } from 'zod'
 
 import { catchClerkError } from '@/lib/utils'
 import { signupSchema } from '@/lib/validations/auth'

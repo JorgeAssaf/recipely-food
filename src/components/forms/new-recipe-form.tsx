@@ -7,9 +7,9 @@ import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import z from 'zod'
+import type z from 'zod'
 
-import { FileWithPreview, Units } from '@/types/recipes'
+import { Units, type FileWithPreview } from '@/types/recipes'
 import { cn, isArrayOfFile } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { AddRecipeAction, generateRecipes } from '@/app/_actions/recipes'
-import { OurFileRouter } from '@/app/api/uploadthing/core'
+import { type OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
 import {
@@ -104,8 +104,12 @@ export function AddNewRecipe() {
             },
           },
         )
-      } catch (error: any) {
-        toast.error(error.message ?? 'Something went wrong.')
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.error(error.message)
+        } else {
+          toast.error('Something went wrong.')
+        }
       }
     })
   }
@@ -148,6 +152,7 @@ export function AddNewRecipe() {
               <div className='flex items-center gap-2'>
                 {files.map((file, i) => (
                   <Zoom key={i}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={file.preview}
                       alt={file.name}

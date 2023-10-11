@@ -3,7 +3,7 @@
 import { useTransition } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Recipes } from '@/db/schema'
+import type { Recipes } from '@/db/schema'
 import { FileWarning, ImageIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -26,7 +26,6 @@ type SavedRecipesProps = {
 
 export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
   const [isPending, startTransition] = useTransition()
-  console.log(savedRecipes)
   return (
     <div>
       {savedRecipes.length > 0 ? (

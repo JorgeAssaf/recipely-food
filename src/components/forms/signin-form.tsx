@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useSignIn } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { type z } from 'zod'
 
 import { catchClerkError } from '@/lib/utils'
 import { signinSchema } from '@/lib/validations/auth'

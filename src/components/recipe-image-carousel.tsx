@@ -8,7 +8,7 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react'
 import { ChevronLeftIcon, ChevronRightIcon, ImageIcon } from 'lucide-react'
 
-import { FileUpload } from '@/types/recipes'
+import type { FileUpload } from '@/types/recipes'
 import { cn } from '@/lib/utils'
 
 import { Button } from './ui/button'
@@ -64,7 +64,7 @@ export const RecipeImageCarrousel = ({
         aria-label='Product Placeholder'
         role='img'
         aria-roledescription='placeholder'
-        className='flex aspect-square h-full w-full flex-1 items-center justify-center '
+        className='flex aspect-square h-auto w-full flex-1 items-center justify-center bg-secondary'
       >
         <div className='flex flex-col items-center justify-center gap-4'>
           <ImageIcon
@@ -134,7 +134,7 @@ export const RecipeImageCarrousel = ({
                 className={cn(
                   'group relative aspect-square h-full w-full max-w-[100px] rounded-lg shadow-sm hover:bg-transparent focus-visible:ring-foreground',
                   {
-                    'ring-2 ring-foreground ': i === selectedIndex,
+                    'ring-2 ring-foreground': i === selectedIndex,
                   },
                 )}
                 onClick={() => scrollTo(i)}

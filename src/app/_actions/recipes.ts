@@ -16,10 +16,13 @@ import {
   not,
   sql,
 } from 'drizzle-orm'
-import { z } from 'zod'
+import { type z } from 'zod'
 
 import type { FileUpload } from '@/types/recipes'
-import { getRecipesSchema, recipesSchema } from '@/lib/validations/recipes'
+import {
+  type getRecipesSchema,
+  type recipesSchema,
+} from '@/lib/validations/recipes'
 
 export async function filterProductsAction(query: string) {
   if (query.length === 0) return null
@@ -168,9 +171,6 @@ export async function dislikeRecipeAction(
     throw new Error('You cannot dislike your own recipe.')
   }
 
-  if (recipe?.dislikes! < 0) {
-    throw new Error('You cannot dislike a recipe that has no dislikes.')
-  }
   await db
     .update(recipes)
     .set({

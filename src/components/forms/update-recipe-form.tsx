@@ -8,9 +8,9 @@ import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
+import { type z } from 'zod'
 
-import { FileWithPreview, Units } from '@/types/recipes'
+import { type FileWithPreview, Units } from '@/types/recipes'
 import { cn, isArrayOfFile } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { DeleteRecipeAction, UpdateRecipeAction } from '@/app/_actions/recipes'
-import { OurFileRouter } from '@/app/api/uploadthing/core'
+import { type OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
 import {
@@ -168,6 +168,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
               <div className='flex items-center gap-2'>
                 {files.map((file, i) => (
                   <Zoom key={i}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={file.preview}
                       alt={file.name}

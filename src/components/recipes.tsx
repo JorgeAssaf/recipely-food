@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState, useTransition } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type Recipes as RecipesSchema } from '@/db/schema'
 
-import { Option } from '@/types/recipes'
+import { type Option } from '@/types/recipes'
 import { slugify } from '@/lib/utils'
 import { useDebounce } from '@/hooks/useDebounce'
 import { Button } from '@/components/ui/button'
@@ -39,7 +39,6 @@ export const Recipes: FC<RecipesProps> = ({
   recipes,
   pageCount,
   categories,
-  category,
   userId,
   ...props
 }) => {
@@ -57,7 +56,7 @@ export const Recipes: FC<RecipesProps> = ({
   const maxPrepTimeParams = +prepTimeParams.split('-')[1] ?? 500
 
   const difficultyParams = searchParams?.get('difficulty') ?? null
-  const authorsParams = searchParams?.get('authors') ?? []
+  // const authorsParams = searchParams?.get('authors') ?? []
 
   const createQueryString = useCallback(
     (params: Record<string, string | number | null>) => {
@@ -93,7 +92,7 @@ export const Recipes: FC<RecipesProps> = ({
         },
       )
     })
-  }, [debouncedPrepTime])
+  }, [createQueryString, debouncedPrepTime, pahname, router])
 
   const [difficulty, setDifficulty] = useState<string[] | null>(
     difficultyParams?.split('.') ?? null,
@@ -109,13 +108,12 @@ export const Recipes: FC<RecipesProps> = ({
         },
       )
     })
-  }, [difficulty])
+  }, [createQueryString, difficulty, pahname, router])
 
   // TODO - fix authors array for filter
 
   const [authors, setAuthors] = useState<string[] | null>(null)
   const currentAuthors = new Set(recipes.map((recipe) => recipe.author))
-  console.log()
 
   useEffect(() => {
     router.push(
@@ -126,7 +124,7 @@ export const Recipes: FC<RecipesProps> = ({
         scroll: false,
       },
     )
-  }, [authors])
+  }, [authors, createQueryString, pahname, router])
 
   const [selectedCategories, setSelectedCategories] = useState<Option[]>([])
   useEffect(() => {
@@ -142,7 +140,7 @@ export const Recipes: FC<RecipesProps> = ({
         },
       )
     })
-  }, [selectedCategories])
+  }, [createQueryString, pahname, router, selectedCategories])
 
   return (
     <section className='flex flex-col space-y-6' {...props}>

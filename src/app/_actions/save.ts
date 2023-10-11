@@ -5,11 +5,11 @@ import { db } from '@/db'
 import { recipes, savedRecipes } from '@/db/schema'
 import { auth } from '@clerk/nextjs'
 import { and, eq, inArray } from 'drizzle-orm'
-import { z } from 'zod'
+import { type z } from 'zod'
 
 import {
-  addSaveRecipeSchema,
-  getSavedRecipeSchema,
+  type addSaveRecipeSchema,
+  type getSavedRecipeSchema,
 } from '@/lib/validations/save-recipes'
 
 export async function getSavedRecipesAction() {
@@ -54,7 +54,6 @@ export async function addToSavedAction(
     recipeId: input.recipeId,
     userId: String(userId),
   })
-
   revalidatePath('/')
 }
 

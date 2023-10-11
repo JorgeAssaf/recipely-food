@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Cropper, { ReactCropperElement } from 'react-cropper'
+import Cropper, { type ReactCropperElement } from 'react-cropper'
 
 import 'cropperjs/dist/cropper.css'
 
@@ -21,7 +21,7 @@ import type {
 } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import { FileWithPreview } from '@/types/recipes'
+import { type FileWithPreview } from '@/types/recipes'
 import { cn } from '@/lib/utils'
 import {
   Dialog,
@@ -40,7 +40,7 @@ interface FileDialogProps<
 > extends React.HTMLAttributes<HTMLDivElement> {
   name: TName
   setValue: UseFormSetValue<TFieldValues>
-  accept?: {}
+  accept?: Record<string, string[]>
   maxSize?: number
   maxFiles: number
   files: FileWithPreview[] | null
@@ -83,7 +83,7 @@ const FileDialog = <TFieldValues extends FieldValues>({
         })
       }
     },
-    [],
+    [maxSize, setFiles],
   )
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -96,14 +96,14 @@ const FileDialog = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     setValue(name, files as PathValue<TFieldValues, Path<TFieldValues>>)
-  }, [files])
+  }, [files, name, setValue])
 
   useEffect(() => {
     return () => {
       if (!files) return
       files.forEach((file) => URL.revokeObjectURL(file.preview))
     }
-  }, [])
+  }, [files])
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -238,6 +238,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
 
       return setFiles(newFiles)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files, cropperRef.current])
   useEffect(() => {
     function handleKeydown(e: KeyboardEvent) {
