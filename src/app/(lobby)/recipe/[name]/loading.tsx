@@ -26,7 +26,7 @@ export default function RecipeLoading() {
           aria-label='Product Placeholder'
           role='img'
           aria-roledescription='placeholder'
-          className='flex aspect-square h-full w-full flex-1 items-center justify-center '
+          className='flex aspect-square h-auto w-full flex-1 items-center justify-center bg-secondary '
         >
           <div className='flex flex-col items-center justify-center gap-4'>
             <ImageIcon
@@ -35,7 +35,7 @@ export default function RecipeLoading() {
             />
           </div>
         </div>
-        <Skeleton className='h-auto rounded-2xl rounded-bl-2xl ' />
+        <Skeleton className='h-auto rounded-2xl' />
       </section>
     </Shell>
   )
