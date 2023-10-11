@@ -124,9 +124,10 @@ const Combobox = () => {
                 heading={group.category}
               >
                 {group.recipes.map((item) => {
-                  const CategoryIcon = recipesCategories.find(
-                    (category) => category.title === group.category,
-                  )?.icon!
+                  const CategoryIcon =
+                    recipesCategories.find(
+                      (category) => category.title === group.category,
+                    )?.icon ?? recipesCategories[0].icon
 
                   return (
                     <CommandItem
