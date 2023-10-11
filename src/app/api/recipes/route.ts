@@ -3,7 +3,7 @@ import { db } from '@/db'
 
 export async function POST(req: Request) {
   try {
-    const { name } = await req.json()
+    const { name } = (await req.json()) as { name: string }
 
     if (!name) {
       return NextResponse.json({ error: 'Missing name' }, { status: 400 })
@@ -16,7 +16,13 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ data: recipe }, { status: 200 })
-  } catch (error: unknown | any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    return NextResponse.json(
+      { error: 'An unknown error occurred' },
+      { status: 500 },
+    )
   }
 }
