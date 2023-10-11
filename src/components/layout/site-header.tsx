@@ -37,7 +37,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
     (e) => e.id === user.primaryEmailAddressId,
   )?.emailAddress
 
-  const initials = user?.firstName?.charAt(0) + user?.lastName?.charAt(0)! ?? ''
+  const initials = user?.firstName?.charAt(0) ?? '' + user?.lastName?.charAt(0) ?? ''
 
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background'>
