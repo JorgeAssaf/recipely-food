@@ -7,11 +7,12 @@ export function Zoom({ children }: HTMLAttributes<HTMLDivElement>) {
   return (
     <MediumZoom
       wrapElement='div'
-      children={children}
       classDialog='zoom-image'
       zoomMargin={30}
       a11yNameButtonZoom='Zoom'
       a11yNameButtonUnzoom='Unzoom'
-    />
+    >
+      {children}
+    </MediumZoom>
   )
 }
