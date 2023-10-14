@@ -1,6 +1,6 @@
 {
   "name": "recipely-food",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A recipe app for food lovers",
   "author": "Jorge Assaf",
   "private": true,
@@ -86,4 +86,3 @@
     "tailwindcss": "3.3.3"
   }
 }
-
