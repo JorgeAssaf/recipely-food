@@ -249,7 +249,7 @@ export const Recipes: FC<RecipesProps> = ({
                   </div>
                 ))}
 
-                <div className='space-y-3'>
+                {/* <div className='space-y-3'>
                   <div className='flex items-center gap-2'>
                     <h3 className='flex-1 text-sm font-medium tracking-wide text-foreground'>
                       Authors
@@ -288,7 +288,7 @@ export const Recipes: FC<RecipesProps> = ({
                         : null}
                     </div>
                   </ScrollArea>
-                </div>
+                </div>*/}
               </div>
             </div>
           </SheetContent>
@@ -304,9 +304,11 @@ export const Recipes: FC<RecipesProps> = ({
           </div>
         ) : null}
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))}
+          {recipes.length > 0
+            ? recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))
+            : null}
         </div>
       </div>
       {recipes.length ? (
