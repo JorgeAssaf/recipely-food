@@ -28,7 +28,7 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
   const user = await currentUser()
 
   const { page, per_page, sort, categories, prepTime, difficulty } =
-    recipesParamsSchema.parse(searchParams) ?? {}
+    recipesParamsSchema.parse(searchParams)
 
   const pageAsNumber = Number(page)
   const fallbackPage =
@@ -52,24 +52,20 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
 
   return (
     <Shell>
-      <div>
-        <PageHeader>
-          <PageHeaderHeading>
-            {recipesTransaction.count > 0 ? 'All Recipes' : 'No recipes found'}
-          </PageHeaderHeading>
-          <PageHeaderDescription>
-            {recipesTransaction.count > 0
-              ? 'Find your favorite recipes here'
-              : 'No recipes found'}
-          </PageHeaderDescription>
-        </PageHeader>
-        <Recipes
-          recipes={recipesTransaction.items}
-          userId={user?.id ?? ''}
-          categories={Object.values(recipes.category.enumValues)}
-          pageCount={pageCount}
-        />
-      </div>
+      <PageHeader>
+        <PageHeaderHeading>
+          All Recipes
+        </PageHeaderHeading>
+        <PageHeaderDescription>
+          Find your favorite recipes here
+        </PageHeaderDescription>
+      </PageHeader>
+      <Recipes
+        recipes={recipesTransaction.items}
+        userId={user?.id}
+        categories={Object.values(recipes.category.enumValues)}
+        pageCount={pageCount}
+      />
     </Shell>
   )
 }

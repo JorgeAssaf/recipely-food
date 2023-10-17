@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   description: 'View your recipes.',
 }
 
-
 const YourRecipesPage = async () => {
   const user = await currentUser()
+
   if (!user) {
-    return redirect('/signin')
+    redirect('/signin')
   }
   const allRecipes = await db
     .select()
