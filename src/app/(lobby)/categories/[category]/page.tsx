@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { type Recipes as RecipesSchema } from '@/db/schema'
 
 import { toTitleCase } from '@/lib/utils'
+import { recipesParamsSchema } from '@/lib/validations/params'
 import {
   PageHeader,
   PageHeaderDescription,
@@ -21,9 +22,7 @@ interface CategoryPageProps {
   }
 }
 
-export function generateMetadata({
-  params,
-}: CategoryPageProps): Metadata {
+export function generateMetadata({ params }: CategoryPageProps): Metadata {
   return {
     title:
       params.category === null
@@ -39,21 +38,27 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
-  const { category } = params ?? 'No category found'
+  const { category } = params
 
-  const { page, per_page, sort, prepTime, difficulty, authors } = searchParams
+  const { page, per_page, sort, prepTime, difficulty } =
+    recipesParamsSchema.parse(searchParams)
 
-  const limit = typeof per_page === 'string' ? parseInt(per_page) : 8
-  const offset = typeof page === 'string' ? (parseInt(page) - 1) * limit : 0
+  const pageAsNumber = Number(page)
+  const fallbackPage =
+    isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber
+  const perPageAsNumber = Number(per_page)
+  // Number of items per page
+  const limit = isNaN(perPageAsNumber) ? 10 : perPageAsNumber
+  // Number of items to skip
+  const offset = fallbackPage > 0 ? (fallbackPage - 1) * limit : 0
 
   const recipesTransaction = await getRecipesAction({
     limit,
     offset,
+    sort,
     category,
-    prepTime: typeof prepTime === 'string' ? String(prepTime) : null,
-    difficulty: typeof difficulty === 'string' ? difficulty : null,
-    author: typeof authors === 'string' ? authors : null,
-    sort: typeof sort === 'string' ? sort : null,
+    prepTime,
+    difficulty,
   })
 
   const pageCount = Math.ceil(recipesTransaction.count / limit)
@@ -62,22 +67,12 @@ export default async function CategoryPage({
     <Shell>
       <div>
         <PageHeader>
-          <PageHeaderHeading>
-            {recipesTransaction.count > 0
-              ? toTitleCase(category)
-              : 'No category found'}
-          </PageHeaderHeading>
+          <PageHeaderHeading>{toTitleCase(category)}</PageHeaderHeading>
           <PageHeaderDescription>
-            {recipesTransaction.count > 0
-              ? `View all recipes in the ${toTitleCase(category)} category`
-              : 'No category found'}
+            {`View all recipes in the ${toTitleCase(category)} category`}
           </PageHeaderDescription>
         </PageHeader>
-        <Recipes
-          category={category}
-          pageCount={pageCount}
-          recipes={recipesTransaction.items}
-        />
+        <Recipes pageCount={pageCount} recipes={recipesTransaction.items} />
       </div>
     </Shell>
   )
