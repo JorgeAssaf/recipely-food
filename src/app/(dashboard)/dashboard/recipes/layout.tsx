@@ -6,11 +6,7 @@ import {
 import { RecipesTabs } from '@/components/recipes-tabs'
 import { Shell } from '@/components/shell'
 
-interface LobbyLayoutProps {
-  children: React.ReactNode
-}
-
-export default function RecipesLayout({ children }: LobbyLayoutProps) {
+export default function RecipesLayout({ children }: React.PropsWithChildren) {
   return (
     <Shell variant='sidebar'>
       <div className='xxs:flex-row flex flex-col gap-4 pr-1'>

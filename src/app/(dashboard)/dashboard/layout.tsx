@@ -7,13 +7,9 @@ import { SidebarNav } from '@/components/layout/side-nav'
 import SiteFooter from '@/components/layout/site-footer'
 import SiteHeader from '@/components/layout/site-header'
 
-interface DashboardLayoutProps {
-  children: React.ReactNode
-}
-
 export default async function DashboardLayout({
   children,
-}: DashboardLayoutProps) {
+}: React.PropsWithChildren) {
   const user = await currentUser()
   if (!user) {
     return redirect('/signin')

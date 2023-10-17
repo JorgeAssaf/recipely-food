@@ -73,26 +73,30 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <ClerkProvider>
-      <html lang='en' suppressHydrationWarning>
-        <body
-          className={cn(
-            'min-h-screen bg-background font-sans antialiased',
-            satoshi.variable,
-          )}
-        >
-          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            {children}
-          </ThemeProvider>
-          <Toaster />
-        </body>
-      </html>
-    </ClerkProvider>
+    <>
+      <ClerkProvider>
+        <html lang='en' suppressHydrationWarning>
+          <head />
+          <body
+            className={cn(
+              'min-h-screen bg-background font-sans antialiased',
+              satoshi.variable,
+            )}
+          >
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+            <Toaster />
+          </body>
+        </html>
+      </ClerkProvider>
+    </>
   )
 }
