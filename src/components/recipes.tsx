@@ -6,7 +6,6 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type Recipes as RecipesSchema } from '@/db/schema'
 
 import { type Option } from '@/types/recipes'
-import { slugify } from '@/lib/utils'
 import { useDebounce } from '@/hooks/useDebounce'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -56,7 +55,6 @@ export const Recipes: FC<RecipesProps> = ({
   const maxPrepTimeParams = +prepTimeParams.split('-')[1] ?? 500
 
   const difficultyParams = searchParams?.get('difficulty') ?? null
-  // const authorsParams = searchParams?.get('authors') ?? []
 
   const createQueryString = useCallback(
     (params: Record<string, string | number | null>) => {
@@ -92,7 +90,8 @@ export const Recipes: FC<RecipesProps> = ({
         },
       )
     })
-  }, [createQueryString, debouncedPrepTime, pahname, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedPrepTime])
 
   const [difficulty, setDifficulty] = useState<string[] | null>(
     difficultyParams?.split('.') ?? null,
@@ -108,7 +107,8 @@ export const Recipes: FC<RecipesProps> = ({
         },
       )
     })
-  }, [createQueryString, difficulty, pahname, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [difficulty])
 
   // TODO - fix authors array for filter
 
@@ -124,7 +124,8 @@ export const Recipes: FC<RecipesProps> = ({
         scroll: false,
       },
     )
-  }, [authors, createQueryString, pahname, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authors])
 
   const [selectedCategories, setSelectedCategories] = useState<Option[]>([])
   useEffect(() => {
@@ -132,7 +133,7 @@ export const Recipes: FC<RecipesProps> = ({
       router.push(
         `${pahname}?${createQueryString({
           categories: selectedCategories?.length
-            ? slugify(selectedCategories.map((c) => c.value).join('.'))
+            ? selectedCategories.map((c) => c.value).join('.')
             : null,
         })}`,
         {
@@ -140,7 +141,8 @@ export const Recipes: FC<RecipesProps> = ({
         },
       )
     })
-  }, [createQueryString, pahname, router, selectedCategories])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategories])
 
   return (
     <section className='flex flex-col space-y-6' {...props}>
@@ -225,7 +227,7 @@ export const Recipes: FC<RecipesProps> = ({
                 <h3 className='text-sm font-medium tracking-wide text-foreground'>
                   Dificulty
                 </h3>
-                {['Easy', 'Medium', 'Hard'].map((dificulty) => (
+                {['easy', 'medium', 'hard'].map((dificulty) => (
                   <div className='flex items-center space-x-2' key={dificulty}>
                     <Checkbox
                       id={dificulty}
@@ -243,7 +245,7 @@ export const Recipes: FC<RecipesProps> = ({
 
                     <label
                       htmlFor={dificulty}
-                      className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                      className='text-sm font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                     >
                       {dificulty}
                     </label>
