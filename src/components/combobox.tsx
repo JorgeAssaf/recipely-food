@@ -40,21 +40,14 @@ const Combobox = () => {
       return
     }
 
-    let mounted = true
-    function fetchData() {
-      startTransition(async () => {
-        const data = await filterProductsAction(debouncedQuery)
-        if (mounted) {
-          setData(data)
-        }
-      })
+    async function fetchData() {
+      const data = await filterProductsAction(debouncedQuery)
+      setData(data)
     }
 
-    fetchData()
+    startTransition(fetchData)
 
-    return () => {
-      mounted = false
-    }
+    return () => setData(null)
   }, [debouncedQuery])
 
   useEffect(() => {

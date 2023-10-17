@@ -152,6 +152,7 @@ export const RecipeImageCarrousel = ({
                   alt={image.name}
                   sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   className='block h-full w-full rounded-lg object-cover'
+                  priority
                   fill
                 />
                 <span className='sr-only'>
