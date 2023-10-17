@@ -44,38 +44,11 @@ export const recipes = mysqlTable('recipes', {
   createdAt: timestamp('createdAt').defaultNow(),
 })
 
-export const recipesRelations = relations(recipes, ({ many }) => ({
-  ingredients: many(ingredients),
-}))
+
 
 export type Recipes = typeof recipes.$inferSelect
 export type NewRecipes = typeof recipes.$inferInsert
 
-export const ingredients = mysqlTable('ingredients', {
-  id: serial('id').primaryKey(),
-  ingredient: varchar('ingredient', { length: 256 }),
-  quantity: int('quantity'),
-  unit: mysqlEnum('unit', [
-    'g',
-    'kg',
-    'ml',
-    'l',
-    'tsp',
-    'tbsp',
-    'cup',
-    'pinch',
-  ]),
-  recipesId: int('recipes_id'),
-})
-
-export type Ingredients = InferSelectModel<typeof ingredients>
-
-export const ingredientsRelations = relations(ingredients, ({ one }) => ({
-  ingredient: one(recipes, {
-    fields: [ingredients.recipesId],
-    references: [recipes.id],
-  }),
-}))
 
 export const savedRecipes = mysqlTable('saved_recipes', {
   id: serial('id').primaryKey(),
