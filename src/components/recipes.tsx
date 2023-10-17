@@ -30,15 +30,12 @@ interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
   recipes: RecipesSchema[]
   pageCount: number
   categories?: RecipesSchema['category'][]
-  category?: RecipesSchema['category']
-  userId?: string
 }
 
 export const Recipes: FC<RecipesProps> = ({
   recipes,
   pageCount,
   categories,
-  userId,
   ...props
 }) => {
   const [isPending, startTransition] = useTransition()
@@ -308,7 +305,7 @@ export const Recipes: FC<RecipesProps> = ({
         ) : null}
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} userId={userId} />
+            <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </div>
       </div>

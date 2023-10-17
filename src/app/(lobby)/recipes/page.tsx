@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { recipes } from '@/db/schema'
-import { currentUser } from '@clerk/nextjs'
 
 import { recipesParamsSchema } from '@/lib/validations/params'
 import {
@@ -25,8 +24,6 @@ interface RecipePageProps {
 }
 
 export default async function RecipesPage({ searchParams }: RecipePageProps) {
-  const user = await currentUser()
-
   const { page, per_page, sort, categories, prepTime, difficulty } =
     recipesParamsSchema.parse(searchParams)
 
@@ -52,20 +49,19 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
 
   return (
     <Shell>
-      <PageHeader>
-        <PageHeaderHeading>
-          All Recipes
-        </PageHeaderHeading>
-        <PageHeaderDescription>
-          Find your favorite recipes here
-        </PageHeaderDescription>
-      </PageHeader>
-      <Recipes
-        recipes={recipesTransaction.items}
-        userId={user?.id}
-        categories={Object.values(recipes.category.enumValues)}
-        pageCount={pageCount}
-      />
+      <div>
+        <PageHeader>
+          <PageHeaderHeading>All Recipes</PageHeaderHeading>
+          <PageHeaderDescription>
+            Find your favorite recipes here
+          </PageHeaderDescription>
+        </PageHeader>
+        <Recipes
+          recipes={recipesTransaction.items}
+          categories={Object.values(recipes.category.enumValues)}
+          pageCount={pageCount}
+        />
+      </div>
     </Shell>
   )
 }

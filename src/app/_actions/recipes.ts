@@ -45,11 +45,10 @@ export async function filterProductsAction(query: string) {
 export async function getRecipesAction(
   input: z.infer<typeof getRecipesSchema>,
 ) {
-  const [column, order] =
-    (input.sort?.split('.') as [
-      keyof Recipes | undefined,
-      'asc' | 'desc' | undefined,
-    ]) ?? []
+  const [column, order] = (input.sort?.split('.') as [
+    keyof Recipes | undefined,
+    'asc' | 'desc' | undefined,
+  ]) ?? ['createdAt', 'desc']
   const difficulty =
     (input.difficulty?.split('.') as Recipes['difficulty'][]) ?? []
   const [minPrepTime, maxPrepTime] = input.prepTime?.split('-') ?? []
