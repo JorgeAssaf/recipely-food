@@ -149,62 +149,62 @@ export async function AddRecipeAction(
   revalidatePath(`/dashboard/recipes`)
 }
 
-export async function dislikeRecipeAction(
-  id: number,
-  dislikes: number,
-  userId: string,
-) {
-  const user = await currentUser()
-  if (!user) {
-    throw new Error('You must be logged in to like a recipe.')
-  }
+// export async function dislikeRecipeAction(
+//   id: number,
+//   dislikes: number,
+//   userId: string,
+// ) {
+//   const user = await currentUser()
+//   if (!user) {
+//     throw new Error('You must be logged in to like a recipe.')
+//   }
 
-  const recipe = await db.query.recipes.findFirst({
-    where: eq(recipes.id, id),
-  })
+//   const recipe = await db.query.recipes.findFirst({
+//     where: eq(recipes.id, id),
+//   })
 
-  if (!recipe) {
-    throw new Error('Recipe not found.')
-  }
-  if (userId === user.id) {
-    throw new Error('You cannot dislike your own recipe.')
-  }
+//   if (!recipe) {
+//     throw new Error('Recipe not found.')
+//   }
+//   if (userId === user.id) {
+//     throw new Error('You cannot dislike your own recipe.')
+//   }
 
-  await db
-    .update(recipes)
-    .set({
-      dislikes,
-    })
-    .where(eq(recipes.id, id))
+//   await db
+//     .update(recipes)
+//     .set({
+//       dislikes,
+//     })
+//     .where(eq(recipes.id, id))
 
-  revalidatePath(`/recipe/${id}`)
-  return
-}
+//   revalidatePath(`/recipe/${id}`)
+//   return
+// }
 
-export async function likeRecipeAction(id: number, likes: number) {
-  const user = await currentUser()
-  if (!user) {
-    throw new Error('You must be logged in to like a recipe.')
-  }
+// export async function likeRecipeAction(id: number, likes: number) {
+//   const user = await currentUser()
+//   if (!user) {
+//     throw new Error('You must be logged in to like a recipe.')
+//   }
 
-  const recipe = await db.query.recipes.findFirst({
-    where: eq(recipes.id, id),
-  })
+//   const recipe = await db.query.recipes.findFirst({
+//     where: eq(recipes.id, id),
+//   })
 
-  if (!recipe) {
-    throw new Error('Recipe not found.')
-  }
+//   if (!recipe) {
+//     throw new Error('Recipe not found.')
+//   }
 
-  await db
-    .update(recipes)
-    .set({
-      likes,
-    })
-    .where(eq(recipes.id, id))
+//   await db
+//     .update(recipes)
+//     .set({
+//       likes,
+//     })
+//     .where(eq(recipes.id, id))
 
-  revalidatePath(`/recipe/${id}`)
-  return
-}
+//   revalidatePath(`/recipe/${id}`)
+//   return
+// }
 
 export async function UpdateRecipeAction(
   values: z.infer<typeof recipesSchema> & {
@@ -254,4 +254,6 @@ export async function DeleteRecipeAction({ id: id }: { id: number }) {
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
-export const generateRecipes = async () => { }
+export const generateRecipes = async () => {
+
+}
