@@ -154,9 +154,9 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   value='steps'
                   className='min-h-[24rem] w-full rounded-md'
                 >
-                  <h3 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                  <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
                     Steps
-                  </h3>
+                  </h2>
                   <div>
                     {recipe.steps?.length ? (
                       <div className='flex flex-col space-y-2 text-lg'>
@@ -187,9 +187,9 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   </div>
                   {recipe.ingredients?.length ? (
                     <div className='mt-5 flex flex-col space-y-3'>
-                      <h3 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                      <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
                         Ingredients
-                      </h3>
+                      </h2>
                       <ul className='space-y-2'>
                         {recipe.ingredients.map((ingredient, index) => (
                           <li
@@ -211,9 +211,9 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   value='reviews'
                   className=' min-h-[24rem] w-full rounded-md'
                 >
-                  <h3 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                  <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
                     Reviews
-                  </h3>
+                  </h2>
                 </TabsContent>
               </div>
             </Tabs>
