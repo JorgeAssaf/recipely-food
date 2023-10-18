@@ -20,7 +20,8 @@ import { type z } from 'zod'
 
 import type { FileUpload } from '@/types/recipes'
 import {
-  type getRecipesSchema,
+  getRecipeSchema,
+  getRecipesSchema,
   type recipesSchema,
 } from '@/lib/validations/recipes'
 
@@ -43,8 +44,9 @@ export async function filterProductsAction(query: string) {
   return data
 }
 export async function getRecipesAction(
-  input: z.infer<typeof getRecipesSchema>,
+  rawInput: z.infer<typeof getRecipesSchema>,
 ) {
+  const input = getRecipesSchema.parse(rawInput)
   const [column, order] = (input.sort?.split('.') as [
     keyof Recipes | undefined,
     'asc' | 'desc' | undefined,
@@ -239,14 +241,18 @@ export async function UpdateRecipeAction(
   revalidatePath(`/dashboard/recipes`)
 }
 
-export async function DeleteRecipeAction({ id: id }: { id: number }) {
+export async function DeleteRecipeAction(
+  rawInput: z.infer<typeof getRecipeSchema>,
+) {
+  const input = getRecipeSchema.parse(rawInput)
+
   const recipe = await db.query.recipes.findFirst({
-    where: eq(recipes.id, id),
+    where: eq(recipes.id, input.id),
   })
   if (!recipe) {
     throw new Error('Recipe not found.')
   }
-  await db.delete(recipes).where(eq(recipes.id, id))
+  await db.delete(recipes).where(eq(recipes.id, input.id))
 
   revalidatePath(`/dashboard/recipes/your-recipes`)
 }
@@ -254,6 +260,4 @@ export async function DeleteRecipeAction({ id: id }: { id: number }) {
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
-export const generateRecipes = async () => {
-
-}
+export const generateRecipes = async () => { }

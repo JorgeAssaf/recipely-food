@@ -10,7 +10,7 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { type z } from 'zod'
 
-import { type FileWithPreview, Units } from '@/types/recipes'
+import { Units, type FileWithPreview } from '@/types/recipes'
 import { cn, isArrayOfFile } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
@@ -444,7 +444,9 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     'ingredients',
                   ])
                   toast.promise(
-                    DeleteRecipeAction({ id: recipe.id }),
+                    DeleteRecipeAction({
+                      id: recipe.id,
+                    }),
 
                     {
                       loading: 'Deleting recipe...',

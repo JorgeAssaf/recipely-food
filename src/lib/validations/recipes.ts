@@ -66,7 +66,9 @@ export const recipesSchema = z.object({
       message: 'Must be at least 10 characters',
     }),
 })
-
+export const getRecipeSchema = z.object({
+  id: z.number(),
+})
 export const getRecipesSchema = z.object({
   limit: z.number().default(10),
   offset: z.number().default(0),
