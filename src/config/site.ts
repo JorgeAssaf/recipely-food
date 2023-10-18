@@ -57,9 +57,8 @@ export const siteConfig = {
 
   footerNav: [
     {
-      title: 'Credits',
+      title: 'Inspiration',
       items: [
-
         {
           title: 'Skateshop',
           href: 'https://skateshop.sadmn.com',
