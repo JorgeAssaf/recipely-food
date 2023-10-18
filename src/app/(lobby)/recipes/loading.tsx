@@ -30,12 +30,14 @@ export default function RecipesLoading() {
                   </div>
                 </AspectRatio>
               </CardHeader>
-              <CardContent className='grid gap-2.5 p-4'>
-                <Skeleton className='h-4 w-1/2' />
-                <Skeleton className='h-4 w-1/4' />
+              <CardContent className='grid gap-3 p-4'>
+                <Skeleton className='h-4 w-10/12' />
+                <Skeleton className='h-4 w-11/12' />
+                <Skeleton className='h-4 w-11/12' />
               </CardContent>
-              <CardFooter className='p-4'>
-                <Skeleton className='h-8 w-full rounded-sm' />
+              <CardFooter className='flex items-center justify-between gap-4 p-4'>
+                <Skeleton className='h-6 w-11/12 rounded-sm' />
+                <Skeleton className='h-6 w-11/12 rounded-sm' />
               </CardFooter>
             </Card>
           ))}

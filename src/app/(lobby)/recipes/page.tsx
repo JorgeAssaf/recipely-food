@@ -31,9 +31,9 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
   const fallbackPage =
     isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber
   const perPageAsNumber = Number(per_page)
-  // Number of items per page
+
   const limit = isNaN(perPageAsNumber) ? 10 : perPageAsNumber
-  // Number of items to skip
+
   const offset = fallbackPage > 0 ? (fallbackPage - 1) * limit : 0
 
   const recipesTransaction = await getRecipesAction({
