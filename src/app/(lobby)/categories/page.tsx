@@ -100,7 +100,7 @@ export default async function CategoryPage() {
           {recipesCategories.map((category) => {
             return (
               <Link
-                href={`/categories/${category.title}`}
+                href={`/categories/category/${category.title}`}
                 className='group relative overflow-hidden rounded-md border'
                 key={category.title}
               >
