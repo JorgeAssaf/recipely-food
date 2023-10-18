@@ -6,12 +6,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type Recipes as RecipesSchema } from '@/db/schema'
 
 import { type Option } from '@/types/recipes'
+import { sortOptions } from '@/config/recipes'
 import { useDebounce } from '@/hooks/useDebounce'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
@@ -25,6 +24,7 @@ import { Slider } from '@/components/ui/slider'
 import { RecipeCard } from './cards/recipe-card'
 import { MultiSelect } from './multi-select'
 import { PaginationButton } from './pagination-buttons'
+import SortButton from './sort-button'
 
 interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
   recipes: RecipesSchema[]
@@ -109,20 +109,20 @@ export const Recipes: FC<RecipesProps> = ({
 
   // TODO - fix authors array for filter
 
-  const [authors, setAuthors] = useState<string[] | null>(null)
-  const currentAuthors = new Set(recipes.map((recipe) => recipe.author))
+  // const [authors, setAuthors] = useState<string[] | null>(null)
+  // const currentAuthors = new Set(recipes.map((recipe) => recipe.author))
 
-  useEffect(() => {
-    router.push(
-      `${pahname}?${createQueryString({
-        authors: authors?.length ? authors.join('.') : null,
-      })}`,
-      {
-        scroll: false,
-      },
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authors])
+  // useEffect(() => {
+  //   router.push(
+  //     `${pahname}?${createQueryString({
+  //       authors: authors?.length ? authors.join('.') : null,
+  //     })}`,
+  //     {
+  //       scroll: false,
+  //     },
+  //   )
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [authors])
 
   const [selectedCategories, setSelectedCategories] = useState<Option[]>([])
   useEffect(() => {
@@ -293,6 +293,7 @@ export const Recipes: FC<RecipesProps> = ({
             </div>
           </SheetContent>
         </Sheet>
+        <SortButton sortOptions={sortOptions} />
       </div>
       <div>
         {!isPending && !recipes.length ? (
@@ -303,7 +304,7 @@ export const Recipes: FC<RecipesProps> = ({
             </p>
           </div>
         ) : null}
-        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        <div className='grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4'>
           {recipes.length > 0
             ? recipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
