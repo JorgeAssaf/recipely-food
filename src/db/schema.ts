@@ -1,4 +1,3 @@
-import { type InferSelectModel, relations } from 'drizzle-orm'
 import {
   boolean,
   int,
@@ -44,11 +43,8 @@ export const recipes = mysqlTable('recipes', {
   createdAt: timestamp('createdAt').defaultNow(),
 })
 
-
-
 export type Recipes = typeof recipes.$inferSelect
 export type NewRecipes = typeof recipes.$inferInsert
-
 
 export const savedRecipes = mysqlTable('saved_recipes', {
   id: serial('id').primaryKey(),
