@@ -38,12 +38,15 @@ export default async function Home({ searchParams }: HomeProps) {
           className='flex gap-1 px-4 py-2 text-sm font-bold md:text-base'
           variant='outline'
         >
-          More than <CounterUp count={500} /> recipes
+          More than <CounterUp count={50} /> recipes
         </Badge>
-        <h1 className='text-4xl font-bold  md:text-5xl lg:text-6xl lg:leading-[1.1]'>
+        <Balancer
+          as='h1'
+          className='text-3xl font-bold sm:text-5xl md:text-6xl lg:text-7xl'
+        >
           Discover simple, delicious and{' '}
           <span className='text-color-accent'>fast recipes!</span>
-        </h1>
+        </Balancer>
         <Balancer
           className='max-w-[46rem] text-base font-medium text-muted-foreground md:text-xl'
           as='q'
