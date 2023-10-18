@@ -68,10 +68,10 @@ export const RecipeImageCarrousel = ({
       >
         <div className='flex flex-col items-center justify-center gap-4'>
           <ImageIcon
-            className='h-9 w-9 text-muted-foreground'
+            className='h-9 w-9 text-foreground'
             aria-hidden='true'
           />
-          <p className='text-muted-foreground'>No images found</p>
+          <p className='text-foreground'>No images found</p>
         </div>
       </div>
     )
