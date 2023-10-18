@@ -136,7 +136,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                     <h3 className='truncate text-xl font-semibold lg:text-3xl'>
                       {recipe.name}
                     </h3>
-                    <Badge size='md' className='text-sm'>
+                    <Badge size='md' className='text-sm capitalize'>
                       {recipe.category}
                     </Badge>
                     <div className='flex flex-col gap-2 md:flex-row'>
