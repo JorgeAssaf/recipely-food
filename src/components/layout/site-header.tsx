@@ -37,8 +37,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
     (e) => e.id === user.primaryEmailAddressId,
   )?.emailAddress
 
-  const initials = user?.firstName?.charAt(0) ?? '' + user?.lastName?.charAt(0) ?? ''
-
+  const initials = user?.firstName ? user?.firstName?.charAt(0) + user?.lastName?.charAt(0) : null
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background'>
       <div className='container flex h-16 items-center'>
@@ -61,9 +60,9 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   >
                     <Avatar className='h-8 w-8'>
                       <AvatarImage
-                        src={user.imageUrl ?? ''}
+                        src={user.imageUrl}
                         loading='lazy'
-                        alt={user.username ?? ''}
+                        alt={user.firstName ? user.firstName + user.lastName : user.username ?? ''}
                       />
                       <AvatarFallback>
                         {initials
