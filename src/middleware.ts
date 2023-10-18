@@ -15,6 +15,7 @@ export default authMiddleware({
     '/api(.*)',
     '/blog(.*)',
     '/categories(.*)',
+    '/category(.*)',
     '/about(.*)',
   ],
   async afterAuth(auth, req) {

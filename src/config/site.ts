@@ -33,7 +33,7 @@ export const siteConfig = {
         },
         ...recipesCategories.map((category) => ({
           title: category.title,
-          href: `/categories/category/${slugify(category.title)}`,
+          href: `/category/${slugify(category.title)}`,
           description: `View all ${category.title} recipes`,
           items: [],
         })),

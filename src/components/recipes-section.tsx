@@ -109,7 +109,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
 
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Link
-                href={`/categories/category/${category}`}
+                href={`/category/${category}`}
                 className={cn(
                   buttonVariants({
                     variant: 'secondary',
