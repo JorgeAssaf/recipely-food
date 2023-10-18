@@ -51,6 +51,7 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          disabled={isPending}
           aria-label='Sort products'
           size='sm'
           className='[&[data-state=open]>svg]:rotate-180 '
@@ -62,7 +63,7 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-auto'>
+      <DropdownMenuContent align='start' className='w-auto'>
         <DropdownMenuLabel>Sort by</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {isPending ? (
