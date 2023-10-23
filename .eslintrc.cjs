@@ -19,7 +19,7 @@ const config = {
     'prettier',
     'plugin:tailwindcss/recommended',
   ],
-  ignorePatterns: ['.eslintrc.cjs', 'prettier.config.cjs', 'next.config.js'],
+  ignorePatterns: ['.eslintrc.cjs', 'prettier.config.cjs', 'next.config.mjs'],
   rules: {
     '@typescript-eslint/consistent-type-imports': [
       'warn',
