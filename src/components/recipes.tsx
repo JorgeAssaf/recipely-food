@@ -132,6 +132,7 @@ export const Recipes: FC<RecipesProps> = ({
           categories: selectedCategories?.length
             ? selectedCategories.map((c) => c.value).join('.')
             : null,
+          page: 1,
         })}`,
         {
           scroll: false,
@@ -140,7 +141,6 @@ export const Recipes: FC<RecipesProps> = ({
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategories])
-
   return (
     <section className='flex flex-col space-y-6' {...props}>
       <div className='flex items-center space-x-2'>
@@ -305,11 +305,9 @@ export const Recipes: FC<RecipesProps> = ({
           </div>
         ) : null}
         <div className='grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4'>
-          {recipes.length > 0
-            ? recipes.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
-            ))
-            : null}
+          {recipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
         </div>
       </div>
       {recipes.length ? (

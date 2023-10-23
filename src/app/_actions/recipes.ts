@@ -21,7 +21,7 @@ import { type z } from 'zod'
 import type { FileUpload } from '@/types/recipes'
 import {
   getRecipeSchema,
-  getRecipesSchema,
+  type getRecipesSchema,
   type recipesSchema,
 } from '@/lib/validations/recipes'
 
@@ -44,18 +44,20 @@ export async function filterProductsAction(query: string) {
   return data
 }
 export async function getRecipesAction(
-  rawInput: z.infer<typeof getRecipesSchema>,
+  input: z.infer<typeof getRecipesSchema>,
 ) {
-  const input = getRecipesSchema.parse(rawInput)
+  console.log(input)
   const [column, order] = (input.sort?.split('.') as [
     keyof Recipes | undefined,
     'asc' | 'desc' | undefined,
   ]) ?? ['createdAt', 'desc']
   const difficulty =
     (input.difficulty?.split('.') as Recipes['difficulty'][]) ?? []
+  console.log(difficulty)
   const [minPrepTime, maxPrepTime] = input.prepTime?.split('-') ?? []
   const categories =
     (input.categories?.split('.') as Recipes['category'][]) ?? []
+  console.log(categories)
   const category = (input.category as Recipes['category']) ?? undefined
   const author = (input.author?.split('.') as Recipes['author'][]) ?? []
   const { items, count } = await db.transaction(async (tx) => {
