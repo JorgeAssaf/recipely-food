@@ -1,5 +1,4 @@
 import { recipes, type Recipes } from '@/db/schema'
-import { CircleIcon } from 'lucide-react'
 
 import { Icons } from '@/components/icons'
 
@@ -24,7 +23,7 @@ export const recipesCategories = [
   ...(recipes.category.enumValues.map((category) => ({
     title: category,
     slug: category.toLocaleLowerCase(),
-    icon: Icons[category] ?? CircleIcon,
+    icon: Icons[category],
     description: `All ${category} recipes`,
   })) satisfies {
     title: Recipes['category']
