@@ -1,5 +1,8 @@
+import { withContentlayer } from 'next-contentlayer'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true,
   experimental: {
     serverActions: true,
   },
@@ -8,4 +11,4 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withContentlayer(nextConfig)
