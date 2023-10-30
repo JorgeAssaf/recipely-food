@@ -133,7 +133,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                     className='space-y-3 rounded-md border-2 border-muted-foreground p-4'
                     key={recipe.id}
                   >
-                    <h3 className='truncate text-xl font-semibold lg:text-3xl'>
+                    <h3 className='truncate text-xl font-semibold capitalize lg:text-3xl'>
                       {recipe.name}
                     </h3>
                     <Badge size='md' className='text-sm capitalize'>
