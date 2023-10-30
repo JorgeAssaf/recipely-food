@@ -71,7 +71,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
           },
           {
             title: recipe.category,
-            href: `/categories/${recipe.category}`,
+            href: `/category/${recipe.category}`,
           },
           {
             title: recipe.name,
