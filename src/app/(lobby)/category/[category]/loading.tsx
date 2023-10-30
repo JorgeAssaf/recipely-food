@@ -8,18 +8,17 @@ import { Shell } from '@/components/shell'
 export default function CategoryLoading() {
   return (
     <Shell>
-      <div className='space-y-4'>
+      <div className='space-y-3'>
         <Skeleton className='h-10 w-28' />
-        <Skeleton className='h-4 w-60' />
+        <Skeleton className='h-4 w-48' />
+      </div>
+      <div className='flex flex-col space-y-6'>
         <div className='flex items-center gap-2'>
           <Skeleton className='h-9 w-14' />
-          <Skeleton className='h-9 w-14' />
+          <Skeleton className='h-9 w-20' />
         </div>
-      </div>
-
-      <div className='mb-5 flex flex-col'>
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {new Array(6).fill(0).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <Card key={i} className='rounded-sm'>
               <CardHeader className='border-b p-0'>
                 <AspectRatio ratio={16 / 9}>
@@ -31,12 +30,13 @@ export default function CategoryLoading() {
                   </div>
                 </AspectRatio>
               </CardHeader>
-              <CardContent className='grid gap-2.5 p-4'>
-                <Skeleton className='h-4 w-1/2' />
-                <Skeleton className='h-4 w-1/4' />
+              <CardContent className='grid gap-3 p-4'>
+                <Skeleton className='h-4 w-10/12' />
+                <Skeleton className='h-4 w-11/12' />
               </CardContent>
-              <CardFooter className='p-4'>
-                <Skeleton className='h-8 w-full rounded-sm' />
+              <CardFooter className='flex items-center justify-between gap-4 p-4'>
+                <Skeleton className='h-6 w-11/12 rounded-sm' />
+                <Skeleton className='h-6 w-11/12 rounded-sm' />
               </CardFooter>
             </Card>
           ))}

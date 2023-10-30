@@ -33,7 +33,6 @@ export default function RecipesLoading() {
               <CardContent className='grid gap-3 p-4'>
                 <Skeleton className='h-4 w-10/12' />
                 <Skeleton className='h-4 w-11/12' />
-                <Skeleton className='h-4 w-11/12' />
               </CardContent>
               <CardFooter className='flex items-center justify-between gap-4 p-4'>
                 <Skeleton className='h-6 w-11/12 rounded-sm' />
