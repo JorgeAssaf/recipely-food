@@ -8,6 +8,6 @@ type CounterUpProps = {
   duration?: number
 }
 
-export const CounterUp: FC<CounterUpProps> = ({ count, duration = 3.2 }) => {
+export const CounterUp: FC<CounterUpProps> = ({ count, duration = 3 }) => {
   return <CountUp isCounting end={count} duration={duration} />
 }
