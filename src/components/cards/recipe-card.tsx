@@ -37,7 +37,7 @@ export const RecipeCard = ({
                 alt={recipe.images[0]?.name ?? recipe.name}
                 className='rounded-t-lg object-cover'
                 sizes='(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw'
-                loading='lazy'
+                priority
                 fill
               />
             ) : (
