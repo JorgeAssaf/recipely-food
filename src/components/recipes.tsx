@@ -132,7 +132,7 @@ export const Recipes: FC<RecipesProps> = ({
           categories: selectedCategories?.length
             ? selectedCategories.map((c) => c.value).join('.')
             : null,
-          page: 1,
+          page: selectedCategories?.length ? 1 : null,
         })}`,
         {
           scroll: false,
