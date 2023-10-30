@@ -46,18 +46,15 @@ export async function filterProductsAction(query: string) {
 export async function getRecipesAction(
   input: z.infer<typeof getRecipesSchema>,
 ) {
-  console.log(input)
   const [column, order] = (input.sort?.split('.') as [
     keyof Recipes | undefined,
     'asc' | 'desc' | undefined,
   ]) ?? ['createdAt', 'desc']
   const difficulty =
     (input.difficulty?.split('.') as Recipes['difficulty'][]) ?? []
-  console.log(difficulty)
   const [minPrepTime, maxPrepTime] = input.prepTime?.split('-') ?? []
   const categories =
     (input.categories?.split('.') as Recipes['category'][]) ?? []
-  console.log(categories)
   const category = (input.category as Recipes['category']) ?? undefined
   const author = (input.author?.split('.') as Recipes['author'][]) ?? []
   const { items, count } = await db.transaction(async (tx) => {
