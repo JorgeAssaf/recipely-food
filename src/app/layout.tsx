@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import '@/styles/globals.css'
+import { Analytics } from '@/components/analytics'
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
               disableTransitionOnChange
             >
               {children}
+              <Analytics />
             </ThemeProvider>
             <Toaster />
           </body>
