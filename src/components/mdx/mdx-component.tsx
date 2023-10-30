@@ -8,7 +8,6 @@ import { AspectRatio } from '@/components/ui/aspect-ratio'
 
 import { Callout } from './callout'
 import { MdxCard } from './mdx-card'
-import { CodeBlock } from './mdx-code-block'
 
 /** Originally from `shadcn/ui-docs`
  * @link https://github.com/shadcn/ui/blob/main/apps/www/components/mdx-components.tsx
@@ -76,7 +75,7 @@ const components = {
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+      className={cn('leading-7 [&:not(:first-child)]:mt-4', className)}
       {...props}
     />
   ),
@@ -135,7 +134,6 @@ const components = {
       {...props}
     />
   ),
-  pre: CodeBlock,
 
   Image,
   Alert,
