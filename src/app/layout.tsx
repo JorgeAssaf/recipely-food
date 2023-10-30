@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { siteConfig } from '@/config/site'
@@ -8,6 +8,8 @@ import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import '@/styles/globals.css'
+
+import { Analytics } from '@/components/analytics'
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -41,10 +43,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: 'Jorge Assaf',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -63,6 +62,13 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+}
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
 }
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
@@ -84,8 +90,9 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
               disableTransitionOnChange
             >
               {children}
+              <Analytics />
+              <Toaster />
             </ThemeProvider>
-            <Toaster />
           </body>
         </html>
       </ClerkProvider>
