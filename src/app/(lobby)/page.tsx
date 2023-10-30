@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: HomeProps) {
         className='mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28'
       >
         <Badge
-          className='flex gap-1 px-4 py-2 text-sm font-bold md:text-base'
+          className='flex gap-1 px-4 py-2 text-sm font-bold tabular-nums md:text-base'
           variant='outline'
         >
           More than <CounterUp count={50} /> recipes
