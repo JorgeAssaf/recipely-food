@@ -20,7 +20,6 @@ export default function BlogPage() {
   const posts = allPosts.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date)),
   )
-  console.log(posts)
   return (
     <Shell>
       <div>
