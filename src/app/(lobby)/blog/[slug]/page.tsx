@@ -83,11 +83,14 @@ const PostLayout = async ({ params }: PostPageProps) => {
           </time>
         </div>
       </div>
-      <h1 className='inline-block text-4xl font-bold leading-tight lg:text-5xl'>
+      <h1 className='mb-7 inline-block text-4xl font-bold leading-tight lg:text-5xl'>
         {post.title}
       </h1>
       <Mdx code={post.body.code} />
-      <MdxPager currentPost={post} allPosts={allPosts} />
+
+      <div className='mt-12'>
+        <MdxPager currentPost={post} allPosts={allPosts} />
+      </div>
     </Shell>
   )
 }
