@@ -4,9 +4,6 @@ const { withContentlayer } = require("next-contentlayer");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   swcMinify: true,
-  experimental: {
-    webpackBuildWorker: true,
-  },
   images: {
     remotePatterns: [
       {
