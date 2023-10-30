@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import { type Post } from 'contentlayer/generated'
 import { format, parseISO } from 'date-fns'
-import { getMDXComponent } from 'next-contentlayer/hooks'
+import { Mdx } from '../mdx/mdx-component'
 
 export function PostCard(post: Post) {
-  const Content = getMDXComponent(post.body.code)
 
   return (
     <div className='mb-8 max-w-xs'>
@@ -21,7 +20,7 @@ export function PostCard(post: Post) {
         {format(parseISO(post.date), 'LLLL d, yyyy')}
       </time>
       <div className='line-clamp-1 text-sm'>
-        <Content />
+        <Mdx code={post.body.code} />
       </div>
     </div>
   )
