@@ -81,6 +81,7 @@ export const Recipes: FC<RecipesProps> = ({
       router.push(
         `${pahname}?${createQueryString({
           prepTime: `${min}-${max}`,
+          page: min !== 0 || max !== 500 ? 1 : null,
         })}`,
         {
           scroll: false,
@@ -98,6 +99,7 @@ export const Recipes: FC<RecipesProps> = ({
       router.push(
         `${pahname}?${createQueryString({
           difficulty: difficulty?.length ? difficulty.join('.') : null,
+          page: difficulty?.length ? 1 : null,
         })}`,
         {
           scroll: false,
