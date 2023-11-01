@@ -24,6 +24,7 @@ export async function generateMetadata({
     columns: {
       name: true,
       description: true,
+      category: true,
     },
     where: (recipes, { eq }) => eq(recipes.name, name),
   })
@@ -31,6 +32,7 @@ export async function generateMetadata({
   return {
     title: recipe?.name,
     description: recipe?.description,
+    keywords: [`${recipe?.name}`, `${recipe?.category}`],
   }
 }
 
