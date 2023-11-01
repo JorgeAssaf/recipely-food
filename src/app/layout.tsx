@@ -39,11 +39,10 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'Jorge Assaf',
-      url: 'https://github.com/JorgeAssaf',
+      url: 'https://jorgeassaf.vercel.app',
     },
   ],
   creator: 'Jorge Assaf',
-
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -63,8 +62,9 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
   },
 }
+
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
+  colorScheme: 'dark light',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
