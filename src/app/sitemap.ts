@@ -33,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/blog',
     '/dashboard/account',
     '/dashboard/recipes/recipes/saved-recipes',
-    '/dashboard/recipes/recipes/your-recipes',
+    '/dashboard/recipes/recipes/my-recipes',
     '/dashboard/recipes/new/recipe',
     '/dashboard/billing',
   ].map((route) => ({

@@ -104,7 +104,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
           {
             loading: 'Updating recipe...',
             success: () => {
-              router.push(`/dashboard/recipes/your-recipes`)
+              router.push(`/dashboard/recipes/my-recipes`)
               return 'Recipe updated successfully.'
             },
             error: (err: unknown) => {
@@ -461,7 +461,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     },
                   )
                 })
-                router.push(`/dashboard/recipes/your-recipes`)
+                router.push(`/dashboard/recipes/my-recipes`)
               }}
             >
               Delete

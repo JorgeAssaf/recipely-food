@@ -253,7 +253,7 @@ export async function DeleteRecipeAction(
   }
   await db.delete(recipes).where(eq(recipes.id, input.id))
 
-  revalidatePath(`/dashboard/recipes/your-recipes`)
+  revalidatePath(`/dashboard/recipes/my-recipes`)
 }
 
 export async function DeleteRecipesAction() {

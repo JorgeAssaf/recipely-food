@@ -93,7 +93,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href='/dashboard/recipes/your-recipes'>
+                      <Link href='/dashboard/recipes/my-recipes'>
                         <LayoutDashboard
                           className='mr-2 h-4 w-4'
                           aria-hidden='true'
