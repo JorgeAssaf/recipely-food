@@ -44,6 +44,10 @@ export const formatPrepTime = (prepTime: number) => {
   return `${hours}h ${minutes} min`
 }
 
+export const absoluteUrl = (path: string) => {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+}
+
 export function toTitleCase(str: string) {
   return str.replace(
     /\w\S*/g,
@@ -101,4 +105,3 @@ export type As<
   | (React.ComponentPropsWithRef<T5> & {
     as: T5
   })
-
