@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import '@/styles/globals.css'
+import { Analytics } from '@/components/analytics'
 
 import { Analytics } from '@/components/analytics'
 import { ClerkProvider } from '@clerk/nextjs'
