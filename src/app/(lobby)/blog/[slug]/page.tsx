@@ -24,7 +24,6 @@ interface PostPageProps {
 async function getPostFromParams(params: PostPageProps['params']) {
   const slug = params?.slug
   const post = allPosts.find((post) => post.slugAsParams === slug)
-  console.log(slug)
 
   if (!post) {
     null
@@ -70,10 +69,10 @@ const PostLayout = async ({ params }: PostPageProps) => {
         href='/blog'
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          'absolute left-[-200px] top-14 hidden xl:inline-flex',
+          'absolute left-[-200px] top-14 hidden text-muted-foreground xl:inline-flex',
         )}
       >
-        <ChevronLeftIcon className='mr-2 h-4 w-4' aria-hidden='true' />
+        <ChevronLeftIcon className='mr-2 h-4 w-4 ' aria-hidden='true' />
         See all posts
       </Link>
       <div className='space-y-2'>
