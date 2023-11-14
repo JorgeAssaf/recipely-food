@@ -31,7 +31,10 @@ export const MdxPager = ({
         <Link
           aria-label='Previous post'
           href={pager.previousPost.slug}
-          className={cn(buttonVariants({ variant: 'ghost' }),)}
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'text-muted-foreground',
+          )}
         >
           <ChevronLeftIcon className='mr-2 h-4 w-4' aria-hidden='true' />
           {pager.previousPost.title}
@@ -41,7 +44,10 @@ export const MdxPager = ({
         <Link
           aria-label='Next post'
           href={pager.nextPost.slug}
-          className={cn(buttonVariants({ variant: 'ghost' }), 'ml-auto')}
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'text-muted-foreground',
+          )}
         >
           {pager.nextPost.title}
           <ChevronRightIcon className='ml-2 h-4 w-4' aria-hidden='true' />
