@@ -108,7 +108,7 @@ export const MultiSelect = ({
           <CommandPrimitive.Input
             ref={inputRef}
             tabIndex={-1}
-            placeholder='Search for an option'
+            placeholder='Select a category'
             className='flex-1 bg-transparent px-1 py-0.5 outline-none placeholder:text-muted-foreground'
             value={query}
             onValueChange={setQuery}

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import { allPosts } from 'contentlayer/generated'
+import { compareDesc } from 'date-fns'
 
+import { PostCard } from '@/components/cards/post-card'
 import {
   PageHeader,
   PageHeaderDescription,
@@ -14,6 +17,9 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
+  const posts = allPosts.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date)),
+  )
   return (
     <Shell>
       <div>
@@ -21,6 +27,13 @@ export default function BlogPage() {
           <PageHeaderHeading>Blog</PageHeaderHeading>
           <PageHeaderDescription>Read the new Recipes</PageHeaderDescription>
         </PageHeader>
+      </div>
+      <div className='py-8'>
+        {posts.length > 0 ? (
+          posts.map((post, idx) => <PostCard key={idx} {...post} />)
+        ) : (
+          <div>No posts</div>
+        )}
       </div>
     </Shell>
   )

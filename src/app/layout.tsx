@@ -1,5 +1,4 @@
-import type { Metadata } from 'next'
-import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata, Viewport } from 'next'
 
 import { siteConfig } from '@/config/site'
 import { satoshi } from '@/lib/fonts'
@@ -9,6 +8,8 @@ import { ThemeProvider } from '@/components/theme-provider'
 
 import '@/styles/globals.css'
 import { Analytics } from '@/components/analytics'
+
+import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -20,32 +21,26 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    'Next.js',
-    'React',
-    'Tailwind CSS',
-    'TypeScript',
-    'Shadcn',
-    'Radix UI',
-    'Jorge Assaf',
-    'Recipes',
-    'Cooking',
-    'Food',
-    'Food Blog',
-    'Web Development',
-    'Frontend Development',
-    'Fullstack Development',
+    'next.js',
+    'react',
+    'tailwindcss',
+    'typeScript',
+    'shadcn',
+    'radix ui',
+    'jorge assaf',
+    'recipes',
+    'cooking',
+    'food',
+    'food blog',
+    'Web development',
   ],
   authors: [
     {
       name: 'Jorge Assaf',
-      url: 'https://github.com/JorgeAssaf',
+      url: 'https://jorgeassaf.vercel.app',
     },
   ],
   creator: 'Jorge Assaf',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -66,31 +61,37 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  colorScheme: 'dark light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
+}
+
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <>
-      <ClerkProvider>
-        <html lang='en' suppressHydrationWarning>
-          <head />
-          <body
-            className={cn(
-              'min-h-screen bg-background font-sans antialiased',
-              satoshi.variable,
-            )}
+    <ClerkProvider>
+      <html lang='en' suppressHydrationWarning>
+        <head />
+        <body
+          className={cn(
+            'min-h-screen bg-background font-sans antialiased',
+            satoshi.variable,
+          )}
+        >
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
           >
-            <ThemeProvider
-              attribute='class'
-              defaultTheme='system'
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-              <Analytics />
-            </ThemeProvider>
+            {children}
+            <Analytics />
             <Toaster />
-          </body>
-        </html>
-      </ClerkProvider>
-    </>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

@@ -13,8 +13,8 @@ export function RecipesTabs() {
   const tabs = [
     {
       title: 'Your Recipes',
-      href: '/dashboard/recipes/your-recipes',
-      isActive: segment === 'your-recipes',
+      href: '/dashboard/recipes/my-recipes',
+      isActive: segment === 'my-recipes',
     },
     {
       title: 'Add New Recipe',

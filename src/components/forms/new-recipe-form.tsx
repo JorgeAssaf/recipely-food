@@ -76,7 +76,7 @@ export function AddNewRecipe() {
           ? await startUpload(data.images).then((res) => {
             const formattedImages = res?.map((image) => ({
               id: image.key,
-              name: image.name,
+              name: image.name ?? image.key.split('/').pop() ?? 'unknown',
               url: image.url,
             }))
 

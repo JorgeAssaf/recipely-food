@@ -9,7 +9,7 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
   name: 'Recipely',
-  description: ' A platform to create, view and share recipes',
+  description: 'A platform to create, view and share recipes',
   url: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
   sourceCode: 'https://github.com/JorgeAssaf/recipely-food',
   MainNavItem: [

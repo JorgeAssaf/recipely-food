@@ -37,7 +37,7 @@ export function PaginationButton({
   const paginationRange = useMemo(() => {
     const delta = siblingCount + 2
 
-    const range = []
+    const range = [] as (number | '...')[]
 
     for (
       let i = Math.max(2, Number(page) - delta);

@@ -88,7 +88,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
           ? await startUpload(data.images).then((res) => {
             const formattedImages = res?.map((image) => ({
               id: image.key,
-              name: image.key.split('_')[1] ?? image.key,
+              name: image.name ?? image.key.split('/').pop() ?? 'unknown',
               url: image.url,
             }))
             return formattedImages ?? null
@@ -99,13 +99,12 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
           UpdateRecipeAction({
             ...data,
             id: recipe.id,
-            images: images ?? recipe.images,
+            images,
           }),
           {
             loading: 'Updating recipe...',
             success: () => {
-              form.reset()
-              setFiles(null)
+              router.push(`/dashboard/recipes/my-recipes`)
               return 'Recipe updated successfully.'
             },
             error: (err: unknown) => {
@@ -116,11 +115,11 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
             },
           },
         )
-
-        router.push(`/dashboard/recipes/your-recipes`)
-      } catch (error) {
+      } catch (error: unknown) {
         if (error instanceof Error) {
           toast.error(error.message)
+        } else {
+          toast.error('Something went wrong.')
         }
       }
     })
@@ -462,7 +461,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     },
                   )
                 })
-                router.push(`/dashboard/recipes/your-recipes`)
+                router.push(`/dashboard/recipes/my-recipes`)
               }}
             >
               Delete

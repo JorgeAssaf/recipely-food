@@ -19,7 +19,7 @@ export const dashboardConfig: DashboardConfig = {
 
         {
           title: 'Recipes',
-          href: '/dashboard/recipes/your-recipes',
+          href: '/dashboard/recipes/my-recipes',
           icon: 'book',
           items: [],
         },
