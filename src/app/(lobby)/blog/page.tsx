@@ -32,7 +32,7 @@ export default function BlogPage() {
         {posts.length > 0 ? (
           posts.map((post, idx) => <PostCard key={idx} {...post} />)
         ) : (
-          <div>no posts</div>
+          <div>No posts</div>
         )}
       </div>
     </Shell>
