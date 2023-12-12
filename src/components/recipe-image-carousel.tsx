@@ -25,6 +25,7 @@ export const RecipeImageCarrousel = ({
   options,
   ...props
 }: RecipeImageCarrouselProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
@@ -45,8 +46,11 @@ export const RecipeImageCarrousel = ({
   )
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     setSelectedIndex(emblaApi.selectedScrollSnap())
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     setPrevBtnDisabled(!emblaApi.canScrollPrev())
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     setNextBtnDisabled(!emblaApi.canScrollNext())
   }, [])
 
