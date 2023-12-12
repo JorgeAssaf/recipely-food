@@ -10,13 +10,13 @@ export default authMiddleware({
     '/signin(.*)',
     '/signup(.*)',
     '/sso-callback(.*)',
-    '/recipes(.*)',
-    '/recipe(.*)',
-    '/api(.*)',
-    '/blog(.*)',
     '/categories(.*)',
     '/category(.*)',
+    '/recipes(.*)',
+    '/recipe(.*)',
+    '/blog(.*)',
     '/about(.*)',
+    '/api(.*)',
   ],
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
