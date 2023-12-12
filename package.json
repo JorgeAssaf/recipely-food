@@ -2,12 +2,8 @@
   "name": "recipely-food",
   "version": "1.0.0",
   "description": "A recipe app for food lovers",
-  "author": "Jorge Enrique Assaf Salinas",
-  "license": "MIT",
+  "author": "Jorge Enrique Assaf",
   "private": true,
-  "engines": {
-    "node": ">=16"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -96,7 +92,7 @@
   },
   "overrides": {
     "next-contentlayer": {
-      "next": "latest"
+      "next": "$next"
     }
   }
 }
