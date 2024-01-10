@@ -12,7 +12,9 @@ import { Shell } from '@/components/shell'
 import { getRecipesAction } from '@/app/_actions/recipes'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
+  ),
   title: 'All Recipes',
   description: 'Find your favorite recipes here',
 }

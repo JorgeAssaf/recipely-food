@@ -1,7 +1,5 @@
-import { Shell } from "@/components/shell";
+import { Shell } from '@/components/shell'
 
 export default function PostLoading() {
-  return (
-    <Shell>PostLoading</Shell>
-  )
+  return <Shell>PostLoading</Shell>
 }

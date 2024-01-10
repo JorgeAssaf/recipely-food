@@ -1,5 +1,3 @@
 export default function BillingPage() {
-  return (
-    <div>BillingPage</div>
-  )
+  return <div>BillingPage</div>
 }

@@ -40,10 +40,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: absoluteUrl(route),
     lastModified: new Date().toISOString(),
   }))
-  return [
-    ...routes,
-    ...recipesRoute,
-    ...categoriesRoutes,
-    ...postsRoutes,
-  ]
+  return [...routes, ...recipesRoute, ...categoriesRoutes, ...postsRoutes]
 }
