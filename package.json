@@ -17,7 +17,7 @@
     "unlighthouse": "pnpm dlx unlighthouse --site https://recipely-food.vercel.app/ --desktop --no-cache"
   },
   "dependencies": {
-    "@clerk/nextjs": "4.27.7",
+    "@clerk/nextjs": "4.29.3",
     "@clerk/themes": "1.7.9",
     "@hookform/resolvers": "3.3.2",
     "@loglib/tracker": "0.8.0",
