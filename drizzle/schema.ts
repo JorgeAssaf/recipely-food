@@ -1,4 +1,4 @@
-import { mysqlTable, mysqlSchema, AnyMySqlColumn, primaryKey, serial, varchar, mysqlEnum, int, json, timestamp, tinyint } from "drizzle-orm/mysql-core"
+import { mysqlTable, mysqlSchema, AnyMySqlColumn, primaryKey, unique, serial, varchar, mysqlEnum, int, json, timestamp, tinyint } from "drizzle-orm/mysql-core"
 import { sql } from "drizzle-orm"
 
 
@@ -22,7 +22,8 @@ export const recipes = mysqlTable("recipes", {
 },
 (table) => {
 	return {
-		recipesId: primaryKey(table.id),
+		recipesId: primaryKey({ columns: [table.id], name: "recipes_id"}),
+		id: unique("id").on(table.id),
 	}
 });
 
@@ -35,6 +36,7 @@ export const savedRecipes = mysqlTable("saved_recipes", {
 },
 (table) => {
 	return {
-		savedRecipesId: primaryKey(table.id),
+		savedRecipesId: primaryKey({ columns: [table.id], name: "saved_recipes_id"}),
+		id: unique("id").on(table.id),
 	}
 });
