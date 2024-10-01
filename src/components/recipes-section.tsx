@@ -4,7 +4,7 @@ import { useCallback, useTransition, type FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import type { Recipes } from '@/db/schema'
+import type { Recipe } from '@/db/schema'
 import { Clock, Utensils, XCircle } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
@@ -21,7 +21,7 @@ interface RecipeSectionProps extends React.ComponentPropsWithoutRef<'section'> {
     label: string
     value: string
   }[]
-  recipes: Recipes[]
+  recipes: Recipe[]
 }
 
 export const RecipesSection: FC<RecipeSectionProps> = ({

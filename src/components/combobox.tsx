@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { type Recipes } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 import { SearchIcon } from 'lucide-react'
 
 import { recipesCategories } from '@/config/recipes'
@@ -22,8 +22,8 @@ import { Button } from './ui/button'
 import { Skeleton } from './ui/skeleton'
 
 type RecipeGroup = {
-  category: Recipes['category']
-  recipes: Pick<Recipes, 'id' | 'name' | 'category'>[]
+  category: Recipe['category']
+  recipes: Pick<Recipe, 'id' | 'name' | 'category'>[]
 }
 
 const Combobox = () => {
@@ -126,6 +126,7 @@ const Combobox = () => {
                     <CommandItem
                       key={item.id}
                       value={item.name}
+                      className='cursor-pointer'
                       onSelect={() =>
                         handleSelect(() =>
                           router.push(`/recipe/${slugify(item.name)}`),

@@ -3,7 +3,7 @@
 import type { FC } from 'react'
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { type Recipes as RecipesSchema } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 
 import { type Option } from '@/types/recipes'
 import { sortOptions } from '@/config/recipes'
@@ -27,9 +27,9 @@ import { PaginationButton } from './pagination-buttons'
 import SortButton from './sort-button'
 
 interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
-  recipes: RecipesSchema[]
+  recipes: Recipe[]
   pageCount: number
-  categories?: RecipesSchema['category'][]
+  categories?: Recipe['category'][]
 }
 
 export const Recipes: FC<RecipesProps> = ({

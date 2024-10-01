@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { recipes, type Recipes } from '@/db/schema'
+import { recipes, type Recipe } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
@@ -43,7 +43,7 @@ import { Zoom } from '../zoom-image'
 type Inputs = z.infer<typeof recipesSchema>
 
 type AddNewRecipeProps = {
-  recipe: Recipes
+  recipe: Recipe
 }
 const { useUploadThing } = generateReactHelpers<OurFileRouter>()
 
