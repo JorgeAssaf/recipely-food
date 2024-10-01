@@ -1,8 +1,8 @@
 'use client'
 
-import { type Recipes } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 
-const SingleRecipe = ({}: { recipe: Recipes }) => {
+const SingleRecipe = ({ }: { recipe: Recipe }) => {
   return <></>
 }
 export default SingleRecipe
