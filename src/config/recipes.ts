@@ -1,4 +1,4 @@
-import { recipes, type Recipes } from '@/db/schema'
+import { recipes, type Recipe } from '@/db/schema'
 
 import { Icons } from '@/components/icons'
 
@@ -26,7 +26,7 @@ export const recipesCategories = [
     icon: Icons[category],
     description: `All ${category} recipes`,
   })) satisfies {
-    title: Recipes['category']
+    title: Recipe['category']
     slug: string
     icon: React.FC
     description: string
