@@ -4,9 +4,8 @@ import { createPool } from 'mysql2/promise'
 import * as schema from './schema'
 
 declare const globalThis: {
-  _db: ReturnType<typeof drizzle<typeof schema>>;
-} & typeof global;
-
+  _db: ReturnType<typeof drizzle<typeof schema>>
+} & typeof global
 
 const connection = createPool({
   uri: process.env.DATABASE_URL!,
