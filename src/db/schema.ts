@@ -43,8 +43,8 @@ export const recipes = mysqlTable('recipes', {
   createdAt: timestamp('createdAt').defaultNow(),
 })
 
-export type Recipes = typeof recipes.$inferSelect
-export type NewRecipes = typeof recipes.$inferInsert
+export type Recipe = typeof recipes.$inferSelect
+export type NewRecipe = typeof recipes.$inferInsert
 
 export const savedRecipes = mysqlTable('saved_recipes', {
   id: serial('id').primaryKey(),
@@ -54,4 +54,5 @@ export const savedRecipes = mysqlTable('saved_recipes', {
   createdAt: timestamp('createdAt').defaultNow(),
 })
 
-export type SavedRecipes = typeof savedRecipes.$inferSelect
+export type SavedRecipe = typeof savedRecipes.$inferSelect
+export type NewSavedRecipe = typeof savedRecipes.$inferInsert
