@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { db } from '@/db'
-import { type Recipes } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 
 import { recipesCategories } from '@/config/recipes'
 import { cn } from '@/lib/utils'
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 interface RecipeSloganProps extends React.HTMLAttributes<HTMLParagraphElement> {
   category: {
-    title: Recipes['category']
+    title: Recipe['category']
   }
 }
 

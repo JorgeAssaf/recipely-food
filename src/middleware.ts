@@ -1,47 +1,36 @@
-import { NextResponse } from 'next/server'
-import { authMiddleware, clerkClient } from '@clerk/nextjs'
-
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/nextjs/middleware for more information about configuring your middleware
-export default authMiddleware({
-  publicRoutes: [
-    '/',
-    '/signin(.*)',
-    '/signup(.*)',
-    '/sso-callback(.*)',
-    '/categories(.*)',
-    '/category(.*)',
-    '/recipes(.*)',
-    '/recipe(.*)',
-    '/blog(.*)',
-    '/about(.*)',
-    '/api(.*)',
-  ],
-  async afterAuth(auth, req) {
-    if (auth.isPublicRoute) {
-      return NextResponse.next()
-    }
+import {
+  clerkClient,
+  clerkMiddleware,
+  createRouteMatcher,
+} from '@clerk/nextjs/server'
 
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)'])
+
+export default clerkMiddleware(async (auth, req) => {
+  const { userId } = auth()
+
+  if (!userId && isProtectedRoute(req)) {
     const url = new URL(req.nextUrl.origin)
-
-    if (!auth.userId) {
-      url.pathname = '/signin'
-      return NextResponse.redirect(url)
-    }
-
-    const user = await clerkClient.users.getUser(auth.userId)
-
-    if (!user.publicMetadata.role) {
-      await clerkClient.users.updateUserMetadata(auth.userId, {
-        privateMetadata: {
-          role: 'user_role',
-        },
-      })
-    }
-  },
+    // Add custom logic to run before redirecting
+    auth().protect({
+      unauthenticatedUrl: `${url.origin}/signin`,
+      unauthorizedUrl: `${url.origin}/dashboard`,
+    })
+  }
+  if (userId !== null) {
+    await clerkClient.users.updateUserMetadata(userId, {
+      privateMetadata: {
+        role: ' user',
+      },
+    })
+  }
 })
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  // The following matcher runs middleware on all routes
+  // except static assets.
+  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
 }

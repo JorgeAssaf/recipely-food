@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { db } from '@/db'
 import { recipes as recipesDB } from '@/db/schema'
-import { currentUser } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server'
 import { desc, eq } from 'drizzle-orm'
 import { FileWarning } from 'lucide-react'
 

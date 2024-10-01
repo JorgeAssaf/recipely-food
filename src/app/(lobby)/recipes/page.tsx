@@ -26,8 +26,13 @@ interface RecipePageProps {
 }
 
 export default async function RecipesPage({ searchParams }: RecipePageProps) {
-  const { page, per_page, sort, categories, prepTime, difficulty } =
-    recipesParamsSchema.parse(searchParams)
+  const result = recipesParamsSchema.safeParse(searchParams)
+
+  if (!result.success) {
+    return null
+  }
+
+  const { page, per_page, sort, categories, prepTime, difficulty } = result.data
 
   const pageAsNumber = Number(page)
   const fallbackPage =
