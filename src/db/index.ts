@@ -4,7 +4,7 @@ import { createPool } from 'mysql2/promise'
 import * as schema from './schema'
 
 declare const globalThis: {
-  _db: ReturnType<typeof drizzle>;
+  _db: ReturnType<typeof drizzle<typeof schema>>;
 } & typeof global;
 
 
