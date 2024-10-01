@@ -13,26 +13,25 @@ import { Skeleton } from '@/components/ui/skeleton'
 export function LogOutButtons() {
   const router = useRouter()
   const mounted = useMounted()
-  const [isPending, startTransition] = useTransition()
 
   return (
-    <div className='flex w-full items-center space-x-2'>
+    <div className='flex w-full flex-col-reverse items-center gap-2 sm:flex-row'>
+      <Button
+        variant='secondary'
+        size='sm'
+        className='w-full'
+        onClick={() => router.back()}
+      >
+        Go back
+        <span className='sr-only'>Previous page</span>
+      </Button>
       {mounted ? (
         <SignOutButton
-          signOutCallback={() =>
-            startTransition(() => {
-              router.push(`${window.location.origin}/?redirect=false`)
-            })
-          }
+          redirectUrl={`${window.location.origin}/?redirect=false`}
         >
-          <Button
-            aria-label='Log out'
-            size='sm'
-            className='w-full'
-            disabled={isPending}
-          >
-            {isPending && <Loader className='mr-2 h-4 w-4 animate-spin' />}
+          <Button size='sm' className='w-full'>
             Log out
+            <span className='sr-only'>Log out</span>
           </Button>
         </SignOutButton>
       ) : (
@@ -45,16 +44,6 @@ export function LogOutButtons() {
           Log out
         </Skeleton>
       )}
-      <Button
-        aria-label='Go back to the previous page'
-        variant='outline'
-        size='sm'
-        className='w-full'
-        onClick={() => router.back()}
-        disabled={isPending}
-      >
-        Go back
-      </Button>
     </div>
   )
 }
