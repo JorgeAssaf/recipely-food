@@ -57,9 +57,6 @@ export const metadata: Metadata = {
     images: [`${siteConfig.url}/opengraph-image.png`],
     creator: '@AssafEnrique',
   },
-  icons: {
-    icon: '/favicon.ico',
-  },
 }
 export const viewport: Viewport = {
   colorScheme: 'dark light',
