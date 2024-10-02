@@ -51,7 +51,7 @@
     "mysql2": "3.9.4",
     "next-contentlayer": "0.3.4",
     "next-themes": "0.3.0",
-    "next": "14.2.13",
+    "next": "14.2.14",
     "react-cropper": "2.3.3",
     "react-day-picker": "8.10.0",
     "react-dom": "18.2.0",
