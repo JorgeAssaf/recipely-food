@@ -70,20 +70,25 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   ::-webkit-scrollbar {
     @apply w-2;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply rounded-md bg-foreground;
   }
+
   ::-webkit-scrollbar-track {
     @apply bg-background;
   }
+
   ::selection {
-    @apply bg-primary-foreground text-primary-foreground;
+    @apply bg-primary-foreground text-primary;
   }
 }
 
