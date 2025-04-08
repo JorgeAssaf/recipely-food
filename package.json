@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "scan": "next dev & npx react-scan@latest localhost:3002",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

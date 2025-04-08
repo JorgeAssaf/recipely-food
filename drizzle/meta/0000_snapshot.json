@@ -46,9 +46,7 @@
       "compositePrimaryKeys": {
         "ingredients_id": {
           "name": "ingredients_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "indexes": {},
@@ -164,9 +162,7 @@
       "compositePrimaryKeys": {
         "recipes_id": {
           "name": "recipes_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "indexes": {},
