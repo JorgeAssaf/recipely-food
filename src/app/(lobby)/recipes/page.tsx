@@ -33,16 +33,13 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
   }
 
   const { page, per_page, sort, categories, prepTime, difficulty } = result.data
-
   const pageAsNumber = Number(page)
   const fallbackPage =
     isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber
   const perPageAsNumber = Number(per_page)
 
-  const limit = isNaN(perPageAsNumber) ? 10 : perPageAsNumber
-
+  const limit = isNaN(perPageAsNumber) ? 8 : perPageAsNumber
   const offset = fallbackPage > 0 ? (fallbackPage - 1) * limit : 0
-
   const recipesTransaction = await getRecipesAction({
     limit,
     offset,
@@ -52,7 +49,7 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
     difficulty,
   })
 
-  const pageCount = Math.ceil(recipesTransaction.count / limit)
+  const recipesCountPerPage = Math.ceil(recipesTransaction.count / limit)
 
   return (
     <Shell>
@@ -66,7 +63,7 @@ export default async function RecipesPage({ searchParams }: RecipePageProps) {
         <Recipes
           recipes={recipesTransaction.items}
           categories={Object.values(recipes.category.enumValues)}
-          pageCount={pageCount}
+          pageCount={recipesCountPerPage}
         />
       </div>
     </Shell>
