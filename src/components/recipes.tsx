@@ -1,9 +1,12 @@
 'use client'
 
-import { type Recipe } from '@/db/schema'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState, useTransition } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { type Recipe } from '@/db/schema'
 
+import { type Option } from '@/types/recipes'
+import { sortOptions } from '@/config/recipes'
+import { useDebounce } from '@/hooks/useDebounce'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -16,9 +19,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Slider } from '@/components/ui/slider'
-import { sortOptions } from '@/config/recipes'
-import { useDebounce } from '@/hooks/useDebounce'
-import { type Option } from '@/types/recipes'
 
 import { RecipeCard } from './cards/recipe-card'
 import { MultiSelect } from './multi-select'
@@ -42,7 +42,7 @@ export const Recipes = ({
   const pahname = usePathname()
   const router = useRouter()
 
-  const page = searchParams?.get('page') ?? 1
+  const page = searchParams?.get('page') ?? '1'
   const per_page = searchParams?.get('per_page') ?? '8'
   const sort = searchParams?.get('sort') ?? 'createdAt.desc'
 
