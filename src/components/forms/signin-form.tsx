@@ -1,9 +1,10 @@
 'use client'
 
-import { useTransition } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSignIn } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { type z } from 'zod'
 
@@ -25,9 +26,9 @@ import { PasswordInput } from '../password-input'
 type Inputs = z.infer<typeof signinSchema>
 
 const SigninForm = () => {
-  const { isLoaded, setActive, signIn } = useSignIn()
   const router = useRouter()
-  const [isPending, startTransition] = useTransition()
+  const { isLoaded, setActive, signIn } = useSignIn()
+  const [isLoading, setIsLoading] = useState(false)
   const form = useForm<Inputs>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -35,23 +36,25 @@ const SigninForm = () => {
       password: '',
     },
   })
-  function onSubmit(data: Inputs) {
+  async function onSubmit(data: Inputs) {
     if (!isLoaded) return
+    setIsLoading(true)
+    try {
+      const result = await signIn.create({
+        strategy: 'password',
+        identifier: data.email,
+        password: data.password,
+      })
+      if (result.status === 'complete') {
+        await setActive({ session: result.createdSessionId })
 
-    startTransition(async () => {
-      try {
-        const result = await signIn.create({
-          password: data.password,
-          identifier: data.email,
-        })
-        if (result.status === 'complete') {
-          await setActive({ session: result.createdSessionId })
-          router.push(`${window.location.origin}/`)
-        }
-      } catch (error) {
-        catchClerkError(error)
+        router.push(`${window.location.origin}/`)
       }
-    })
+    } catch (error) {
+      catchClerkError(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -89,7 +92,8 @@ const SigninForm = () => {
             )}
           />
 
-          <Button type='submit' className='mt-5 w-full' disabled={isPending}>
+          <Button type='submit' className='mt-5 w-full' disabled={isLoading}>
+            {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
             Sign in
           </Button>
         </form>

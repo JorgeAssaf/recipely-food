@@ -2,8 +2,8 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
-import { recipes, savedRecipes, type Recipes } from '@/db/schema'
-import { currentUser } from '@clerk/nextjs'
+import { recipes, savedRecipes, type Recipe } from '@/db/schema'
+import { currentUser } from '@clerk/nextjs/server'
 import {
   and,
   asc,
@@ -47,16 +47,16 @@ export async function getRecipesAction(
   input: z.infer<typeof getRecipesSchema>,
 ) {
   const [column, order] = (input.sort?.split('.') as [
-    keyof Recipes | undefined,
+    keyof Recipe | undefined,
     'asc' | 'desc' | undefined,
   ]) ?? ['createdAt', 'desc']
   const difficulty =
-    (input.difficulty?.split('.') as Recipes['difficulty'][]) ?? []
+    (input.difficulty?.split('.') as Recipe['difficulty'][]) ?? []
   const [minPrepTime, maxPrepTime] = input.prepTime?.split('-') ?? []
   const categories =
-    (input.categories?.split('.') as Recipes['category'][]) ?? []
-  const category = (input.category as Recipes['category']) ?? undefined
-  const author = (input.author?.split('.') as Recipes['author'][]) ?? []
+    (input.categories?.split('.') as Recipe['category'][]) ?? []
+  const category = (input.category as Recipe['category']) ?? undefined
+  const author = (input.author?.split('.') as Recipe['author'][]) ?? []
   const { items, count } = await db.transaction(async (tx) => {
     const items = await tx
       .select()
@@ -133,9 +133,10 @@ export async function AddRecipeAction(
   if (!user) {
     throw new Error('You must be logged in to add a recipe.')
   }
-  const recipeWithSameName = await db.query.recipes.findFirst({
-    where: eq(recipes.name, values.name),
-  })
+  const recipeWithSameName = await db
+    .select()
+    .from(recipes)
+    .where(eq(recipes.name, values.name))
 
   if (recipeWithSameName) {
     throw new Error('Product name already taken.')
@@ -143,6 +144,7 @@ export async function AddRecipeAction(
 
   await db.insert(recipes).values({
     ...values,
+    images: values.images,
     userId: user.id,
     author: `${user.firstName ?? user.username} ${user.lastName ?? ''}`,
   })
@@ -259,4 +261,4 @@ export async function DeleteRecipeAction(
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
-export const generateRecipes = async () => { }
+export const generateRecipes = async () => {}

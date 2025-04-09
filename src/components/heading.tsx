@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 
-import { type As, cn } from '@/lib/utils'
+import { cn, type As } from '@/lib/utils'
 
 export type HeadingSize =
   | '1'

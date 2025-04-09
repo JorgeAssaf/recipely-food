@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { type Recipes as RecipesSchema } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 
 import { toTitleCase } from '@/lib/utils'
 import { recipesParamsSchema } from '@/lib/validations/params'
@@ -18,7 +18,7 @@ interface CategoryPageProps {
   }
 
   params: {
-    category: RecipesSchema['category']
+    category: Recipe['category']
   }
 }
 

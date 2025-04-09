@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { isClerkAPIResponseError, useSignIn } from '@clerk/nextjs'
-import { type OAuthStrategy } from '@clerk/types'
+import { useSignIn } from '@clerk/nextjs'
+import { isClerkAPIResponseError } from '@clerk/nextjs/errors'
+import type { OAuthStrategy } from '@clerk/types'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 

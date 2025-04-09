@@ -10,5 +10,5 @@ export const recipesParamsSchema = searchParamsSchema.extend({
   categories: z.string().optional(),
   prepTime: z.string().optional(),
   difficulty: z.string().optional(),
-  author: z.string().optional()
+  author: z.string().optional(),
 })

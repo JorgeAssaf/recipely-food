@@ -40,7 +40,7 @@ const headingVariants = cva(
 
 interface PageHeaderHeadingProps
   extends React.HTMLAttributes<HTMLHeadingElement>,
-  VariantProps<typeof headingVariants> {
+    VariantProps<typeof headingVariants> {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
@@ -70,7 +70,7 @@ const descriptionVariants = cva('max-w-[750px] text-muted-foreground', {
 
 interface PageHeaderDescriptionProps
   extends React.ComponentProps<typeof Balancer>,
-  VariantProps<typeof descriptionVariants> { }
+    VariantProps<typeof descriptionVariants> {}
 
 function PageHeaderDescription({
   className,

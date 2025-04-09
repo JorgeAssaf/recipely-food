@@ -1,9 +1,8 @@
 'use client'
 
-import type { FC } from 'react'
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { type Recipes as RecipesSchema } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 
 import { type Option } from '@/types/recipes'
 import { sortOptions } from '@/config/recipes'
@@ -27,17 +26,17 @@ import { PaginationButton } from './pagination-buttons'
 import SortButton from './sort-button'
 
 interface RecipesProps extends React.HTMLAttributes<HTMLDivElement> {
-  recipes: RecipesSchema[]
+  recipes: Recipe[]
   pageCount: number
-  categories?: RecipesSchema['category'][]
+  categories?: Recipe['category'][]
 }
 
-export const Recipes: FC<RecipesProps> = ({
+export const Recipes = ({
   recipes,
   pageCount,
   categories,
   ...props
-}) => {
+}: RecipesProps) => {
   const [isPending, startTransition] = useTransition()
   const searchParams = useSearchParams()
   const pahname = usePathname()
@@ -48,8 +47,8 @@ export const Recipes: FC<RecipesProps> = ({
   const sort = searchParams?.get('sort') ?? 'createdAt.desc'
 
   const prepTimeParams = searchParams?.get('prepTime') ?? '0-500'
-  const minPrepTimeParams = +prepTimeParams.split('-')[0] ?? 0
-  const maxPrepTimeParams = +prepTimeParams.split('-')[1] ?? 500
+  const minPrepTimeParams = +prepTimeParams.split('-')[0]
+  const maxPrepTimeParams = +prepTimeParams.split('-')[1]
 
   const difficultyParams = searchParams?.get('difficulty') ?? null
 
@@ -81,7 +80,7 @@ export const Recipes: FC<RecipesProps> = ({
       router.push(
         `${pahname}?${createQueryString({
           prepTime: `${min}-${max}`,
-          page: min !== 0 || max !== 500 ? 1 : null,
+          // page: min !== 0 || max !== 500 ? 1 : null,
         })}`,
         {
           scroll: false,
@@ -99,7 +98,7 @@ export const Recipes: FC<RecipesProps> = ({
       router.push(
         `${pahname}?${createQueryString({
           difficulty: difficulty?.length ? difficulty.join('.') : null,
-          page: difficulty?.length ? 1 : null,
+          // page: difficulty?.length ? 1 : null,
         })}`,
         {
           scroll: false,
@@ -134,7 +133,7 @@ export const Recipes: FC<RecipesProps> = ({
           categories: selectedCategories?.length
             ? selectedCategories.map((c) => c.value).join('.')
             : null,
-          page: selectedCategories?.length ? 1 : null,
+          // page: selectedCategories?.length ? 1 : null,
         })}`,
         {
           scroll: false,

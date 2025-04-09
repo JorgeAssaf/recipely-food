@@ -3,7 +3,7 @@
 import { useTransition } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Recipes } from '@/db/schema'
+import type { Recipe } from '@/db/schema'
 import { FileWarning, ImageIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -21,7 +21,7 @@ import {
 } from './ui/card'
 
 type SavedRecipesProps = {
-  savedRecipes: Recipes[]
+  savedRecipes: Recipe[]
 }
 
 export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {

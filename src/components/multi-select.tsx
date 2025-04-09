@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Command, CommandGroup, CommandItem } from '@/components/ui/command'
 
-type MultiSelectProps = React.HTMLAttributes<HTMLDivElement> & {
+type MultiSelectProps = React.ComponentPropsWithoutRef<typeof Command> & {
   options: Option[]
   selected?: Option[]
   onChange?: (value: Option[] | null) => void
@@ -69,9 +69,9 @@ export const MultiSelect = ({
 
   return (
     <Command
-      {...props}
       onKeyDown={handleKeyDown}
       className='h-auto overflow-visible bg-transparent'
+      {...props}
     >
       <div className='group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2'>
         <div className='flex flex-wrap gap-1 capitalize'>

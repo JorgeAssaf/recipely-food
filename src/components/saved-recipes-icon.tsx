@@ -6,10 +6,12 @@ import { getSavedRecipesAction } from '@/app/_actions/save'
 import { Badge } from './ui/badge'
 import { buttonVariants } from './ui/button'
 
-
-
 export async function SavedRecipesIcon() {
   const savedRecipes = await getSavedRecipesAction()
+
+  if (!savedRecipes) {
+    return null
+  }
   const itemCount = savedRecipes?.length ?? 0
   return (
     <div>

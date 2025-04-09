@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
 import { recipes, savedRecipes } from '@/db/schema'
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import { and, eq, inArray } from 'drizzle-orm'
 import { type z } from 'zod'
 

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { type Recipes as RecipesSchema } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 import { Clock, ImageIcon } from 'lucide-react'
 
 import { cn, formatPrepTime, slugify } from '@/lib/utils'
@@ -12,7 +12,7 @@ import { AspectRatio } from '../ui/aspect-ratio'
 import { Badge } from '../ui/badge'
 
 interface RecipeCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  recipe: RecipesSchema
+  recipe: Recipe
 }
 
 export const RecipeCard = ({

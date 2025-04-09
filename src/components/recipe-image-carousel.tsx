@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
-import useEmblaCarousel, {
+import {
   type EmblaCarouselType,
   type EmblaOptionsType,
-} from 'embla-carousel-react'
+  type EmblaPluginType,
+} from 'embla-carousel'
+import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeftIcon, ChevronRightIcon, ImageIcon } from 'lucide-react'
 
 import type { FileUpload } from '@/types/recipes'
@@ -16,16 +18,18 @@ import { Button } from './ui/button'
 interface RecipeImageCarrouselProps
   extends React.HTMLAttributes<HTMLDivElement> {
   images: FileUpload[] | null
-  options: EmblaOptionsType
+  options?: EmblaOptionsType
+  plugins?: EmblaPluginType[]
 }
 
 export const RecipeImageCarrousel = ({
   images,
   className,
   options,
+  plugins,
   ...props
 }: RecipeImageCarrouselProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options)
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins)
 
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true)
@@ -67,10 +71,7 @@ export const RecipeImageCarrousel = ({
         className='flex aspect-square h-auto w-full flex-1 items-center justify-center bg-secondary'
       >
         <div className='flex flex-col items-center justify-center gap-4'>
-          <ImageIcon
-            className='h-9 w-9 text-foreground'
-            aria-hidden='true'
-          />
+          <ImageIcon className='h-9 w-9 text-foreground' aria-hidden='true' />
           <p className='text-foreground'>No images found</p>
         </div>
       </div>

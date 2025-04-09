@@ -62,7 +62,6 @@ export function PaginationButton({
 
     return range
   }, [pageCount, page, siblingCount])
-
   return (
     <div
       className={cn(

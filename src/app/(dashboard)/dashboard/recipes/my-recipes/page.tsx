@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { db } from '@/db'
 import { recipes as recipesDB } from '@/db/schema'
-import { currentUser } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server'
 import { desc, eq } from 'drizzle-orm'
 import { FileWarning } from 'lucide-react'
 
@@ -17,7 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { MultiSelect } from '@/components/multi-select'
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ''),
@@ -40,11 +39,8 @@ const YourRecipesPage = async () => {
     .where(eq(recipesDB.userId, user.id))
   return (
     <section>
-
       {allRecipes.length > 0 ? (
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-
-
           {allRecipes.map((recipe) => (
             <Card key={recipe.id}>
               <CardHeader>

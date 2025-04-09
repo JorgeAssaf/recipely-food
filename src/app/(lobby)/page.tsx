@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { type Recipes } from '@/db/schema'
+import { type Recipe } from '@/db/schema'
 import { Balancer } from 'react-wrap-balancer'
 
 import { sortOptions } from '@/config/recipes'
@@ -13,7 +13,7 @@ import { Shell } from '@/components/shell'
 import { getRecipesAction } from '../_actions/recipes'
 
 type HomeProps = {
-  searchParams: { sort: string; category: Recipes['category'] }
+  searchParams: { sort: string; category: Recipe['category'] }
 }
 
 export default async function Home({ searchParams }: HomeProps) {
