@@ -1,9 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
-const { withContentlayer } = require('next-contentlayer')
-
+const { withContentCollections } = require('@content-collections/next')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -21,4 +19,4 @@ const nextConfig = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-module.exports = withContentlayer(nextConfig)
+module.exports = withContentCollections(nextConfig)
