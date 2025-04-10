@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-# contentlayer
-.contentlayer
+# content-collections
+.content-collections
 
 # unlighthouse
 /.unlighthouse
