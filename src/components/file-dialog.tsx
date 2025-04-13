@@ -271,7 +271,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
         </div>
       </div>
 
-      <div className='flex items-center  gap-2'>
+      <div className='flex items-center gap-2'>
         {file.type.startsWith('image') && (
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>

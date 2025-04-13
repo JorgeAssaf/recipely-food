@@ -67,7 +67,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                         alt={
                           user.firstName
                             ? user.firstName + user.lastName
-                            : user.username ?? ''
+                            : (user.username ?? '')
                         }
                       />
                       <AvatarFallback>

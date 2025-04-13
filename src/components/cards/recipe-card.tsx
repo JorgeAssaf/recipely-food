@@ -21,7 +21,7 @@ export const RecipeCard = ({
   ...props
 }: RecipeCardProps) => {
   return (
-    <Card className={cn('relative h-full w-full ', className)} {...props}>
+    <Card className={cn('relative h-full w-full', className)} {...props}>
       <CardHeader className='p-0'>
         <Link
           href={`/recipe/${slugify(recipe.name)}`}
@@ -58,8 +58,8 @@ export const RecipeCard = ({
       </CardHeader>
 
       <div className='space-y-2 p-4'>
-        <div className=' border-b py-2'>
-          <h2 className='truncate text-xl font-medium '>
+        <div className='border-b py-2'>
+          <h2 className='truncate text-xl font-medium'>
             <Link
               href={`/recipe/${slugify(recipe.name)}`}
               className='cursor-pointer'

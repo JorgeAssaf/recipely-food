@@ -21,7 +21,7 @@ interface RecipeSectionProps extends React.ComponentPropsWithoutRef<'section'> {
     label: string
     value: string
   }[]
-  recipes: Recipe[]
+  recipes: Recipe[] | undefined
 }
 
 export const RecipesSection: FC<RecipeSectionProps> = ({
@@ -59,7 +59,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
         <h2 className='text-3xl font-bold md:text-5xl'>Recipes</h2>
         <SortButton sortOptions={sortOptions} />
       </section>
-      <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]  '>
+      <section className='grid grid-cols-1 gap-6 md:grid-cols-[150px_minmax(0,1fr)]'>
         <div>
           <div className='flex flex-row flex-wrap gap-3 md:flex-col'>
             {siteConfig.recipeNav.map((item) => {
@@ -96,8 +96,8 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
             })}
           </div>
         </div>
-        <div className='flex w-full flex-col items-center gap-5 md:flex-row '>
-          <div className='group relative h-full w-full '>
+        <div className='flex w-full flex-col items-center gap-5 md:flex-row'>
+          <div className='group relative h-full w-full'>
             <Image
               src={`/images/${category}.webp`}
               width={500}
@@ -123,9 +123,9 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
             </div>
           </div>
 
-          {recipes.length > 0 ? (
+          {(recipes ?? []).length > 0 ? (
             <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground sx:grid-cols-2 md:flex md:flex-col'>
-              {recipes.map((recipe) =>
+              {recipes?.map((recipe) =>
                 isPending ? (
                   <Skeleton className='h-[190px] w-full' key={recipe.id} />
                 ) : (
@@ -147,7 +147,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                           {recipe.difficulty}
                         </span>
                       </p>
-                      <p className='flex items-center gap-2 md:border-l-2  md:px-3'>
+                      <p className='flex items-center gap-2 md:border-l-2 md:px-3'>
                         <Clock className='h-5 w-5' aria-hidden='true' />
                         <span className='font-bold'>
                           {formatPrepTime(recipe.prepTime)}
@@ -174,7 +174,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
             <div className='w-full items-center'>
               <div className='flex flex-col items-center justify-center'>
                 <XCircle className='h-20 w-20' aria-hidden='true' />
-                <p className=' mt-3 font-medium text-muted-foreground'>
+                <p className='mt-3 font-medium text-muted-foreground'>
                   No recipes found
                 </p>
               </div>

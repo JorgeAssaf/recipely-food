@@ -80,7 +80,7 @@ const YourRecipesPage = async () => {
               <FileWarning className='h-12 w-12 text-muted-foreground' />
             </div>
           </CardHeader>
-          <CardContent className='flex  flex-col items-center justify-center space-y-2.5 text-center'>
+          <CardContent className='flex flex-col items-center justify-center space-y-2.5 text-center'>
             <CardTitle className='text-2xl'>
               {' '}
               You have no recipes yet.

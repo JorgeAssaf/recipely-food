@@ -31,7 +31,7 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
       {savedRecipes.length > 0 ? (
         <div className='my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {savedRecipes.map((recipe) => (
-            <Card key={recipe.id} className='flex flex-col  '>
+            <Card key={recipe.id} className='flex flex-col'>
               <AspectRatio
                 ratio={16 / 9}
                 className={cn('relative h-full w-full')}
@@ -101,7 +101,7 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
               <FileWarning className='h-12 w-12 text-muted-foreground' />
             </div>
           </CardHeader>
-          <CardContent className='flex  flex-col items-center justify-center space-y-2.5 text-center'>
+          <CardContent className='flex flex-col items-center justify-center space-y-2.5 text-center'>
             <CardTitle className='text-2xl'>
               {' '}
               You have no recipes yet.
