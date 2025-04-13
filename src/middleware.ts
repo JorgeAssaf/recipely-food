@@ -10,22 +10,35 @@ import {
 const isProtectedRoute = createRouteMatcher(['/dashboard(.*)'])
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId && isProtectedRoute(req)) {
-    const url = new URL(req.nextUrl.origin)
-    // Add custom logic to run before redirecting
-    auth().protect({
-      unauthenticatedUrl: `${url.origin}/signin`,
-      unauthorizedUrl: `${url.origin}/dashboard`,
+    const unauthenticatedUrl = `${req.nextUrl.origin}/signin`
+    const unauthorizedUrl = `${req.nextUrl.origin}/dashboard`
+
+    await auth.protect({
+      unauthenticatedUrl,
+      unauthorizedUrl,
     })
+    return
   }
-  if (userId !== null) {
-    await clerkClient.users.updateUserMetadata(userId, {
-      privateMetadata: {
-        role: ' user',
-      },
-    })
+
+  if (userId) {
+    const client = await clerkClient()
+    const user = await client.users.getUser(userId)
+
+    if (user) {
+      const role = user.privateMetadata.role
+
+      // Add custom logic to run before redirecting
+      if (!role) {
+        await client.users.updateUserMetadata(userId, {
+          privateMetadata: {
+            role: 'user',
+          },
+        })
+      }
+    }
   }
 })
 
