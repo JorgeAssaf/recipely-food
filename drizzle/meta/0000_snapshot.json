@@ -1,179 +1,21 @@
 {
   "id": "00000000-0000-0000-0000-000000000000",
   "prevId": "",
-  "version": "5",
-  "dialect": "mysql",
-  "tables": {
-    "ingredients": {
-      "name": "ingredients",
-      "columns": {
-        "id": {
-          "autoincrement": true,
-          "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "title": {
-          "autoincrement": false,
-          "name": "title",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "quantity": {
-          "autoincrement": false,
-          "name": "quantity",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "unit": {
-          "autoincrement": false,
-          "name": "unit",
-          "type": "enum('g','kg','ml','l','tsp','tbsp','cup','pinch')",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "recipes_id": {
-          "autoincrement": false,
-          "name": "recipes_id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "compositePrimaryKeys": {
-        "ingredients_id": {
-          "name": "ingredients_id",
-          "columns": ["id"]
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "uniqueConstraints": {}
-    },
-    "recipes": {
-      "name": "recipes",
-      "columns": {
-        "id": {
-          "autoincrement": true,
-          "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "name": {
-          "autoincrement": false,
-          "name": "name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "description": {
-          "autoincrement": false,
-          "name": "description",
-          "type": "varchar(1024)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "difficulty": {
-          "autoincrement": false,
-          "name": "difficulty",
-          "type": "enum('easy','medium','hard')",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "rating": {
-          "default": 0,
-          "autoincrement": false,
-          "name": "rating",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "ingredients": {
-          "autoincrement": false,
-          "name": "ingredients",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "category": {
-          "autoincrement": false,
-          "name": "category",
-          "type": "enum('breakfast','lunch','dinner','dessert','snack','appetizer','drinks')",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "prepTime": {
-          "autoincrement": false,
-          "name": "prepTime",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "steps": {
-          "autoincrement": false,
-          "name": "steps",
-          "type": "varchar(1024)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "image": {
-          "autoincrement": false,
-          "name": "image",
-          "type": "varchar(1024)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "likes": {
-          "default": 0,
-          "autoincrement": false,
-          "name": "likes",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "dislikes": {
-          "default": 0,
-          "autoincrement": false,
-          "name": "dislikes",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "updatedAt": {
-          "autoincrement": false,
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "default": "now()",
-          "autoincrement": false,
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "compositePrimaryKeys": {
-        "recipes_id": {
-          "name": "recipes_id",
-          "columns": ["id"]
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "uniqueConstraints": {}
-    }
-  },
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {},
+  "enums": {},
   "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
   "_meta": {
     "schemas": {},
     "tables": {},
     "columns": {}
+  },
+  "internal": {
+    "tables": {}
   }
 }
