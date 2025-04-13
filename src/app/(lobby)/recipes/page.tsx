@@ -20,24 +20,20 @@ export const metadata: Metadata = {
 }
 
 interface RecipePageProps {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string | string[] | undefined
-  }
+  }>
 }
 
 export default async function RecipesPage({ searchParams }: RecipePageProps) {
-  const result = recipesParamsSchema.safeParse(searchParams)
+  const result = recipesParamsSchema.parse(await searchParams)
 
-  if (!result.success) {
-    return null
-  }
-
-  const { page, per_page, sort, categories, prepTime, difficulty } = result.data
+  const { page, per_page, sort, categories, prepTime, difficulty } = result
   const pageAsNumber = Number(page)
   const fallbackPage =
     isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber
   const perPageAsNumber = Number(per_page)
-
+  console.log(sort)
   const limit = isNaN(perPageAsNumber) ? 8 : perPageAsNumber
   const offset = fallbackPage > 0 ? (fallbackPage - 1) * limit : 0
   const recipesTransaction = await getRecipesAction({

@@ -12,13 +12,16 @@ import { RecipeImageCarrousel } from '@/components/recipe-image-carousel'
 import { Shell } from '@/components/shell'
 
 type MetaProps = {
-  params: { name: string }
+  params: Promise<{
+    name: string
+  }>
 }
 
 export async function generateMetadata({
   params,
 }: MetaProps): Promise<Metadata> {
-  const name = deslugify(params.name)
+  const { name } = await params
+  const recipeName = deslugify(name)
 
   const recipe = await db.query.recipes.findFirst({
     columns: {
@@ -26,7 +29,7 @@ export async function generateMetadata({
       description: true,
       category: true,
     },
-    where: (recipes, { eq }) => eq(recipes.name, name),
+    where: (recipes, { eq }) => eq(recipes.name, recipeName),
   })
 
   return {
@@ -37,16 +40,18 @@ export async function generateMetadata({
 }
 
 interface RecipePageProps {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string | string[] | undefined
-  }
-  params: {
+  }>
+  params: Promise<{
     name: string
-  }
+  }>
 }
 
 export default async function RecipePage({ params }: RecipePageProps) {
-  const recipeName = deslugify(params.name)
+  const { name } = await params
+
+  const recipeName = deslugify(name)
 
   const recipe = await db.query.recipes.findFirst({
     where: (recipes, { eq }) => eq(recipes.name, recipeName),
@@ -91,7 +96,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
           />
         </div>
 
-        <div className='h-fit rounded-2xl bg-foreground px-5 py-6 text-background '>
+        <div className='h-fit rounded-2xl bg-foreground px-5 py-6 text-background'>
           <div className='space-y-4'>
             <div className='flex items-center gap-2 text-lg font-semibold'>
               <div
@@ -110,11 +115,11 @@ export default async function RecipePage({ params }: RecipePageProps) {
             </div>
 
             <h1 className='text-4xl font-bold'>{recipe.name}</h1>
-            <p className=' capitalize text-background/90'>
+            <p className='capitalize text-background/90'>
               Author: {recipe.author}
             </p>
             <Tabs defaultValue='ingredients'>
-              <TabsList className=' mb-5 flex items-center space-x-2 rounded-3xl bg-[#e4e5eb] px-5 py-7 sm:justify-between '>
+              <TabsList className='mb-5 flex items-center space-x-2 rounded-3xl bg-[#e4e5eb] px-5 py-7 sm:justify-between'>
                 {['ingredients', 'steps', 'reviews', 'save'].map(
                   (item, index) => {
                     const LucideIcon =
@@ -141,7 +146,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                             value={item}
                           >
                             <Button>
-                              <LucideIcon className=' h-5 w-5 md:h-[1.55rem] md:w-[1.55rem]' />
+                              <LucideIcon className='h-5 w-5 md:h-[1.55rem] md:w-[1.55rem]' />
                               <span className='sr-only'>{item}</span>
                             </Button>
                           </TabsTrigger>
@@ -162,7 +167,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   <div>
                     {recipe.steps?.length ? (
                       <div className='flex flex-col space-y-2 text-lg'>
-                        <ol className=' flex flex-col flex-wrap gap-2'>
+                        <ol className='flex flex-col flex-wrap gap-2'>
                           <li className='list-inside list-decimal'>
                             {recipe.steps}
                           </li>
@@ -211,7 +216,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
 
                 <TabsContent
                   value='reviews'
-                  className=' min-h-[24rem] w-full rounded-md'
+                  className='min-h-[24rem] w-full rounded-md'
                 >
                   <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
                     Reviews

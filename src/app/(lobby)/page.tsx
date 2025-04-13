@@ -13,11 +13,11 @@ import { Shell } from '@/components/shell'
 import { getRecipesAction } from '../_actions/recipes'
 
 type HomeProps = {
-  searchParams: { sort: string; category: Recipe['category'] }
+  searchParams: Promise<{ sort: string; category: Recipe['category'] }>
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { sort, category } = searchParams ?? {}
+  const { sort, category } = await searchParams
 
   const recipesTransaction = await getRecipesAction({
     limit: 2,
