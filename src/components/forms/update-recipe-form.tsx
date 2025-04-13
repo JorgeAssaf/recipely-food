@@ -4,13 +4,13 @@ import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { recipes, type Recipe } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { type z } from 'zod'
 
 import { Units, type FileWithPreview } from '@/types/recipes'
+import { useUploadThing } from '@/lib/uploadthing'
 import { cn, isArrayOfFile } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
@@ -26,7 +26,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { DeleteRecipeAction, UpdateRecipeAction } from '@/app/_actions/recipes'
-import { type OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
 import {
@@ -45,7 +44,6 @@ type Inputs = z.infer<typeof recipesSchema>
 type AddNewRecipeProps = {
   recipe: Recipe
 }
-const { useUploadThing } = generateReactHelpers<OurFileRouter>()
 
 const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
   const [files, setFiles] = useState<FileWithPreview[] | null>(null)
@@ -190,7 +188,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
               />
             </FormControl>
             <UncontrolledFormMessage
-              message={form.formState.errors.images?.message}
+              message={form.formState.errors.images?.message?.toString()}
             />
           </FormItem>
           <FormField

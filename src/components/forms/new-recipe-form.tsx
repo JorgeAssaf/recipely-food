@@ -3,13 +3,13 @@
 import { useState, useTransition } from 'react'
 import { recipes } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { generateReactHelpers } from '@uploadthing/react/hooks'
 import { Loader2 } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import type z from 'zod'
 
 import { Units, type FileWithPreview } from '@/types/recipes'
+import { useUploadThing } from '@/lib/uploadthing'
 import { cn, isArrayOfFile } from '@/lib/utils'
 import { recipesSchema } from '@/lib/validations/recipes'
 import { Button } from '@/components/ui/button'
@@ -40,7 +40,6 @@ import { Textarea } from '../ui/textarea'
 import { Zoom } from '../zoom-image'
 
 type Inputs = z.infer<typeof recipesSchema>
-const { useUploadThing } = generateReactHelpers<OurFileRouter>()
 
 export function AddNewRecipe() {
   const [files, setFiles] = useState<FileWithPreview[] | null>(null)
@@ -175,7 +174,7 @@ export function AddNewRecipe() {
               />
             </FormControl>
             <UncontrolledFormMessage
-              message={form.formState.errors.images?.message}
+              message={form.formState.errors.images?.message?.toString()}
             />
           </FormItem>
           <FormField
