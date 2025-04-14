@@ -56,7 +56,6 @@ export const RecipeCard = ({
           </AspectRatio>
         </Link>
       </CardHeader>
-
       <div className='space-y-2 p-4'>
         <div className='border-b py-2'>
           <h2 className='truncate text-xl font-medium'>
