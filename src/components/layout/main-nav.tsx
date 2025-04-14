@@ -53,7 +53,7 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
                           title={item.title}
                           href={item.href}
                         >
-                          {item.description}
+                          {item.description} a
                         </ListItem>
                       ))}
                     </ul>
@@ -62,14 +62,13 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
               ) : (
                 item.href && (
                   <NavigationMenuItem key={item.title + i}>
-                    <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        aria-label={item.title}
-                        className={cn(navigationMenuTriggerStyle(), 'h-auto')}
-                      >
-                        {item.title}
-                      </NavigationMenuLink>
-                    </Link>
+                    <NavigationMenuLink
+                      href={item.href}
+                      className={cn(navigationMenuTriggerStyle(), 'h-auto')}
+                      aria-label={item.title}
+                    >
+                      {item.title}
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 )
               ),
