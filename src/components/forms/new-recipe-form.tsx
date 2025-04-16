@@ -25,7 +25,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { AddRecipeAction, generateRecipes } from '@/app/_actions/recipes'
-import { type OurFileRouter } from '@/app/api/uploadthing/core'
 
 import FileDialog from '../file-dialog'
 import {
@@ -76,7 +75,7 @@ export function AddNewRecipe() {
               const formattedImages = res?.map((image) => ({
                 id: image.key,
                 name: image.name ?? image.key.split('/').pop() ?? 'unknown',
-                url: image.url,
+                url: image.ufsUrl,
               }))
 
               return formattedImages ?? null
@@ -155,7 +154,7 @@ export function AddNewRecipe() {
                     <img
                       src={file.preview}
                       alt={file.name}
-                      className='h-24 w-24 shrink-0 rounded-md object-cover object-center'
+                      className='size-24 shrink-0 rounded-md object-cover object-center'
                     />
                   </Zoom>
                 ))}
@@ -174,7 +173,11 @@ export function AddNewRecipe() {
               />
             </FormControl>
             <UncontrolledFormMessage
-              message={form.formState.errors.images?.message?.toString()}
+              message={
+                typeof form.formState.errors.images?.message === 'string'
+                  ? form.formState.errors.images.message
+                  : JSON.stringify(form.formState.errors.images?.message)
+              }
             />
           </FormItem>
           <FormField
@@ -404,7 +407,7 @@ export function AddNewRecipe() {
           >
             {isPending && (
               <Loader2
-                className='mr-2 h-4 w-4 animate-spin'
+                className='mr-2 size-4 animate-spin'
                 aria-hidden='true'
               />
             )}
@@ -431,7 +434,7 @@ export function AddNewRecipe() {
             >
               {isPending && (
                 <Loader2
-                  className='mr-2 h-4 w-4 animate-spin'
+                  className='mr-2 size-4 animate-spin'
                   aria-hidden='true'
                 />
               )}
