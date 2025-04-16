@@ -8,6 +8,7 @@ import { SearchIcon } from 'lucide-react'
 import { recipesCategories } from '@/config/recipes'
 import { cn, isMacOs, slugify } from '@/lib/utils'
 import { useDebounce } from '@/hooks/useDebounce'
+import { useMounted } from '@/hooks/useMounted'
 import {
   CommandDialog,
   CommandEmpty,
@@ -19,6 +20,7 @@ import {
 import { filterProductsAction } from '@/app/_actions/recipes'
 
 import { Button } from './ui/button'
+import { DialogTitle } from './ui/dialog'
 import { Skeleton } from './ui/skeleton'
 
 type RecipeGroup = {
@@ -29,11 +31,11 @@ type RecipeGroup = {
 const Combobox = () => {
   const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
+  const mounted = useMounted()
   const [query, setQuery] = useState<string>('')
   const [isPending, startTransition] = useTransition()
   const debouncedQuery = useDebounce<string>(query, 300)
   const [data, setData] = useState<RecipeGroup[] | null>(null)
-
   useEffect(() => {
     if (debouncedQuery.length <= 0) {
       setData(null)
@@ -83,19 +85,21 @@ const Combobox = () => {
         <span className='hidden xl:inline-flex'>Search recipes...</span>
         <span className='sr-only'>Search recipes</span>
         <kbd className='pointer-events-none absolute right-1.5 top-2 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 xl:flex'>
-          <abbr title={isMacOs() ? 'Command' : 'Control'}>
-            {isMacOs() ? '⌘' : 'Ctrl+'}
+          <abbr title={mounted && isMacOs() ? 'Command' : 'Control'}>
+            {mounted && isMacOs() ? '⌘' : 'Ctrl+'}
           </abbr>
           K
         </kbd>
       </Button>
       <CommandDialog position='top' open={open} onOpenChange={setOpen}>
-        <CommandInput
-          role='search'
-          value={query}
-          onValueChange={setQuery}
-          placeholder='Search recipes...'
-        />
+        <DialogTitle>
+          <CommandInput
+            role='search'
+            value={query}
+            onValueChange={setQuery}
+            placeholder='Search recipes...'
+          />
+        </DialogTitle>
         <CommandList>
           <CommandEmpty
             className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
