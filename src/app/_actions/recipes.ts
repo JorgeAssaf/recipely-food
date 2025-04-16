@@ -146,7 +146,6 @@ export async function AddRecipeAction(
 
   await db.insert(recipes).values({
     ...values,
-    images: values.images,
     userId: user.id,
     author: `${user.firstName ?? user.username} ${user.lastName ?? ''}`,
   })

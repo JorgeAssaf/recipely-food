@@ -32,10 +32,7 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
         <div className='my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {savedRecipes.map((recipe) => (
             <Card key={recipe.id} className='flex flex-col'>
-              <AspectRatio
-                ratio={16 / 9}
-                className={cn('relative h-full w-full')}
-              >
+              <AspectRatio ratio={16 / 9} className={cn('relative size-full')}>
                 {recipe?.images?.length ? (
                   <Image
                     src={
@@ -53,10 +50,10 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
                     aria-label='Placeholder'
                     role='img'
                     aria-roledescription='placeholder'
-                    className='flex h-full w-full items-center justify-center bg-secondary'
+                    className='flex size-full items-center justify-center bg-secondary'
                   >
                     <ImageIcon
-                      className='h-9 w-9 text-muted-foreground'
+                      className='size-9 text-muted-foreground'
                       aria-hidden='true'
                     />
                   </div>
@@ -97,8 +94,8 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
           className={cn('m-auto grid w-full max-w-lg place-items-center')}
         >
           <CardHeader>
-            <div className='grid h-20 w-20 place-items-center rounded-full bg-muted'>
-              <FileWarning className='h-12 w-12 text-muted-foreground' />
+            <div className='grid size-20 place-items-center rounded-full bg-muted'>
+              <FileWarning className='size-12 text-muted-foreground' />
             </div>
           </CardHeader>
           <CardContent className='flex flex-col items-center justify-center space-y-2.5 text-center'>

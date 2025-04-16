@@ -69,7 +69,7 @@ const descriptionVariants = cva('max-w-[750px] text-muted-foreground', {
 })
 
 interface PageHeaderDescriptionProps
-  extends React.ComponentProps<typeof Balancer>,
+  extends React.HTMLAttributes<HTMLHeadingElement>,
     VariantProps<typeof descriptionVariants> {}
 
 function PageHeaderDescription({

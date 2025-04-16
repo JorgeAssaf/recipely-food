@@ -71,7 +71,7 @@ export const RecipeImageCarrousel = ({
         className='flex aspect-square h-auto w-full flex-1 items-center justify-center bg-secondary'
       >
         <div className='flex flex-col items-center justify-center gap-4'>
-          <ImageIcon className='h-9 w-9 text-foreground' aria-hidden='true' />
+          <ImageIcon className='size-9 text-foreground' aria-hidden='true' />
           <p className='text-foreground'>No images found</p>
         </div>
       </div>
@@ -105,7 +105,7 @@ export const RecipeImageCarrousel = ({
                 alt={image.name}
                 fill
                 sizes='(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw'
-                className='block h-full w-full rounded-lg object-cover'
+                className='block size-full rounded-lg object-cover'
                 priority={index === 0}
               />
             </div>
@@ -117,12 +117,12 @@ export const RecipeImageCarrousel = ({
             <Button
               variant='outline'
               size='icon'
-              className='mr-0.5 aspect-square h-7 w-7 rounded-lg sm:mr-2 sm:h-8 sm:w-8'
+              className='mr-0.5 aspect-square size-7 rounded-lg sm:mr-2 sm:size-8'
               disabled={prevBtnDisabled}
               onClick={scrollPrev}
             >
               <ChevronLeftIcon
-                className='h-3 w-3 sm:h-4 sm:w-4'
+                className='size-3 sm:size-4'
                 aria-hidden='true'
               />
               <span className='sr-only'>Previous slide</span>
@@ -133,7 +133,7 @@ export const RecipeImageCarrousel = ({
                 variant='outline'
                 size='icon'
                 className={cn(
-                  'group relative aspect-square h-full w-full max-w-[100px] rounded-lg shadow-sm hover:bg-transparent focus-visible:ring-foreground',
+                  'group relative aspect-square size-full max-w-[100px] rounded-lg shadow-sm hover:bg-transparent focus-visible:ring-foreground',
                   {
                     'ring-2 ring-foreground': i === selectedIndex,
                   },
@@ -152,7 +152,7 @@ export const RecipeImageCarrousel = ({
                   src={image.url}
                   alt={image.name}
                   sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                  className='block h-full w-full rounded-lg object-cover'
+                  className='block size-full rounded-lg object-cover'
                   priority
                   fill
                 />
@@ -164,12 +164,12 @@ export const RecipeImageCarrousel = ({
             <Button
               variant='outline'
               size='icon'
-              className='ml-0.5 aspect-square h-7 w-7 rounded-lg sm:ml-2 sm:h-8 sm:w-8'
+              className='ml-0.5 aspect-square size-7 rounded-lg sm:ml-2 sm:size-8'
               disabled={nextBtnDisabled}
               onClick={scrollNext}
             >
               <ChevronRightIcon
-                className='h-3 w-3 sm:h-4 sm:w-4'
+                className='size-3 sm:size-4'
                 aria-hidden='true'
               />
               <span className='sr-only'>Next slide</span>

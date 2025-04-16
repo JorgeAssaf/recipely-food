@@ -26,7 +26,7 @@ async function getPostFromParams(params: PostPageProps['params']) {
   const post = allPosts.find((post) => post.slugAsParams === slug)
 
   if (!post) {
-    null
+    return null
   }
 
   return post
@@ -72,7 +72,7 @@ const PostLayout = async ({ params }: PostPageProps) => {
           'absolute left-[-200px] top-14 hidden text-muted-foreground xl:inline-flex',
         )}
       >
-        <ChevronLeftIcon className='mr-2 h-4 w-4' aria-hidden='true' />
+        <ChevronLeftIcon className='mr-2 size-4' aria-hidden='true' />
         See all posts
       </Link>
       <div className='space-y-2'>

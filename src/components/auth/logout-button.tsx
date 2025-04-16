@@ -1,9 +1,7 @@
 'use client'
 
-import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { SignOutButton } from '@clerk/nextjs'
-import { Loader2 as Loader } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { useMounted } from '@/hooks/useMounted'

@@ -36,7 +36,7 @@ export const MdxPager = ({
             'text-muted-foreground',
           )}
         >
-          <ChevronLeftIcon className='mr-2 h-4 w-4' aria-hidden='true' />
+          <ChevronLeftIcon className='mr-2 size-4' aria-hidden='true' />
           {pager.previousPost.title}
         </Link>
       ) : null}
@@ -50,7 +50,7 @@ export const MdxPager = ({
           )}
         >
           {pager.nextPost.title}
-          <ChevronRightIcon className='ml-2 h-4 w-4' aria-hidden='true' />
+          <ChevronRightIcon className='ml-2 size-4' aria-hidden='true' />
         </Link>
       ) : null}
     </div>

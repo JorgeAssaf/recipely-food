@@ -29,7 +29,7 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
         href='/'
         className='hidden items-center space-x-2 lg:flex'
       >
-        <Pizza className='h-6 w-6' aria-hidden='true' />
+        <Pizza className='size-6' aria-hidden='true' />
         <span className='hidden font-bold lg:inline-block'>
           {siteConfig.name}
         </span>

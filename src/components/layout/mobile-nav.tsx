@@ -35,7 +35,7 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
           variant='ghost'
           className='mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden'
         >
-          <MenuIcon className='h-6 w-6' />
+          <MenuIcon className='size-6' />
           <span className='sr-only'>Toggle Menu</span>
         </Button>
       </SheetTrigger>
@@ -47,10 +47,7 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
             className='flex items-center'
             onClick={() => setIsOpen(false)}
           >
-            <Pizza
-              className='mr-2 h-[1.15rem] w-[1.15rem]'
-              aria-hidden='true'
-            />
+            <Pizza className='mr-2 size-[1.15rem]' aria-hidden='true' />
             <span className='text-lg font-bold'>{siteConfig.name}</span>
           </Link>
         </div>

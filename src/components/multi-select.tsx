@@ -100,7 +100,7 @@ export const MultiSelect = ({
                   }}
                   onClick={() => handleRemove(option)}
                 >
-                  <X className='h-3 w-3' aria-hidden='true' />
+                  <X className='size-3' aria-hidden='true' />
                 </Button>
               </Badge>
             )

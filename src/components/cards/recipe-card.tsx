@@ -21,16 +21,13 @@ export const RecipeCard = ({
   ...props
 }: RecipeCardProps) => {
   return (
-    <Card className={cn('relative h-full w-full', className)} {...props}>
+    <Card className={cn('relative size-full', className)} {...props}>
       <CardHeader className='p-0'>
         <Link
           href={`/recipe/${slugify(recipe.name)}`}
           className='cursor-pointer'
         >
-          <AspectRatio
-            ratio={16 / 9}
-            className={cn('h-full w-full', className)}
-          >
+          <AspectRatio ratio={16 / 9} className={cn('size-full', className)}>
             {recipe?.images?.length ? (
               <Image
                 src={recipe.images[0]?.url}
@@ -45,10 +42,10 @@ export const RecipeCard = ({
                 aria-label='Placeholder'
                 role='img'
                 aria-roledescription='placeholder'
-                className='flex h-full w-full items-center justify-center bg-secondary'
+                className='flex size-full items-center justify-center bg-secondary'
               >
                 <ImageIcon
-                  className='h-9 w-9 text-muted-foreground'
+                  className='size-9 text-muted-foreground'
                   aria-hidden='true'
                 />
               </div>
@@ -81,7 +78,7 @@ export const RecipeCard = ({
           </div>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
-              <Clock className='h-5 w-5 text-muted-foreground' />
+              <Clock className='size-5 text-muted-foreground' />
               <p className='text-sm font-medium'>
                 {formatPrepTime(recipe.prepTime)}
               </p>

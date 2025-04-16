@@ -12,7 +12,7 @@ export default function Icon() {
   return new ImageResponse(
     (
       // ImageResponse JSX element
-      <div tw='flex h-full w-full items-center justify-center rounded-full bg-black text-white'>
+      <div tw='flex size-full items-center justify-center rounded-full bg-black text-white'>
         <svg
           width='24'
           height='24'

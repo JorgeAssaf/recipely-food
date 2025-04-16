@@ -13,7 +13,7 @@ export function GET(req: Request) {
     return new ImageResponse(
       (
         <div
-          tw='flex h-full w-full flex-col items-center justify-center'
+          tw='flex size-full flex-col items-center justify-center'
           style={{
             color: paint,
             background: mode === 'dark' ? 'black' : 'white',
@@ -66,9 +66,11 @@ export function GET(req: Request) {
       },
     )
   } catch (error) {
-    error instanceof Error
-      ? console.log(`${error.message}`)
-      : console.log(error)
+    if (error instanceof Error) {
+      console.log(`${error.message}`)
+    } else {
+      console.log(error)
+    }
     return new Response(`Failed to generate the image`, {
       status: 500,
     })

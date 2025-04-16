@@ -27,9 +27,9 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           onClick={() => setShowPassword((prev) => !prev)}
         >
           {showPassword ? (
-            <EyeIcon className='h-5 w-5' />
+            <EyeIcon className='size-5' />
           ) : (
-            <EyeOffIcon className='h-5 w-5' />
+            <EyeOffIcon className='size-5' />
           )}
           <span className='sr-only'>
             {showPassword ? 'Hide password' : 'Show password'}

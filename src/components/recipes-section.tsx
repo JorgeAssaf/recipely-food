@@ -89,7 +89,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                     })
                   }}
                 >
-                  <LucideIcon className='h-5 w-5' aria-hidden='true' />
+                  <LucideIcon className='size-5' aria-hidden='true' />
                   <span>{item.title}</span>
                 </Button>
               )
@@ -97,7 +97,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
           </div>
         </div>
         <div className='flex w-full flex-col items-center gap-5 md:flex-row'>
-          <div className='group relative h-full w-full'>
+          <div className='group relative size-full'>
             <Image
               src={`/images/${category}.webp`}
               width={500}
@@ -141,14 +141,14 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                     </Badge>
                     <div className='flex flex-col gap-2 md:flex-row'>
                       <p className='flex items-center gap-2 md:border-l-2 md:pl-2 md:pr-3'>
-                        <Utensils className='h-5 w-5' aria-hidden='true' />
+                        <Utensils className='size-5' aria-hidden='true' />
 
                         <span className='font-bold capitalize'>
                           {recipe.difficulty}
                         </span>
                       </p>
                       <p className='flex items-center gap-2 md:border-l-2 md:px-3'>
-                        <Clock className='h-5 w-5' aria-hidden='true' />
+                        <Clock className='size-5' aria-hidden='true' />
                         <span className='font-bold'>
                           {formatPrepTime(recipe.prepTime)}
                         </span>
@@ -173,7 +173,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
           ) : (
             <div className='w-full items-center'>
               <div className='flex flex-col items-center justify-center'>
-                <XCircle className='h-20 w-20' aria-hidden='true' />
+                <XCircle className='size-20' aria-hidden='true' />
                 <p className='mt-3 font-medium text-muted-foreground'>
                   No recipes found
                 </p>
