@@ -263,4 +263,4 @@ export async function DeleteRecipeAction(
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
-export const generateRecipes = async () => { }
+export const generateRecipes = async () => {}
