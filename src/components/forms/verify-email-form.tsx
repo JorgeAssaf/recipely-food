@@ -34,23 +34,25 @@ const VerifyEmailForm = () => {
     },
   })
 
-  async function onSubmit(data: Inputs) {
+  function onSubmit(data: Inputs) {
     if (!isLoaded) return
 
     try {
-      const completeSignUp = await signUp.attemptEmailAddressVerification({
-        code: data.code,
-      })
-      if (completeSignUp.status !== 'complete') {
-        /*  investigate the response, to see if there was an error
-             or if the user needs to complete more steps.*/
-        return
-      }
-      if (completeSignUp.status === 'complete') {
-        await setActive({ session: completeSignUp.createdSessionId })
+      startTransition(async () => {
+        const completeSignUp = await signUp.attemptEmailAddressVerification({
+          code: data.code,
+        })
+        if (completeSignUp.status !== 'complete') {
+          /*  investigate the response, to see if there was an error
+               or if the user needs to complete more steps.*/
+          return
+        }
+        if (completeSignUp.status === 'complete') {
+          await setActive({ session: completeSignUp.createdSessionId })
 
-        router.push(`${window.location.origin}/`)
-      }
+          router.push(`${window.location.origin}/`)
+        }
+      })
     } catch (err) {
       catchClerkError(err)
     }

@@ -58,7 +58,7 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
         >
           Sort
           <ChevronUp
-            className='ml-2 h-4 w-4 transition-transform'
+            className='ml-2 size-4 transition-transform'
             aria-hidden='true'
           />
         </Button>

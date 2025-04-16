@@ -20,7 +20,7 @@ export default function CategoriesLoading() {
                 <AspectRatio ratio={16 / 9}>
                   <div className='flex h-full items-center justify-center bg-secondary'>
                     <ImageIcon
-                      className='h-9 w-9 text-muted-foreground'
+                      className='size-9 text-muted-foreground'
                       aria-hidden='true'
                     />
                   </div>

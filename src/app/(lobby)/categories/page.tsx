@@ -127,7 +127,7 @@ export default async function CategoryPage() {
                       )}
                       aria-hidden='true'
                     >
-                      <category.icon className='h-5 w-5' />
+                      <category.icon className='size-5' />
                     </div>
                     <p className='text-sm text-zinc-200'>
                       {

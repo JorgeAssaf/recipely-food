@@ -32,7 +32,7 @@ export default async function Home({ searchParams }: HomeProps) {
       <section
         id='hero'
         aria-labelledby='hero-heading'
-        className='mx-auto flex w-full max-w-[64rem] flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28'
+        className='mx-auto flex w-full max-w-5xl flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28'
       >
         <Badge
           className='flex gap-1 px-4 py-2 text-sm font-bold tabular-nums md:text-base'

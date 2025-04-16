@@ -58,9 +58,9 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   <Button
                     aria-label='Open user menu'
                     variant='secondary'
-                    className='relative h-8 w-8 rounded-full'
+                    className='relative size-8 rounded-full'
                   >
-                    <Avatar className='h-8 w-8'>
+                    <Avatar className='size-8'>
                       <AvatarImage
                         src={user.imageUrl}
                         loading='lazy'
@@ -93,7 +93,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
                       <Link href='/dashboard/account'>
-                        <UserIcon className='mr-2 h-4 w-4' aria-hidden='true' />
+                        <UserIcon className='mr-2 size-4' aria-hidden='true' />
                         Account
                         <DropdownMenuShortcut>⇧⌘A</DropdownMenuShortcut>
                       </Link>
@@ -101,7 +101,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                     <DropdownMenuItem asChild>
                       <Link href='/dashboard/recipes/my-recipes'>
                         <LayoutDashboard
-                          className='mr-2 h-4 w-4'
+                          className='mr-2 size-4'
                           aria-hidden='true'
                         />
                         Dashboard
@@ -110,7 +110,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild disabled>
                       <Link href='/dashboard/settings'>
-                        <Settings className='mr-2 h-4 w-4' aria-hidden='true' />
+                        <Settings className='mr-2 size-4' aria-hidden='true' />
                         Settings
                         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                       </Link>
@@ -119,7 +119,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Link href='/signout'>
-                      <LogOut className='mr-2 h-4 w-4' aria-hidden='true' />
+                      <LogOut className='mr-2 size-4' aria-hidden='true' />
                       Log out
                       <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                     </Link>

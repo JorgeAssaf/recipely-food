@@ -27,12 +27,12 @@ export async function SavedRecipesIcon() {
           <Badge
             aria-label='count of saved recipes'
             variant='secondary'
-            className='absolute -right-2 -top-2 h-4 w-4 justify-center rounded-full p-2.5 text-xs'
+            className='absolute -right-2 -top-2 size-4 justify-center rounded-full p-2.5 text-xs'
           >
             {itemCount}
           </Badge>
         )}
-        <Bookmark aria-label='Saved Recipes' className='h-6 w-6' />
+        <Bookmark aria-label='Saved Recipes' className='size-6' />
       </Link>
     </div>
   )

@@ -24,7 +24,7 @@ const OauthProviders = () => {
   const { signIn, isLoaded: signInLoaded } = useSignIn()
 
   const signInWith = async (provider: OAuthStrategy) => {
-    if (!signInLoaded) null
+    if (!signInLoaded) return
     try {
       setIsLoading(provider)
       await signIn?.authenticateWithRedirect({
@@ -37,9 +37,11 @@ const OauthProviders = () => {
 
       const unknownError = 'Something went wrong, please try again.'
 
-      isClerkAPIResponseError(error)
-        ? toast.error(error.errors[0]?.longMessage ?? unknownError)
-        : toast.error(unknownError)
+      if (isClerkAPIResponseError(error)) {
+        toast.error(error.errors[0]?.longMessage ?? unknownError)
+      } else {
+        toast.error(unknownError)
+      }
     }
   }
 
@@ -59,11 +61,11 @@ const OauthProviders = () => {
           >
             {isLoading === provider.strategy ? (
               <Loader2
-                className='mr-2 h-4 w-4 animate-spin'
+                className='mr-2 size-4 animate-spin'
                 aria-hidden='true'
               />
             ) : (
-              <Icon className='mr-2 h-4 w-4' aria-hidden='true' />
+              <Icon className='mr-2 size-4' aria-hidden='true' />
             )}
             {provider.name}
           </Button>

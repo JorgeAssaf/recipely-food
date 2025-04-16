@@ -30,7 +30,7 @@ export default function RecipeLoading() {
         >
           <div className='flex flex-col items-center justify-center gap-4'>
             <ImageIcon
-              className='h-9 w-9 text-muted-foreground'
+              className='size-9 text-muted-foreground'
               aria-hidden='true'
             />
           </div>

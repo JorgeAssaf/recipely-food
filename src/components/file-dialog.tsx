@@ -79,7 +79,9 @@ const FileDialog = <TFieldValues extends FieldValues>({
             toast.error(`File is too large. Max size is ${maxSize} bytes`)
             return
           }
-          errors[0]?.message && toast.error(errors[0].message)
+          if (errors[0]?.message) {
+            toast.error(errors[0].message)
+          }
         })
       }
     },
@@ -109,7 +111,7 @@ const FileDialog = <TFieldValues extends FieldValues>({
       <DialogTrigger asChild>
         <Button variant='outline'>
           Upload images{' '}
-          <UploadIcon className='ml-2 h-4 w-4' aria-hidden='true' />
+          <UploadIcon className='ml-2 size-4' aria-hidden='true' />
           <span className='sr-only' aria-hidden='true'>
             Upload images
           </span>
@@ -136,14 +138,14 @@ const FileDialog = <TFieldValues extends FieldValues>({
           {isUploading ? (
             <div className='group grid w-full place-items-center gap-1 sm:px-10'>
               <UploadIcon
-                className='h-9 w-9 animate-pulse text-muted-foreground'
+                className='size-9 animate-pulse text-muted-foreground'
                 aria-hidden='true'
               />
             </div>
           ) : isDragActive ? (
             <div className='grid place-items-center gap-2 text-muted-foreground sm:px-5'>
               <UploadIcon
-                className={cn('h-8 w-8', isDragActive && 'animate-bounce')}
+                className={cn('size-8', isDragActive && 'animate-bounce')}
                 aria-hidden='true'
               />
               <p className='text-base font-medium'>Drop the file here</p>
@@ -151,7 +153,7 @@ const FileDialog = <TFieldValues extends FieldValues>({
           ) : (
             <div className='grid place-items-center gap-1 sm:px-5'>
               <UploadIcon
-                className='h-8 w-8 text-muted-foreground'
+                className='size-8 text-muted-foreground'
                 aria-hidden='true'
               />
               <p className='mt-2 text-base font-medium text-muted-foreground'>
@@ -189,7 +191,7 @@ const FileDialog = <TFieldValues extends FieldValues>({
             className='mt-2.5 w-full'
             onClick={() => setFiles(null)}
           >
-            <Trash2 className='mr-2 h-4 w-4' aria-hidden='true' />
+            <Trash2 className='mr-2 size-4' aria-hidden='true' />
             Remove All
             <span className='sr-only'>Remove all</span>
           </Button>
@@ -256,7 +258,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
         <Image
           src={cropData ? cropData : file.preview}
           alt={file.name}
-          className='h-10 w-10 shrink-0 rounded-md'
+          className='size-10 shrink-0 rounded-md'
           width={40}
           height={40}
           loading='lazy'
@@ -279,10 +281,10 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
                 type='button'
                 variant='outline'
                 size='icon'
-                className='h-7 w-7'
+                className='size-7'
                 onClick={() => onCrop()}
               >
-                <CropIcon className='h-4 w-4 text-white' aria-hidden='true' />
+                <CropIcon className='size-4 text-white' aria-hidden='true' />
                 <span className='sr-only'>Crop</span>
               </Button>
             </DialogTrigger>
@@ -297,7 +299,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
               <div className='mt-2 grid place-items-center space-y-5'>
                 <Cropper
                   ref={cropperRef}
-                  className='h-[450px] w-[450px] object-cover'
+                  className='size-[450px] object-cover'
                   zoomTo={0.5}
                   initialAspectRatio={1 / 1}
                   preview='.img-preview'
@@ -321,7 +323,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
                     setIsOpen(false)
                   }}
                 >
-                  <Crop className='mr-2 h-4 w-4' aria-hidden='true' />
+                  <Crop className='mr-2 size-4' aria-hidden='true' />
                   Crop image
                   <span className='sr-only'>Crop image</span>
                 </Button>
@@ -332,7 +334,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
                     setCropData(null)
                   }}
                 >
-                  <RefreshCcw className='mr-2 h-4 w-4' aria-hidden='true' />
+                  <RefreshCcw className='mr-2 size-4' aria-hidden='true' />
                   Reset
                   <span className='sr-only'>Reset</span>
                 </Button>
@@ -345,14 +347,14 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
           type='button'
           variant='outline'
           size='icon'
-          className='h-7 w-7'
+          className='size-7'
           onClick={() =>
             setFiles(
               (prevFiles) => prevFiles?.filter((_, j) => j !== i) || null,
             )
           }
         >
-          <Trash2 className='h-4 w-4 text-white' aria-hidden='true' />
+          <Trash2 className='size-4 text-white' aria-hidden='true' />
           <span className='sr-only'>Remove</span>
         </Button>
       </div>

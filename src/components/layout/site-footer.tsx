@@ -22,7 +22,7 @@ const SiteFooter = () => {
             aria-labelledby='footer-branding-heading'
           >
             <Link href='/' className='flex w-fit items-center space-x-2'>
-              <Pizza className='h-6 w-6' aria-hidden='true' />
+              <Pizza className='size-6' aria-hidden='true' />
               <span className='font-bold'>{siteConfig.name}</span>
               <span className='sr-only'>Home</span>
             </Link>
@@ -93,7 +93,7 @@ const SiteFooter = () => {
                 }),
               )}
             >
-              <Github className='h-4 w-4' aria-hidden='true' />
+              <Github className='size-4' aria-hidden='true' />
               <span className='sr-only'>GitHub</span>
             </Link>
           </div>

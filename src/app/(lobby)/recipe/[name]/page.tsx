@@ -109,7 +109,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                 )}
                 aria-hidden='true'
               >
-                <LucideIcon className='h-5 w-5' />
+                <LucideIcon className='size-5' />
               </div>
               <span className='capitalize'>{recipe.category}</span>
             </div>
@@ -132,9 +132,9 @@ export default async function RecipePage({ params }: RecipePageProps) {
                             className='flex items-center text-lg font-semibold'
                           >
                             {isSaved ? (
-                              <Bookmark className='h-6 w-6 fill-color-accent text-color-accent' />
+                              <Bookmark className='size-6 fill-color-accent text-color-accent' />
                             ) : (
-                              <Bookmark className='h-6 w-6' />
+                              <Bookmark className='size-6' />
                             )}
 
                             <span className='sr-only'>Save</span>
@@ -146,7 +146,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                             value={item}
                           >
                             <Button>
-                              <LucideIcon className='h-5 w-5 md:h-[1.55rem] md:w-[1.55rem]' />
+                              <LucideIcon className='size-5 md:size-[1.55rem]' />
                               <span className='sr-only'>{item}</span>
                             </Button>
                           </TabsTrigger>
@@ -159,7 +159,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
               <div>
                 <TabsContent
                   value='steps'
-                  className='min-h-[24rem] w-full rounded-md'
+                  className='min-h-96 w-full rounded-md'
                 >
                   <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
                     Steps
@@ -178,15 +178,15 @@ export default async function RecipePage({ params }: RecipePageProps) {
                 </TabsContent>
                 <TabsContent
                   value='ingredients'
-                  className='min-h-[24rem] w-full rounded-md'
+                  className='min-h-96 w-full rounded-md'
                 >
                   <div className='flex flex-col space-y-5'>
                     <p className='flex items-center gap-2 text-lg font-semibold'>
-                      <Utensils className='h-6 w-6' />
+                      <Utensils className='size-6' />
                       <span className='capitalize'>{recipe.difficulty}</span>
                     </p>
                     <p className='flex items-center gap-2 text-lg font-semibold'>
-                      <ClockIcon className='h-6 w-6' />
+                      <ClockIcon className='size-6' />
                       <span className='capitalize'>
                         {formatPrepTime(recipe.prepTime)}
                       </span>
@@ -216,7 +216,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
 
                 <TabsContent
                   value='reviews'
-                  className='min-h-[24rem] w-full rounded-md'
+                  className='min-h-96 w-full rounded-md'
                 >
                   <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
                     Reviews
