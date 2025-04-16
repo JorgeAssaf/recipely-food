@@ -87,7 +87,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
               const formattedImages = res?.map((image) => ({
                 id: image.key,
                 name: image.name ?? image.key.split('/').pop() ?? 'unknown',
-                url: image.url,
+                url: image.ufsUrl,
               }))
               return formattedImages ?? null
             })
@@ -169,7 +169,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
                     <img
                       src={file.preview}
                       alt={file.name}
-                      className='h-24 w-24 shrink-0 rounded-md object-cover object-center'
+                      className='size-24 shrink-0 rounded-md object-cover object-center'
                     />
                   </Zoom>
                 ))}
@@ -188,7 +188,11 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
               />
             </FormControl>
             <UncontrolledFormMessage
-              message={form.formState.errors.images?.message?.toString()}
+              message={
+                typeof form.formState.errors.images?.message === 'string'
+                  ? form.formState.errors.images.message
+                  : JSON.stringify(form.formState.errors.images?.message)
+              }
             />
           </FormItem>
           <FormField
@@ -419,7 +423,7 @@ const UpdateRecipeForm = ({ recipe }: AddNewRecipeProps) => {
             >
               {isPending && (
                 <Loader2
-                  className='mr-2 h-4 w-4 animate-spin'
+                  className='mr-2 size-4 animate-spin'
                   aria-hidden='true'
                 />
               )}
