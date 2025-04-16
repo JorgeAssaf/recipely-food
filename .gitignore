@@ -8,6 +8,9 @@
 # contentlayer
 .contentlayer
 
+# content-collections
+.content-collections
+
 # unlighthouse
 /.unlighthouse
 
