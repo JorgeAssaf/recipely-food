@@ -1,5 +1,5 @@
 import { type MetadataRoute } from 'next'
-import { allPosts } from 'contentlayer/generated'
+import { allPosts } from 'content-collections'
 
 import { recipesCategories } from '@/config/recipes'
 import { absoluteUrl, slugify } from '@/lib/utils'

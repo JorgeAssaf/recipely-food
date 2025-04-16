@@ -13,7 +13,7 @@ import {
 } from '@/lib/validations/save-recipes'
 
 export async function getSavedRecipesAction() {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   const savedRecipe = await db.query.savedRecipes.findMany({
     where: eq(savedRecipes.userId, String(userId)),
@@ -37,7 +37,7 @@ export async function getSavedRecipesAction() {
 export async function addToSavedAction(
   input: z.infer<typeof addSaveRecipeSchema>,
 ) {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   const checkIfSaved = await db.query.savedRecipes.findFirst({
     where: and(

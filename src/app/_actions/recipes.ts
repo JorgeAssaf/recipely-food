@@ -134,11 +134,13 @@ export async function AddRecipeAction(
     throw new Error('You must be logged in to add a recipe.')
   }
   const recipeWithSameName = await db
-    .select()
+    .select({
+      name: recipes.name,
+    })
     .from(recipes)
     .where(eq(recipes.name, values.name))
 
-  if (recipeWithSameName) {
+  if (recipeWithSameName.length > 0) {
     throw new Error('Product name already taken.')
   }
 

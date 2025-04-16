@@ -1,6 +1,6 @@
 import Image from 'next/image'
+import { MDXContent } from '@content-collections/mdx/react'
 import { Terminal } from 'lucide-react'
-import { useMDXComponent } from 'next-contentlayer/hooks'
 
 import { cn } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -150,11 +150,9 @@ interface MdxProps {
 }
 
 export function Mdx({ code }: MdxProps) {
-  const Component = useMDXComponent(code)
-
   return (
     <div className='mdx'>
-      <Component components={components} />
+      <MDXContent code={code} components={components} />
     </div>
   )
 }

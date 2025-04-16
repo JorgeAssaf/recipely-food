@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { allPosts } from 'contentlayer/generated'
+import { allPosts } from 'content-collections'
 import { compareDesc } from 'date-fns'
 
 import { PostCard } from '@/components/cards/post-card'

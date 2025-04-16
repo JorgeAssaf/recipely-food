@@ -13,23 +13,23 @@ import { Shell } from '@/components/shell'
 import { getRecipesAction } from '@/app/_actions/recipes'
 
 interface CategoryPageProps {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string | string[] | undefined
-  }
+  }>
 
-  params: {
+  params: Promise<{
     category: Recipe['category']
-  }
+  }>
 }
 
-export function generateMetadata({ params }: CategoryPageProps): Metadata {
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
+  const { category } = await params
   return {
-    title:
-      params.category === null
-        ? 'No category found'
-        : toTitleCase(params.category),
+    title: category === null ? 'No category found' : toTitleCase(category),
     description: `View all recipes in the ${toTitleCase(
-      params.category ?? 'No category found',
+      category ?? 'No category found',
     )} category`,
   }
 }
@@ -38,10 +38,10 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
-  const { category } = params
+  const { category } = await params
 
   const { page, per_page, sort, prepTime, difficulty } =
-    recipesParamsSchema.parse(searchParams)
+    recipesParamsSchema.parse(await searchParams)
 
   const pageAsNumber = Number(page)
   const fallbackPage =

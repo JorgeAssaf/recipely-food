@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-# contentlayer
-.contentlayer
+# content-collections
+.content-collections
 
 # content-collections
 .content-collections
@@ -46,3 +46,6 @@ next-env.d.ts
 #env
 .env.local
 .env
+
+# clerk configuration (can include secrets)
+/.clerk/

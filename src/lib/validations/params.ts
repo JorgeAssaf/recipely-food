@@ -6,7 +6,7 @@ export const searchParamsSchema = z.object({
 })
 
 export const recipesParamsSchema = searchParamsSchema.extend({
-  sort: z.string().optional().default('createdAt.desc'),
+  sort: z.string().default('createdAt.desc').optional(),
   categories: z.string().optional(),
   prepTime: z.string().optional(),
   difficulty: z.string().optional(),

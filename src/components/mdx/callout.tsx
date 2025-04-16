@@ -14,7 +14,7 @@ interface CalloutProps extends React.PropsWithChildren {
 export function Callout({ title, children, icon, ...props }: CalloutProps) {
   return (
     <Alert {...props}>
-      <div className='flex items-center '>
+      <div className='flex items-center'>
         {icon ? <span className='mr-4 text-lg'>{icon}</span> : null}
         {title ? <AlertTitle className='text-xl'>{title}</AlertTitle> : null}
       </div>

@@ -81,7 +81,7 @@ export const RecipeImageCarrousel = ({
   return (
     <div
       aria-label='Product image carousel'
-      className={cn('flex  flex-col gap-2  ', className)}
+      className={cn('flex flex-col gap-2', className)}
       {...props}
     >
       <div ref={emblaRef} className='overflow-hidden'>
@@ -93,7 +93,7 @@ export const RecipeImageCarrousel = ({
         >
           {images.map((image, index) => (
             <div
-              className='relative aspect-square h-max min-w-0 flex-full '
+              className='relative aspect-square h-max min-w-0 flex-full'
               key={index}
             >
               <Image

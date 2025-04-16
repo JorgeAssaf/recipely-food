@@ -54,7 +54,7 @@ const SortButton: FC<SortProps> = ({ sortOptions }) => {
           disabled={isPending}
           aria-label='Sort products'
           size='sm'
-          className='[&[data-state=open]>svg]:rotate-180 '
+          className='[&[data-state=open]>svg]:rotate-180'
         >
           Sort
           <ChevronUp

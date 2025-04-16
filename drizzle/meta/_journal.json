@@ -1,12 +1,12 @@
 {
-  "version": "5",
-  "dialect": "mysql",
+  "version": "7",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1692741435809,
-      "tag": "0000_lethal_black_queen",
+      "version": "7",
+      "when": 1744309483186,
+      "tag": "0000_conscious_otto_octavius",
       "breakpoints": true
     }
   ]

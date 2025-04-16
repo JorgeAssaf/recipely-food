@@ -13,11 +13,11 @@ import { Shell } from '@/components/shell'
 import { getRecipesAction } from '../_actions/recipes'
 
 type HomeProps = {
-  searchParams: { sort: string; category: Recipe['category'] }
+  searchParams: Promise<{ sort: string; category: Recipe['category'] }>
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { sort, category } = searchParams ?? {}
+  const { sort, category } = await searchParams
 
   const recipesTransaction = await getRecipesAction({
     limit: 2,
@@ -38,7 +38,7 @@ export default async function Home({ searchParams }: HomeProps) {
           className='flex gap-1 px-4 py-2 text-sm font-bold tabular-nums md:text-base'
           variant='outline'
         >
-          More than <CounterUp count={50} /> recipes
+          More than <CounterUp count={recipes.length} /> recipes
         </Badge>
         <Balancer
           as='h1'

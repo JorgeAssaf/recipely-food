@@ -22,7 +22,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "content-collections": ["./.content-collections/generated"]
     }
   },
   "include": [
@@ -33,7 +33,6 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    ".contentlayer/generated",
     "next.config.js"
   ],
   "exclude": ["node_modules"]

@@ -19,15 +19,16 @@ export const metadata: Metadata = {
 }
 
 type UpdateRecipePageProps = {
-  params: {
+  params: Promise<{
     recipeId: string
-  }
+  }>
 }
 
 export default async function UpdateRecipePage({
   params,
 }: UpdateRecipePageProps) {
-  const recipeId = Number(params.recipeId)
+  const paramsResolved = await params
+  const recipeId = Number(paramsResolved.recipeId)
   const recipe = await db.query.recipes.findFirst({
     where: and(eq(recipes.id, recipeId)),
   })
