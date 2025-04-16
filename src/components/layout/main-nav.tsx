@@ -52,6 +52,7 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
                           key={item.title + i}
                           title={item.title}
                           href={item.href}
+                          disabled={item.disabled}
                         >
                           {item.description} a
                         </ListItem>
@@ -64,7 +65,11 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
                   <NavigationMenuItem key={item.title + i}>
                     <NavigationMenuLink
                       href={item.href}
-                      className={cn(navigationMenuTriggerStyle(), 'h-auto')}
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'h-auto',
+                        item.disabled && 'pointer-events-none opacity-50',
+                      )}
                       aria-label={item.title}
                     >
                       {item.title}
@@ -80,9 +85,11 @@ export const MainNav: FC<MainNavProps> = ({ items }) => {
 }
 
 const ListItem = forwardRef<
-  React.ElementRef<'a'>,
-  React.ComponentPropsWithoutRef<'a'>
->(({ className, title, children, href, ...props }, ref) => {
+  React.ComponentRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'> & {
+    disabled?: boolean
+  }
+>(({ className, title, children, href, disabled, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -91,6 +98,7 @@ const ListItem = forwardRef<
           href={`${href}`}
           className={cn(
             'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            disabled && 'pointer-events-none opacity-50',
             className,
           )}
           {...props}

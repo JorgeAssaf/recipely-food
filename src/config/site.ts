@@ -43,10 +43,12 @@ export const siteConfig = {
     {
       title: 'About',
       href: '/about',
+      disabled: true,
     },
     {
       title: 'Blog',
       href: '/blog',
+      disabled: true,
     },
   ] satisfies MainNavItem[],
 
