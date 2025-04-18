@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Cropper, { type ReactCropperElement } from 'react-cropper'
+import { Cropper, type CropperRef } from 'react-advanced-cropper'
 
-import 'cropperjs/dist/cropper.css'
+import 'react-advanced-cropper/dist/style.css'
 
 import { Crop, CropIcon, RefreshCcw, Trash2, UploadIcon } from 'lucide-react'
 import {
@@ -79,9 +79,7 @@ const FileDialog = <TFieldValues extends FieldValues>({
             toast.error(`File is too large. Max size is ${maxSize} bytes`)
             return
           }
-          if (errors[0]?.message) {
-            toast.error(errors[0].message)
-          }
+          errors[0]?.message && toast.error(errors[0].message)
         })
       }
     },
@@ -119,9 +117,9 @@ const FileDialog = <TFieldValues extends FieldValues>({
       </DialogTrigger>
 
       <DialogContent className='sm:max-w-[480px]'>
-        <p className='absolute left-5 top-4 text-base font-medium text-muted-foreground'>
+        <DialogTitle className='absolute left-5 top-4 text-base font-medium text-muted-foreground'>
           Upload your images
-        </p>
+        </DialogTitle>
 
         <div
           {...getRootProps()}
@@ -212,15 +210,12 @@ interface FileCardProps {
 const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [cropData, setCropData] = useState<string | null>(null)
-  const cropperRef = useRef<ReactCropperElement>(null)
+  const cropperRef = useRef<CropperRef>(null)
 
   const onCrop = useCallback(() => {
     if (!files || !cropperRef.current) return
 
-    const croppedCanvas = cropperRef.current.cropper.getCroppedCanvas()
-    setCropData(cropperRef.current.cropper.getCroppedCanvas().toDataURL())
-
-    croppedCanvas.toBlob((blob) => {
+    cropperRef.current.getCanvas()?.toBlob((blob) => {
       if (!blob) {
         console.error('Blob creation failed')
         return
@@ -241,7 +236,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
       return setFiles(newFiles)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files, cropperRef.current])
+  }, [files])
   useEffect(() => {
     function handleKeydown(e: KeyboardEvent) {
       if (e.key === 'Enter') {
@@ -300,18 +295,8 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
                 <Cropper
                   ref={cropperRef}
                   className='size-[450px] object-cover'
-                  zoomTo={0.5}
-                  initialAspectRatio={1 / 1}
-                  preview='.img-preview'
                   src={file.preview}
-                  viewMode={1}
-                  minCropBoxHeight={10}
-                  minCropBoxWidth={10}
-                  background={false}
-                  responsive={true}
-                  autoCropArea={1}
-                  checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-                  guides={true}
+                  checkOrientation={false}
                 />
               </div>
               <div className='mt-2 flex items-center justify-center gap-4'>
@@ -330,7 +315,7 @@ const FileCard = ({ i, file, files, setFiles }: FileCardProps) => {
                 <Button
                   type='button'
                   onClick={() => {
-                    cropperRef.current?.cropper.reset()
+                    cropperRef.current?.reset()
                     setCropData(null)
                   }}
                 >

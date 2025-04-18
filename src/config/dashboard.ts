@@ -28,6 +28,7 @@ export const dashboardConfig: DashboardConfig = {
           title: 'Billing',
           href: '/dashboard/billing',
           icon: 'creditCard',
+          disabled: true,
           items: [],
         },
       ],
