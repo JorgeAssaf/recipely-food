@@ -72,14 +72,14 @@ export function AddNewRecipe() {
       try {
         const images = isArrayOfFile(data.images)
           ? await startUpload(data.images).then((res) => {
-            const formattedImages = res?.map((image) => ({
-              id: image.key,
-              name: image.name ?? image.key.split('/').pop() ?? 'unknown',
-              url: image.ufsUrl,
-            }))
+              const formattedImages = res?.map((image) => ({
+                id: image.key,
+                name: image.name ?? image.key.split('/').pop() ?? 'unknown',
+                url: image.ufsUrl,
+              }))
 
-            return formattedImages ?? null
-          })
+              return formattedImages ?? null
+            })
           : null
 
         toast.promise(
