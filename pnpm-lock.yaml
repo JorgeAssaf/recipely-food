@@ -19,6 +19,9 @@ importers:
       '@loglib/tracker':
         specifier: 0.8.0
         version: 0.8.0(react@19.1.0)
+      '@neondatabase/serverless':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@radix-ui/react-accordion':
         specifier: 1.2.4
         version: 1.2.4(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -84,7 +87,7 @@ importers:
         version: 16.5.0
       drizzle-orm:
         specifier: 0.42.0
-        version: 0.42.0(@opentelemetry/api@1.9.0)(@types/pg@8.11.13)(gel@2.0.2)(mysql2@3.14.0)(pg@8.14.1)
+        version: 0.42.0(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.13)(gel@2.0.2)(mysql2@3.14.0)(pg@8.14.1)
       embla-carousel:
         specifier: 8.6.0
         version: 8.6.0
@@ -1222,6 +1225,13 @@ packages:
       {
         integrity: sha512-OBlgKdX7gin7OIq4fadsjpg+cp2ZphvAIKucHsNfTdJiqdOmOEwQd/bHi0VwNrcw5xpBJyUw6cK/QilCqy1BSg==,
       }
+
+  '@neondatabase/serverless@1.0.0':
+    resolution:
+      {
+        integrity: sha512-XWmEeWpBXIoksZSDN74kftfTnXFEGZ3iX8jbANWBc+ag6dsiQuvuR4LgB0WdCOKMb5AQgjqgufc0TgAsZubUYw==,
+      }
+    engines: { node: '>=19.0.0' }
 
   '@next/env@15.3.1':
     resolution:
@@ -7257,6 +7267,11 @@ snapshots:
       '@tybys/wasm-util': 0.9.0
     optional: true
 
+  '@neondatabase/serverless@1.0.0':
+    dependencies:
+      '@types/node': 22.14.1
+      '@types/pg': 8.11.13
+
   '@next/env@15.3.1': {}
 
   '@next/eslint-plugin-next@15.3.1':
@@ -8498,8 +8513,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.42.0(@opentelemetry/api@1.9.0)(@types/pg@8.11.13)(gel@2.0.2)(mysql2@3.14.0)(pg@8.14.1):
+  drizzle-orm@0.42.0(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.13)(gel@2.0.2)(mysql2@3.14.0)(pg@8.14.1):
     optionalDependencies:
+      '@neondatabase/serverless': 1.0.0
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.13
       gel: 2.0.2
