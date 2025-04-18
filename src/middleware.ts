@@ -9,38 +9,46 @@ import {
 
 const isProtectedRoute = createRouteMatcher(['/dashboard(.*)'])
 
-export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth()
+export default clerkMiddleware(
+  async (auth, req) => {
+    const { userId } = await auth()
 
-  if (!userId && isProtectedRoute(req)) {
-    const unauthenticatedUrl = `${req.nextUrl.origin}/signin`
-    const unauthorizedUrl = `${req.nextUrl.origin}/dashboard`
+    if (!userId && isProtectedRoute(req)) {
+      const unauthenticatedUrl = `${req.nextUrl.origin}/signin`
+      const unauthorizedUrl = `${req.nextUrl.origin}/dashboard`
 
-    await auth.protect({
-      unauthenticatedUrl,
-      unauthorizedUrl,
-    })
-    return
-  }
+      await auth.protect({
+        unauthenticatedUrl,
+        unauthorizedUrl,
+      })
+      return
+    }
 
-  if (userId) {
-    const client = await clerkClient()
-    const user = await client.users.getUser(userId)
+    if (userId) {
+      const client = await clerkClient()
+      const user = await client.users.getUser(userId)
 
-    if (user) {
-      const role = user.privateMetadata.role
+      if (user) {
+        const role = user.privateMetadata.role
 
-      // Add custom logic to run before redirecting
-      if (!role) {
-        await client.users.updateUserMetadata(userId, {
-          privateMetadata: {
-            role: 'user',
-          },
-        })
+        // Add custom logic to run before redirecting
+        if (!role) {
+          await client.users.updateUserMetadata(userId, {
+            privateMetadata: {
+              role: 'user',
+            },
+          })
+        }
       }
     }
-  }
-})
+  },
+  {
+    authorizedParties: [
+      'http://localhost:3000',
+      'https://recipely-food.vercel.app',
+    ],
+  },
+)
 
 export const config = {
   matcher: [
