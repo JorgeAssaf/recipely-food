@@ -9,8 +9,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { CounterUp } from '@/components/counter-up'
 import { RecipesSection } from '@/components/recipes-section'
 import { Shell } from '@/components/shell'
-
-import { getRecipesAction } from '../_actions/recipes'
+import { getRecipesAction } from '@/app/_actions/recipes'
 
 type HomeProps = {
   searchParams: Promise<{ sort: string; category: Recipe['category'] }>
@@ -26,7 +25,6 @@ export default async function Home({ searchParams }: HomeProps) {
     category: category ?? 'breakfast',
   })
   const recipes = recipesTransaction.items
-
   return (
     <Shell as='div' className='py-3'>
       <section
