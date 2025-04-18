@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     offset: 0,
     sort: 'createdAt.desc',
   })
-  const recipesRoute = recipesTransaction.items.map((recipe) => ({
+  const recipesRoute = recipesTransaction.count !== 0 ? [] : recipesTransaction.items.map((recipe) => ({
     url: absoluteUrl(`/recipe/${slugify(recipe.name)}`),
     lastModified: new Date().toISOString(),
   }))
