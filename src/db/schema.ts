@@ -49,7 +49,6 @@ export const recipes = pgTable(
     createdAt: timestamp('createdAt').defaultNow().notNull(),
   },
   (table) => [
-    uniqueIndex('recipes_userId_idx').on(table.userId),
     index('recipes_category_idx').on(table.category),
     index('recipes_rating_idx').on(table.rating),
   ],
@@ -67,10 +66,7 @@ export const savedRecipes = pgTable(
     closed: boolean('closed').notNull().default(false),
     createdAt: timestamp('createdAt').defaultNow().notNull(),
   },
-  (table) => [
-    uniqueIndex('saved_recipes_userId_idx').on(table.userId),
-    index('saved_recipes_recipeId_idx').on(table.recipeId),
-  ],
+  (table) => [index('saved_recipes_recipeId_idx').on(table.recipeId)],
 )
 
 export type SavedRecipe = typeof savedRecipes.$inferSelect
