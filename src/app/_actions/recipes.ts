@@ -57,65 +57,48 @@ export async function getRecipesAction(
     (input.categories?.split('.') as Recipe['category'][]) ?? []
   const category = (input.category as Recipe['category']) ?? undefined
   const author = (input.author?.split('.') as Recipe['author'][]) ?? []
-  const { items, count } = await db.transaction(async (tx) => {
-    const items = await tx
-      .select()
-      .from(recipes)
-      .limit(input.limit)
-      .offset(input.offset)
-      .where(
-        and(
-          author.length ? inArray(recipes.author, author) : undefined,
-          category ? eq(recipes.category, category) : undefined,
-          categories.length ? inArray(recipes.category, categories) : undefined,
-          difficulty.length
-            ? inArray(recipes.difficulty, difficulty)
-            : undefined,
-          minPrepTime
-            ? gte(recipes.prepTime, parseInt(minPrepTime))
-            : undefined,
-          maxPrepTime
-            ? lte(recipes.prepTime, parseInt(maxPrepTime))
-            : undefined,
-        ),
-      )
-      .groupBy(recipes.id)
-      .orderBy(
-        column && column in recipes
-          ? order === 'asc'
-            ? asc(recipes[column])
-            : desc(recipes[column])
-          : desc(recipes.createdAt),
-      )
-    const count = await tx
-      .select({
-        count: sql<number>`count(*)`,
-      })
-      .from(recipes)
-      .where(
-        and(
-          author.length ? inArray(recipes.author, author) : undefined,
-          category ? eq(recipes.category, category) : undefined,
-          categories.length ? inArray(recipes.category, categories) : undefined,
-          difficulty.length
-            ? inArray(recipes.difficulty, difficulty)
-            : undefined,
-          minPrepTime
-            ? gte(recipes.prepTime, parseInt(minPrepTime))
-            : undefined,
-          maxPrepTime
-            ? lte(recipes.prepTime, parseInt(maxPrepTime))
-            : undefined,
-        ),
-      )
-      .execute()
-      .then((res) => res[0]?.count ?? 0)
 
-    return {
-      items,
-      count,
-    }
-  })
+  const items = await db
+    .select()
+    .from(recipes)
+    .limit(input.limit)
+    .offset(input.offset)
+    .where(
+      and(
+        author.length ? inArray(recipes.author, author) : undefined,
+        category ? eq(recipes.category, category) : undefined,
+        categories.length ? inArray(recipes.category, categories) : undefined,
+        difficulty.length ? inArray(recipes.difficulty, difficulty) : undefined,
+        minPrepTime ? gte(recipes.prepTime, parseInt(minPrepTime)) : undefined,
+        maxPrepTime ? lte(recipes.prepTime, parseInt(maxPrepTime)) : undefined,
+      ),
+    )
+    .groupBy(recipes.id)
+    .orderBy(
+      column && column in recipes
+        ? order === 'asc'
+          ? asc(recipes[column])
+          : desc(recipes[column])
+        : desc(recipes.createdAt),
+    )
+
+  const count = await db
+    .select({
+      count: sql<number>`count(*)`,
+    })
+    .from(recipes)
+    .where(
+      and(
+        author.length ? inArray(recipes.author, author) : undefined,
+        category ? eq(recipes.category, category) : undefined,
+        categories.length ? inArray(recipes.category, categories) : undefined,
+        difficulty.length ? inArray(recipes.difficulty, difficulty) : undefined,
+        minPrepTime ? gte(recipes.prepTime, parseInt(minPrepTime)) : undefined,
+        maxPrepTime ? lte(recipes.prepTime, parseInt(maxPrepTime)) : undefined,
+      ),
+    )
+    .execute()
+    .then((res) => res[0]?.count ?? 0)
 
   return {
     items,

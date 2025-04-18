@@ -12,10 +12,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     offset: 0,
     sort: 'createdAt.desc',
   })
-  const recipesRoute = recipesTransaction.count !== 0 ? [] : recipesTransaction.items.map((recipe) => ({
-    url: absoluteUrl(`/recipe/${slugify(recipe.name)}`),
-    lastModified: new Date().toISOString(),
-  }))
+  const recipesRoute =
+    recipesTransaction.count !== 0
+      ? []
+      : recipesTransaction.items.map((recipe) => ({
+          url: absoluteUrl(`/recipe/${slugify(recipe.name)}`),
+          lastModified: new Date().toISOString(),
+        }))
 
   const categoriesRoutes = recipesCategories.map((category) => ({
     url: absoluteUrl(`/category/${category.title}`),
