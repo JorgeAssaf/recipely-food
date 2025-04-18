@@ -31,11 +31,18 @@ export async function generateMetadata({
     },
     where: (recipes, { eq }) => eq(recipes.name, recipeName),
   })
+  if (!recipe) {
+    return {
+      title: 'Recipe not found',
+      description: 'Recipe not found',
+      keywords: ['recipe', 'not found'],
+    }
+  }
 
   return {
-    title: recipe?.name,
-    description: recipe?.description,
-    keywords: [`${recipe?.name}`, `${recipe?.category}`],
+    title: recipe.name,
+    description: recipe.description,
+    keywords: [`${recipe.name}`, `${recipe.category}`],
   }
 }
 
@@ -50,9 +57,7 @@ interface RecipePageProps {
 
 export default async function RecipePage({ params }: RecipePageProps) {
   const { name } = await params
-
-  const recipeName = deslugify(name)
-
+  const recipeName = slugify(name)
   const recipe = await db.query.recipes.findFirst({
     where: (recipes, { eq }) => eq(recipes.name, recipeName),
   })
