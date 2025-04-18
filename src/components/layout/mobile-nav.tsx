@@ -18,6 +18,8 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
+import { DialogTitle } from '../ui/dialog'
+
 interface MobileNavProps {
   mainNavItems?: MainNavItem[]
   dashboardItem?: SidebarNavItem[]
@@ -48,7 +50,9 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
             onClick={() => setIsOpen(false)}
           >
             <Pizza className='mr-2 size-[1.15rem]' aria-hidden='true' />
-            <span className='text-lg font-bold'>{siteConfig.name}</span>
+            <DialogTitle className='text-lg font-bold'>
+              {siteConfig.name}
+            </DialogTitle>
           </Link>
         </div>
 
