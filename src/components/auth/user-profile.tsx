@@ -10,13 +10,6 @@ const appearance: Theme = {
   variables: {
     borderRadius: '0.25rem',
   },
-  elements: {
-    card: 'shadow-none',
-    navbar: 'hidden',
-    navbarMobileMenuButton: 'hidden',
-    headerTitle: 'hidden',
-    headerSubtitle: 'hidden',
-  },
 }
 
 export function UserProfile() {
@@ -30,7 +23,7 @@ export function UserProfile() {
           theme === 'system' || theme === 'dark' ? dark : appearance.baseTheme,
         variables: {
           ...appearance.variables,
-          colorBackground: theme === 'light' ? '#fafafa' : undefined,
+          colorBackground: theme === 'light' ? '#fafafa' : '#1a1a1a',
         },
       }}
     />
