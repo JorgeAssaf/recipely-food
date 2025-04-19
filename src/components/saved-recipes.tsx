@@ -50,10 +50,10 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
                     aria-label='Placeholder'
                     role='img'
                     aria-roledescription='placeholder'
-                    className='flex size-full items-center justify-center bg-secondary'
+                    className='bg-secondary flex size-full items-center justify-center'
                   >
                     <ImageIcon
-                      className='size-9 text-muted-foreground'
+                      className='text-muted-foreground size-9'
                       aria-hidden='true'
                     />
                   </div>
@@ -94,8 +94,8 @@ export const SavedRecipes = ({ savedRecipes }: SavedRecipesProps) => {
           className={cn('m-auto grid w-full max-w-lg place-items-center')}
         >
           <CardHeader>
-            <div className='grid size-20 place-items-center rounded-full bg-muted'>
-              <FileWarning className='size-12 text-muted-foreground' />
+            <div className='bg-muted grid size-20 place-items-center rounded-full'>
+              <FileWarning className='text-muted-foreground size-12' />
             </div>
           </CardHeader>
           <CardContent className='flex flex-col items-center justify-center space-y-2.5 text-center'>

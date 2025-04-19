@@ -116,21 +116,26 @@ export async function AddRecipeAction(
   if (!user) {
     throw new Error('You must be logged in to add a recipe.')
   }
-  const recipeWithSameName = await db
-    .select({
-      name: recipes.name,
-    })
+
+  const existingRecipes = await db
+    .select({ name: recipes.name })
     .from(recipes)
     .where(eq(recipes.name, values.name))
+    .limit(1)
+    .execute()
 
-  if (recipeWithSameName.length > 0) {
-    throw new Error('Product name already taken.')
+  if (existingRecipes.length > 0) {
+    throw new Error('Recipe name already taken.')
   }
+
+  const authorName = [user.firstName ?? user.username, user.lastName ?? '']
+    .filter(Boolean)
+    .join(' ')
 
   await db.insert(recipes).values({
     ...values,
     userId: user.id,
-    author: `${user.firstName ?? user.username} ${user.lastName ?? ''}`,
+    author: authorName,
   })
 
   revalidatePath(`/dashboard/recipes`)

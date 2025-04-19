@@ -31,11 +31,18 @@ export async function generateMetadata({
     },
     where: (recipes, { eq }) => eq(recipes.name, recipeName),
   })
+  if (!recipe) {
+    return {
+      title: 'Recipe not found',
+      description: 'Recipe not found',
+      keywords: ['recipe', 'not found'],
+    }
+  }
 
   return {
-    title: recipe?.name,
-    description: recipe?.description,
-    keywords: [`${recipe?.name}`, `${recipe?.category}`],
+    title: recipe.name,
+    description: recipe.description,
+    keywords: [`${recipe.name}`, `${recipe.category}`],
   }
 }
 
@@ -50,9 +57,7 @@ interface RecipePageProps {
 
 export default async function RecipePage({ params }: RecipePageProps) {
   const { name } = await params
-
-  const recipeName = deslugify(name)
-
+  const recipeName = slugify(name)
   const recipe = await db.query.recipes.findFirst({
     where: (recipes, { eq }) => eq(recipes.name, recipeName),
   })
@@ -96,7 +101,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
           />
         </div>
 
-        <div className='h-fit rounded-2xl bg-foreground px-5 py-6 text-background'>
+        <div className='bg-foreground text-background h-fit rounded-2xl px-5 py-6'>
           <div className='space-y-4'>
             <div className='flex items-center gap-2 text-lg font-semibold'>
               <div
@@ -104,7 +109,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   buttonVariants({
                     size: 'icon',
                     className:
-                      'pointer-events-none h-8 w-8 bg-foreground text-background',
+                      'bg-foreground text-background pointer-events-none h-8 w-8',
                   }),
                 )}
                 aria-hidden='true'
@@ -115,7 +120,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
             </div>
 
             <h1 className='text-4xl font-bold'>{recipe.name}</h1>
-            <p className='capitalize text-background/90'>
+            <p className='text-background/90 capitalize'>
               Author: {recipe.author}
             </p>
             <Tabs defaultValue='ingredients'>
@@ -132,7 +137,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                             className='flex items-center text-lg font-semibold'
                           >
                             {isSaved ? (
-                              <Bookmark className='size-6 fill-color-accent text-color-accent' />
+                              <Bookmark className='fill-color-accent text-color-accent size-6' />
                             ) : (
                               <Bookmark className='size-6' />
                             )}
@@ -142,7 +147,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                         ) : (
                           <TabsTrigger
                             asChild
-                            className='data-[state=active]:bg-foreground data-[state=inactive]:bg-transparent data-[state=active]:text-background data-[state=active]:shadow-lg'
+                            className='data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-lg data-[state=inactive]:bg-transparent'
                             value={item}
                           >
                             <Button>
@@ -161,7 +166,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   value='steps'
                   className='min-h-96 w-full rounded-md'
                 >
-                  <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                  <h2 className='bg-foreground sticky top-0 py-4 text-3xl font-bold'>
                     Steps
                   </h2>
                   <div>
@@ -194,7 +199,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   </div>
                   {recipe.ingredients?.length ? (
                     <div className='mt-5 flex flex-col space-y-3'>
-                      <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                      <h2 className='bg-foreground sticky top-0 py-4 text-3xl font-bold'>
                         Ingredients
                       </h2>
                       <ul className='space-y-2'>
@@ -218,7 +223,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                   value='reviews'
                   className='min-h-96 w-full rounded-md'
                 >
-                  <h2 className='sticky top-0 bg-foreground py-4 text-3xl font-bold'>
+                  <h2 className='bg-foreground sticky top-0 py-4 text-3xl font-bold'>
                     Reviews
                   </h2>
                 </TabsContent>

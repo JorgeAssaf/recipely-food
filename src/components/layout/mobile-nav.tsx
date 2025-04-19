@@ -18,6 +18,8 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
+import { DialogTitle } from '../ui/dialog'
+
 interface MobileNavProps {
   mainNavItems?: MainNavItem[]
   dashboardItem?: SidebarNavItem[]
@@ -39,7 +41,7 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
           <span className='sr-only'>Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side='left' className='pl-1 pr-0'>
+      <SheetContent side='left' className='pr-0 pl-1'>
         <div className='px-7'>
           <Link
             aria-label='Home'
@@ -48,7 +50,9 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
             onClick={() => setIsOpen(false)}
           >
             <Pizza className='mr-2 size-[1.15rem]' aria-hidden='true' />
-            <span className='text-lg font-bold'>{siteConfig.name}</span>
+            <DialogTitle className='text-lg font-bold'>
+              {siteConfig.name}
+            </DialogTitle>
           </Link>
         </div>
 
@@ -166,7 +170,7 @@ function MobileLink({
     <Link
       href={href}
       className={cn(
-        'text-foreground/70 transition-colors hover:text-foreground',
+        'text-foreground/70 hover:text-foreground transition-colors',
         pathname === href && 'text-foreground',
         disabled && 'pointer-events-none opacity-60',
       )}

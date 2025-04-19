@@ -23,7 +23,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           type='button'
           variant='ghost'
           size='icon'
-          className='absolute right-0 top-0 h-full px-3 py-1 hover:bg-transparent'
+          className='absolute top-0 right-0 h-full px-3 py-1 hover:bg-transparent'
           onClick={() => setShowPassword((prev) => !prev)}
         >
           {showPassword ? (

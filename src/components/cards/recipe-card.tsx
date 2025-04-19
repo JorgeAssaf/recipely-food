@@ -42,10 +42,10 @@ export const RecipeCard = ({
                 aria-label='Placeholder'
                 role='img'
                 aria-roledescription='placeholder'
-                className='flex size-full items-center justify-center bg-secondary'
+                className='bg-secondary flex size-full items-center justify-center'
               >
                 <ImageIcon
-                  className='size-9 text-muted-foreground'
+                  className='text-muted-foreground size-9'
                   aria-hidden='true'
                 />
               </div>
@@ -65,7 +65,7 @@ export const RecipeCard = ({
           </h2>
         </div>
         <div className='space-y-3'>
-          <CardDescription className='line-clamp-3 text-foreground/70'>
+          <CardDescription className='text-foreground/70 line-clamp-3'>
             {recipe.description}
           </CardDescription>
           <div className='flex items-center justify-between gap-2'>
@@ -78,12 +78,12 @@ export const RecipeCard = ({
           </div>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
-              <Clock className='size-5 text-muted-foreground' />
+              <Clock className='text-muted-foreground size-5' />
               <p className='text-sm font-medium'>
                 {formatPrepTime(recipe.prepTime)}
               </p>
             </div>
-            <p className='text-sm font-medium text-muted-foreground'>
+            <p className='text-muted-foreground text-sm font-medium'>
               By {recipe.author}
             </p>
           </div>

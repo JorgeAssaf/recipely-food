@@ -16,10 +16,10 @@ export function CodeBlock({ children, raw, ...props }: CodeBlockProps) {
     <>
       <CopyButton value={raw} />
       <pre
-        className='mb-4 mt-6 max-h-[640px] overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-sm font-semibold text-muted-foreground'
+        className='bg-muted text-muted-foreground mt-6 mb-4 max-h-[640px] overflow-x-auto rounded-lg border p-4 font-mono text-sm font-semibold'
         {...props}
       >
-        <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm'>
+        <code className='bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm'>
           {children}
         </code>
       </pre>

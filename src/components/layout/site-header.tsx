@@ -41,7 +41,7 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
     ? user?.firstName?.charAt(0) + user?.lastName?.charAt(0)
     : null
   return (
-    <header className='sticky top-0 z-40 w-full border-b bg-background'>
+    <header className='bg-background sticky top-0 z-40 w-full border-b'>
       <div className='container flex h-16 items-center'>
         <MainNav items={siteConfig.MainNavItem} />
         <MobileNav
@@ -81,10 +81,10 @@ const SiteHeader: FC<SiteHeaderProps> = ({ user }) => {
                 <DropdownMenuContent className='w-56' align='end' forceMount>
                   <DropdownMenuLabel className='font-normal'>
                     <div className='flex flex-col space-y-1'>
-                      <p className='text-sm font-medium leading-none'>
+                      <p className='text-sm leading-none font-medium'>
                         {user.firstName ?? user.username} {user.lastName ?? ''}
                       </p>
-                      <p className='text-xs leading-none text-muted-foreground'>
+                      <p className='text-muted-foreground text-xs leading-none'>
                         {email}
                       </p>
                     </div>

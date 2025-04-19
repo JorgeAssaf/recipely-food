@@ -27,7 +27,7 @@ export async function SavedRecipesIcon() {
           <Badge
             aria-label='count of saved recipes'
             variant='secondary'
-            className='absolute -right-2 -top-2 size-4 justify-center rounded-full p-2.5 text-xs'
+            className='absolute -top-2 -right-2 size-4 justify-center rounded-full p-2.5 text-xs'
           >
             {itemCount}
           </Badge>

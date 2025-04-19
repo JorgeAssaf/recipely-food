@@ -33,11 +33,11 @@ export function RecipesTabs() {
     <Tabs
       aria-label='Tabs for recipes'
       defaultValue={tabs.find((tab) => tab.isActive)?.href ?? tabs[0]?.href}
-      className='sticky top-0 z-30 w-full overflow-auto bg-background px-1'
+      className='bg-background sticky top-0 z-30 w-full overflow-auto px-1'
       onValueChange={(value) => router.push(value)}
     >
       <TabsList
-        className='inline-flex items-center justify-center space-x-1.5 text-muted-foreground'
+        className='text-muted-foreground inline-flex items-center justify-center space-x-1.5'
         aria-label='Recipes tabs'
       >
         {tabs.map((tab) => (
@@ -53,7 +53,7 @@ export function RecipesTabs() {
               aria-label='Recipes tab'
               value={tab.href}
               className={cn(
-                'inline-flex items-center justify-center rounded-sm px-2.5 py-1.5 text-[0.83rem] font-medium text-muted-foreground ring-offset-background transition-all hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 md:text-sm',
+                'text-muted-foreground ring-offset-background hover:bg-muted hover:text-primary focus-visible:ring-ring inline-flex items-center justify-center rounded-sm px-2.5 py-1.5 text-[0.83rem] font-medium transition-all focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none md:text-sm',
                 tab.isActive && 'text-foreground',
               )}
             >

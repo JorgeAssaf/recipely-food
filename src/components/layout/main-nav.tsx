@@ -97,16 +97,16 @@ const ListItem = forwardRef<
           ref={ref}
           href={`${href}`}
           className={cn(
-            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none',
             disabled && 'pointer-events-none opacity-50',
             className,
           )}
           {...props}
         >
-          <div className='text-sm font-medium leading-none'>
+          <div className='text-sm leading-none font-medium'>
             {toTitleCase(title!)}
           </div>
-          <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+          <p className='text-muted-foreground line-clamp-2 text-sm leading-snug'>
             {children}
           </p>
         </Link>

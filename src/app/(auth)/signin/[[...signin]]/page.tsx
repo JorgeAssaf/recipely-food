@@ -39,7 +39,7 @@ export default async function SigninPage() {
               <span className='w-full border-t' />
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
-              <span className='bg-background px-2 text-muted-foreground'>
+              <span className='bg-background text-muted-foreground px-2'>
                 Or continue with
               </span>
             </div>
@@ -52,14 +52,14 @@ export default async function SigninPage() {
             <span className='text-muted-foreground'>
               Don&apos;t have an account? &nbsp;
             </span>
-            <Link href='/signup' className='font-medium text-primary'>
+            <Link href='/signup' className='text-primary font-medium'>
               Sign up
             </Link>
           </div>
           <div>
             <Link
               href='/signin/reset-password'
-              className='font-medium text-primary'
+              className='text-primary font-medium'
             >
               Reset password
             </Link>

@@ -12,7 +12,7 @@ export function CopyButton({ value, ...props }: ButtonProps) {
     <Button
       variant='outline'
       size='sm'
-      className='absolute right-5 top-4 z-20 size-6 px-0'
+      className='absolute top-4 right-5 z-20 size-6 px-0'
       onClick={() => {
         if (typeof window === 'undefined') return
         setIsCopied(true)

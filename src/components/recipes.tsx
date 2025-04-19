@@ -164,7 +164,7 @@ export const Recipes = ({
 
             {categories?.length ? (
               <div className='space-y-4'>
-                <h3 className='text-sm font-medium tracking-wide text-foreground'>
+                <h3 className='text-foreground text-sm font-medium tracking-wide'>
                   Categories
                 </h3>
                 <MultiSelect
@@ -180,7 +180,7 @@ export const Recipes = ({
 
             <div className='flex flex-1 flex-col gap-5 overflow-hidden px-1'>
               <div className='space-y-4'>
-                <h3 className='text-sm font-medium tracking-wide text-foreground'>
+                <h3 className='text-foreground text-sm font-medium tracking-wide'>
                   Time {'(minutes)'}
                 </h3>
                 <Slider
@@ -222,7 +222,7 @@ export const Recipes = ({
                     }}
                   />
                 </div>
-                <h3 className='text-sm font-medium tracking-wide text-foreground'>
+                <h3 className='text-foreground text-sm font-medium tracking-wide'>
                   Dificulty
                 </h3>
                 {['easy', 'medium', 'hard'].map((dificulty) => (
@@ -243,7 +243,7 @@ export const Recipes = ({
 
                     <label
                       htmlFor={dificulty}
-                      className='text-sm font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                      className='text-sm leading-none font-medium capitalize peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                     >
                       {dificulty}
                     </label>
@@ -300,7 +300,7 @@ export const Recipes = ({
         {!isPending && !recipes.length ? (
           <div className='mx-auto flex max-w-xs flex-col space-y-1.5'>
             <h1 className='text-center text-2xl font-bold'>No recipes found</h1>
-            <p className='text-center text-muted-foreground'>
+            <p className='text-muted-foreground text-center'>
               Try changing your filters, or check back later for new recipes
             </p>
           </div>
