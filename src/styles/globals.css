@@ -86,6 +86,10 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
+  --breakpoint-2xl: 1400px;
+  --breakpoint-sx: 500px;
+  --breakpoint-xs: 380px;
+
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
 
@@ -122,6 +126,10 @@
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
+}
+
+@utility flex-full {
+  flex: 0 0 100%;
 }
 
 @layer base {
