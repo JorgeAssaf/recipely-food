@@ -90,6 +90,7 @@
   --breakpoint-sx: 500px;
   --breakpoint-xs: 380px;
 
+  --font-sans: var(--font-sans), sans-serif;
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
 
