@@ -69,20 +69,20 @@ const PostLayout = async ({ params }: PostPageProps) => {
         href='/blog'
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          'absolute left-[-200px] top-14 hidden text-muted-foreground xl:inline-flex',
+          'text-muted-foreground absolute top-14 left-[-200px] hidden xl:inline-flex',
         )}
       >
         <ChevronLeftIcon className='mr-2 size-4' aria-hidden='true' />
         See all posts
       </Link>
       <div className='space-y-2'>
-        <div className='flex items-center space-x-2 text-sm text-muted-foreground'>
-          <time dateTime={post.date} className='mb-1 text-xs text-primary/70'>
+        <div className='text-muted-foreground flex items-center space-x-2 text-sm'>
+          <time dateTime={post.date} className='text-primary/70 mb-1 text-xs'>
             {format(parseISO(post.date), 'LLLL d, yyyy')}
           </time>
         </div>
       </div>
-      <h1 className='mb-7 inline-block text-4xl font-bold leading-tight lg:text-5xl'>
+      <h1 className='mb-7 inline-block text-4xl leading-tight font-bold lg:text-5xl'>
         {post.title}
       </h1>
       <Mdx code={post.mdx} />

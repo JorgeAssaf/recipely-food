@@ -26,11 +26,11 @@ export default function RecipeLoading() {
           aria-label='Product Placeholder'
           role='img'
           aria-roledescription='placeholder'
-          className='flex aspect-square h-auto w-full flex-1 items-center justify-center bg-secondary'
+          className='bg-secondary flex aspect-square h-auto w-full flex-1 items-center justify-center'
         >
           <div className='flex flex-col items-center justify-center gap-4'>
             <ImageIcon
-              className='size-9 text-muted-foreground'
+              className='text-muted-foreground size-9'
               aria-hidden='true'
             />
           </div>

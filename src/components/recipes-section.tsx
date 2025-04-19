@@ -69,7 +69,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   variant='secondary'
                   disabled={isPending}
                   className={cn(
-                    'grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors hover:bg-color-accent md:justify-start md:text-base',
+                    'hover:bg-color-accent grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors md:justify-start md:text-base',
                     {
                       'bg-color-accent': category === item.title,
                     },
@@ -114,7 +114,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   buttonVariants({
                     variant: 'secondary',
                   }),
-                  'text-sm capitalize transition-colors hover:bg-color-accent md:text-base',
+                  'hover:bg-color-accent text-sm capitalize transition-colors md:text-base',
                 )}
                 aria-label='View recipe'
               >
@@ -124,13 +124,13 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
           </div>
 
           {(recipes ?? []).length > 0 ? (
-            <div className='grid w-full grid-cols-1 flex-row gap-4 text-foreground sx:grid-cols-2 md:flex md:flex-col'>
+            <div className='text-foreground sx:grid-cols-2 grid w-full grid-cols-1 flex-row gap-4 md:flex md:flex-col'>
               {recipes?.map((recipe) =>
                 isPending ? (
                   <Skeleton className='h-[190px] w-full' key={recipe.id} />
                 ) : (
                   <div
-                    className='space-y-3 rounded-md border-2 border-muted-foreground p-4'
+                    className='border-muted-foreground space-y-3 rounded-md border-2 p-4'
                     key={recipe.id}
                   >
                     <h3 className='truncate text-xl font-semibold capitalize lg:text-3xl'>
@@ -140,7 +140,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                       {recipe.category}
                     </Badge>
                     <div className='flex flex-col gap-2 md:flex-row'>
-                      <p className='flex items-center gap-2 md:border-l-2 md:pl-2 md:pr-3'>
+                      <p className='flex items-center gap-2 md:border-l-2 md:pr-3 md:pl-2'>
                         <Utensils className='size-5' aria-hidden='true' />
 
                         <span className='font-bold capitalize'>
@@ -161,7 +161,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                           variant: 'secondary',
                           size: 'sm',
                         }),
-                        'text-sm capitalize transition-colors hover:bg-color-accent md:text-base',
+                        'hover:bg-color-accent text-sm capitalize transition-colors md:text-base',
                       )}
                     >
                       View recipe
@@ -174,7 +174,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
             <div className='w-full items-center'>
               <div className='flex flex-col items-center justify-center'>
                 <XCircle className='size-20' aria-hidden='true' />
-                <p className='mt-3 font-medium text-muted-foreground'>
+                <p className='text-muted-foreground mt-3 font-medium'>
                   No recipes found
                 </p>
               </div>

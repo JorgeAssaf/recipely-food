@@ -41,7 +41,7 @@ export function MobileNav({ mainNavItems, dashboardItem }: MobileNavProps) {
           <span className='sr-only'>Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side='left' className='pl-1 pr-0'>
+      <SheetContent side='left' className='pr-0 pl-1'>
         <div className='px-7'>
           <Link
             aria-label='Home'
@@ -170,7 +170,7 @@ function MobileLink({
     <Link
       href={href}
       className={cn(
-        'text-foreground/70 transition-colors hover:text-foreground',
+        'text-foreground/70 hover:text-foreground transition-colors',
         pathname === href && 'text-foreground',
         disabled && 'pointer-events-none opacity-60',
       )}

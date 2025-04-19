@@ -84,7 +84,7 @@ const Combobox = () => {
         <SearchIcon className='size-4 xl:mr-2' aria-hidden='true' />
         <span className='hidden xl:inline-flex'>Search recipes...</span>
         <span className='sr-only'>Search recipes</span>
-        <kbd className='pointer-events-none absolute right-1.5 top-2 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 xl:flex'>
+        <kbd className='bg-muted pointer-events-none absolute top-2 right-1.5 hidden h-6 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none xl:flex'>
           <abbr title={mounted && isMacOs() ? 'Command' : 'Control'}>
             {mounted && isMacOs() ? '⌘' : 'Ctrl+'}
           </abbr>
@@ -138,7 +138,7 @@ const Combobox = () => {
                       }
                     >
                       <CategoryIcon
-                        className='mr-2 size-4 text-muted-foreground'
+                        className='text-muted-foreground mr-2 size-4'
                         aria-hidden='true'
                       />
                       <span className='truncate capitalize'>{item.name}</span>

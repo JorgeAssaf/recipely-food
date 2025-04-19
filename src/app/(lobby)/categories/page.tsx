@@ -138,7 +138,7 @@ export default async function CategoryPage() {
                       recipes
                     </p>
                   </div>
-                  <h3 className='mt-auto text-xl font-medium capitalize text-zinc-200'>
+                  <h3 className='mt-auto text-xl font-medium text-zinc-200 capitalize'>
                     {category.title}
                   </h3>
                   <RecipeSlogan

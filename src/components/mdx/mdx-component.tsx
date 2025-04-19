@@ -112,7 +112,7 @@ const components = {
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn('m-0 border-t p-0 even:bg-muted', className)}
+      className={cn('even:bg-muted m-0 border-t p-0', className)}
       {...props}
     />
   ),

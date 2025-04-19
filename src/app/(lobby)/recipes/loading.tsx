@@ -22,9 +22,9 @@ export default function RecipesLoading() {
             <Card key={i} className='rounded-sm'>
               <CardHeader className='border-b p-0'>
                 <AspectRatio ratio={16 / 9}>
-                  <div className='flex h-full items-center justify-center bg-secondary'>
+                  <div className='bg-secondary flex h-full items-center justify-center'>
                     <ImageIcon
-                      className='size-9 text-muted-foreground'
+                      className='text-muted-foreground size-9'
                       aria-hidden='true'
                     />
                   </div>

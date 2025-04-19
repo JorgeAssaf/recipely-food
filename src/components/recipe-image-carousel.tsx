@@ -68,10 +68,10 @@ export const RecipeImageCarrousel = ({
         aria-label='Product Placeholder'
         role='img'
         aria-roledescription='placeholder'
-        className='flex aspect-square h-auto w-full flex-1 items-center justify-center bg-secondary'
+        className='bg-secondary flex aspect-square h-auto w-full flex-1 items-center justify-center'
       >
         <div className='flex flex-col items-center justify-center gap-4'>
-          <ImageIcon className='size-9 text-foreground' aria-hidden='true' />
+          <ImageIcon className='text-foreground size-9' aria-hidden='true' />
           <p className='text-foreground'>No images found</p>
         </div>
       </div>
@@ -93,7 +93,7 @@ export const RecipeImageCarrousel = ({
         >
           {images.map((image, index) => (
             <div
-              className='relative aspect-square h-max min-w-0 flex-full'
+              className='flex-full relative aspect-square h-max min-w-0'
               key={index}
             >
               <Image
@@ -133,9 +133,9 @@ export const RecipeImageCarrousel = ({
                 variant='outline'
                 size='icon'
                 className={cn(
-                  'group relative aspect-square size-full max-w-[100px] rounded-lg shadow-sm hover:bg-transparent focus-visible:ring-foreground',
+                  'group focus-visible:ring-foreground relative aspect-square size-full max-w-[100px] rounded-lg shadow-sm hover:bg-transparent',
                   {
-                    'ring-2 ring-foreground': i === selectedIndex,
+                    'ring-foreground ring-2': i === selectedIndex,
                   },
                 )}
                 onClick={() => scrollTo(i)}

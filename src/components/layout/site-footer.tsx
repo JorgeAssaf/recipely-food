@@ -10,7 +10,7 @@ import { buttonVariants } from '../ui/button'
 
 const SiteFooter = () => {
   return (
-    <footer className='w-full border-t bg-background'>
+    <footer className='bg-background w-full border-t'>
       <Shell>
         <section
           id='footer-content'
@@ -42,7 +42,7 @@ const SiteFooter = () => {
                         href={link.href}
                         target={link?.external ? '_blank' : undefined}
                         rel={link?.external ? 'noreferrer' : undefined}
-                        className='text-sm text-muted-foreground transition-colors hover:text-foreground'
+                        className='text-muted-foreground hover:text-foreground text-sm transition-colors'
                       >
                         {link.title}
                         <span className='sr-only'>{link.title}</span>
@@ -68,13 +68,13 @@ const SiteFooter = () => {
           aria-labelledby='footer-bottom-heading'
           className='flex items-center space-x-4'
         >
-          <div className='flex-1 text-left text-sm leading-loose text-muted-foreground'>
+          <div className='text-muted-foreground flex-1 text-left text-sm leading-loose'>
             Built by{' '}
             <Link
               href='https://jorgeassaf.vercel.app/'
               target='_blank'
               rel='noreferrer'
-              className='font-semibold transition-colors hover:text-foreground'
+              className='hover:text-foreground font-semibold transition-colors'
             >
               Jorge Assaf
               <span className='sr-only'>Twitter</span>

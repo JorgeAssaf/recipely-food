@@ -23,7 +23,7 @@ function PageHeader({
 }
 
 const headingVariants = cva(
-  'font-bold leading-tight tracking-tighter lg:leading-[1.1]',
+  'leading-tight font-bold tracking-tighter lg:leading-[1.1]',
   {
     variants: {
       size: {
@@ -55,7 +55,7 @@ function PageHeaderHeading({
   )
 }
 
-const descriptionVariants = cva('max-w-[750px] text-muted-foreground', {
+const descriptionVariants = cva('text-muted-foreground max-w-[750px]', {
   variants: {
     size: {
       default: 'text-base sm:text-lg',

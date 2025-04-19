@@ -73,7 +73,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         <head />
         <body
           className={cn(
-            'min-h-screen bg-background font-sans antialiased',
+            'bg-background min-h-screen font-sans antialiased',
             satoshi.variable,
           )}
         >

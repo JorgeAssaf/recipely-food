@@ -73,20 +73,20 @@ export const MultiSelect = ({
       className='h-auto overflow-visible bg-transparent'
       {...props}
     >
-      <div className='group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2'>
+      <div className='group border-input ring-offset-background focus-within:ring-ring rounded-md border px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-offset-2'>
         <div className='flex flex-wrap gap-1 capitalize'>
           {selected?.map((option) => {
             return (
               <Badge
                 key={option.value}
                 variant='secondary'
-                className='rounded hover:bg-secondary'
+                className='hover:bg-secondary rounded'
               >
                 {option.label}
                 <Button
                   aria-label='Remove option'
                   size='sm'
-                  className='ml-2 h-auto bg-transparent p-0 text-primary hover:bg-transparent hover:text-destructive'
+                  className='text-primary hover:text-destructive ml-2 h-auto bg-transparent p-0 hover:bg-transparent'
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
@@ -109,7 +109,7 @@ export const MultiSelect = ({
             ref={inputRef}
             tabIndex={-1}
             placeholder='Select a category'
-            className='flex-1 bg-transparent px-1 py-0.5 outline-none placeholder:text-muted-foreground'
+            className='placeholder:text-muted-foreground flex-1 bg-transparent px-1 py-0.5 outline-none'
             value={query}
             onValueChange={setQuery}
             onBlur={() => setIsOpen(false)}
@@ -119,7 +119,7 @@ export const MultiSelect = ({
       </div>
       <div className='relative z-50 mt-2'>
         {isOpen && filteredOptions.length > 0 ? (
-          <div className='absolute top-0 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in'>
+          <div className='bg-popover text-popover-foreground animate-in absolute top-0 w-full rounded-md border shadow-md outline-none'>
             <CommandGroup className='h-full overflow-auto'>
               {filteredOptions.map((option) => {
                 return (

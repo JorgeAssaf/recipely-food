@@ -45,15 +45,15 @@ export function GET(req: Request) {
             }}
           >
             {type ? (
-              <div tw='px-8 text-xl font-medium uppercase leading-tight tracking-tight dark:text-zinc-50'>
+              <div tw='px-8 text-xl leading-tight font-medium tracking-tight uppercase dark:text-zinc-50'>
                 {type}
               </div>
             ) : null}
-            <div tw='px-8 text-6xl font-extrabold leading-tight tracking-tight dark:text-zinc-50'>
+            <div tw='px-8 text-6xl leading-tight font-extrabold tracking-tight dark:text-zinc-50'>
               {title}
             </div>
             {description ? (
-              <div tw='mt-5 px-20 text-center text-3xl font-normal leading-tight tracking-tight text-zinc-400'>
+              <div tw='mt-5 px-20 text-center text-3xl leading-tight font-normal tracking-tight text-zinc-400'>
                 {description}
               </div>
             ) : null}

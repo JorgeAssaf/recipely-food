@@ -21,7 +21,7 @@ export const Breadcrumbs = forwardRef<HTMLDivElement, BreadcrumbsProps>(
         ref={ref}
         aria-label='breadcrumbs'
         className={cn(
-          'flex w-full items-center overflow-auto text-sm font-medium text-muted-foreground',
+          'text-muted-foreground flex w-full items-center overflow-auto text-sm font-medium',
           className,
         )}
         {...props}
@@ -35,7 +35,7 @@ export const Breadcrumbs = forwardRef<HTMLDivElement, BreadcrumbsProps>(
                 aria-current={isLastSegment ? 'page' : undefined}
                 href={segment.href}
                 className={cn(
-                  'truncate transition-colors hover:text-foreground',
+                  'hover:text-foreground truncate transition-colors',
                   isLastSegment ? 'text-foreground' : 'text-muted-foreground',
                 )}
               >

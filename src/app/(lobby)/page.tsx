@@ -30,7 +30,7 @@ export default async function Home({ searchParams }: HomeProps) {
       <section
         id='hero'
         aria-labelledby='hero-heading'
-        className='mx-auto flex w-full max-w-5xl flex-col items-center justify-center gap-4 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28'
+        className='mx-auto flex w-full max-w-5xl flex-col items-center justify-center gap-4 pt-6 pb-8 text-center md:pt-10 md:pb-12 lg:py-28'
       >
         <Badge
           className='flex gap-1 px-4 py-2 text-sm font-bold tabular-nums md:text-base'
@@ -46,7 +46,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <span className='text-color-accent'>fast recipes!</span>
         </Balancer>
         <Balancer
-          className='max-w-[46rem] text-base font-medium text-muted-foreground md:text-xl'
+          className='text-muted-foreground max-w-[46rem] text-base font-medium md:text-xl'
           as='q'
         >
           A recipe is soulless The essence of the recipe must corne from you,

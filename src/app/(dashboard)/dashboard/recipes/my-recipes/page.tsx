@@ -76,8 +76,8 @@ const YourRecipesPage = async () => {
           className={cn('m-auto grid w-full max-w-lg place-items-center')}
         >
           <CardHeader>
-            <div className='grid size-20 place-items-center rounded-full bg-muted'>
-              <FileWarning className='size-12 text-muted-foreground' />
+            <div className='bg-muted grid size-20 place-items-center rounded-full'>
+              <FileWarning className='text-muted-foreground size-12' />
             </div>
           </CardHeader>
           <CardContent className='flex flex-col items-center justify-center space-y-2.5 text-center'>

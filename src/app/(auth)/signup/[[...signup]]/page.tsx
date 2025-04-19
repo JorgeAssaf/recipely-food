@@ -41,7 +41,7 @@ export default async function SignupPage() {
               <span className='w-full border-t' />
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
-              <span className='bg-background px-2 text-muted-foreground'>
+              <span className='bg-background text-muted-foreground px-2'>
                 Or continue with
               </span>
             </div>
@@ -54,7 +54,7 @@ export default async function SignupPage() {
             <span className='text-muted-foreground'>
               Already have an account? &nbsp;
             </span>
-            <Link href='/signin' className='font-medium text-primary'>
+            <Link href='/signin' className='text-primary font-medium'>
               Sign in
             </Link>
           </div>
