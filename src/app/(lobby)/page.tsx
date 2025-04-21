@@ -43,7 +43,7 @@ export default async function Home({ searchParams }: HomeProps) {
           className='text-3xl font-bold sm:text-5xl md:text-6xl lg:text-7xl'
         >
           Discover simple, delicious and{' '}
-          <span className='text-color-accent'>fast recipes!</span>
+          <span className='text-pink-accent'>fast recipes!</span>
         </Balancer>
         <Balancer
           className='text-muted-foreground max-w-[46rem] text-base font-medium md:text-xl'

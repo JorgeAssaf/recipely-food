@@ -69,9 +69,9 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   variant='secondary'
                   disabled={isPending}
                   className={cn(
-                    'hover:bg-color-accent grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors md:justify-start md:text-base',
+                    'hover:bg-pink-accent grow basis-1/6 justify-center space-x-2 text-sm capitalize transition-colors md:justify-start md:text-base',
                     {
-                      'bg-color-accent': category === item.title,
+                      'bg-pink-accent': category === item.title,
                     },
                   )}
                   key={item.title}
@@ -114,7 +114,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                   buttonVariants({
                     variant: 'secondary',
                   }),
-                  'hover:bg-color-accent text-sm capitalize transition-colors md:text-base',
+                  'hover:bg-pink-accent text-sm capitalize transition-colors md:text-base',
                 )}
                 aria-label='View recipe'
               >
@@ -161,7 +161,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
                           variant: 'secondary',
                           size: 'sm',
                         }),
-                        'hover:bg-color-accent text-sm capitalize transition-colors md:text-base',
+                        'hover:bg-pink-accent text-sm capitalize transition-colors md:text-base',
                       )}
                     >
                       View recipe

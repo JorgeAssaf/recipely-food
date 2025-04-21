@@ -137,7 +137,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
                             className='flex items-center text-lg font-semibold'
                           >
                             {isSaved ? (
-                              <Bookmark className='fill-color-accent text-color-accent size-6' />
+                              <Bookmark className='fill-pink-accent text-pink-accent size-6' />
                             ) : (
                               <Bookmark className='size-6' />
                             )}
