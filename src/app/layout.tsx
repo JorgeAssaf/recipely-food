@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 
-import { siteConfig } from '@/config/site'
 import { fontSans } from '@/config/fonts'
+import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
