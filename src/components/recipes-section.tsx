@@ -98,20 +98,18 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
         </div>
         <div className='flex w-full flex-col items-center gap-5 md:flex-row'>
           <div className='group relative size-full'>
-            {
-              isPending ? (
-                <Skeleton className='h-[250px] w-full md:h-[405px]' />
-              ) : (
-                <Image
-                  src={`/images/${category}.webp`}
-                  width={500}
-                  height={500}
-                  priority
-                  alt={category}
-                  className='h-[250px] w-full rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[405px]'
-                />
-              )
-            }
+            {isPending ? (
+              <Skeleton className='h-[250px] w-full md:h-[405px]' />
+            ) : (
+              <Image
+                src={`/images/${category}.webp`}
+                width={500}
+                height={500}
+                priority
+                alt={category}
+                className='h-[250px] w-full rounded-2xl object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-40 md:h-[405px]'
+              />
+            )}
 
             <div className='absolute inset-0 flex h-full items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100'>
               <Link
