@@ -68,7 +68,7 @@
   --ring: 240 4.9% 83.9%;
 }
 
-@theme {
+@theme inline {
   --color-pink-accent: hsl(var(--pink-accent));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
