@@ -8,7 +8,7 @@ import {
   pgTable,
   serial,
   timestamp,
-  uniqueIndex,
+  unique,
   varchar,
 } from 'drizzle-orm/pg-core'
 
@@ -23,6 +23,23 @@ export const category = pgEnum('category', [
   'drinks',
 ])
 export const difficulty = pgEnum('difficulty', ['easy', 'medium', 'hard'])
+
+export const savedRecipes = pgTable(
+  'saved_recipes',
+  {
+    id: serial().primaryKey().notNull(),
+    userId: varchar({ length: 191 }).notNull(),
+    recipeId: integer().notNull(),
+    closed: boolean().default(false).notNull(),
+    createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+  },
+  (table) => [
+    index('saved_recipes_recipeId_idx').using(
+      'btree',
+      table.recipeId.asc().nullsLast().op('int4_ops'),
+    ),
+  ],
+)
 
 export const recipes = pgTable(
   'recipes',
@@ -43,6 +60,7 @@ export const recipes = pgTable(
     dislikes: integer().default(0),
     updatedAt: timestamp({ mode: 'string' }),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+    slug: varchar({ length: 256 }).default('').notNull(),
   },
   (table) => [
     index('recipes_category_idx').using(
@@ -53,30 +71,6 @@ export const recipes = pgTable(
       'btree',
       table.rating.asc().nullsLast().op('int4_ops'),
     ),
-    uniqueIndex('recipes_userId_idx').using(
-      'btree',
-      table.userId.asc().nullsLast().op('text_ops'),
-    ),
-  ],
-)
-
-export const savedRecipes = pgTable(
-  'saved_recipes',
-  {
-    id: serial().primaryKey().notNull(),
-    userId: varchar({ length: 191 }).notNull(),
-    recipeId: integer().notNull(),
-    closed: boolean().default(false).notNull(),
-    createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
-  },
-  (table) => [
-    index('saved_recipes_recipeId_idx').using(
-      'btree',
-      table.recipeId.asc().nullsLast().op('int4_ops'),
-    ),
-    uniqueIndex('saved_recipes_userId_idx').using(
-      'btree',
-      table.userId.asc().nullsLast().op('text_ops'),
-    ),
+    unique('recipes_slug_unique').on(table.slug),
   ],
 )
