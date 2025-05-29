@@ -24,7 +24,7 @@ export const RecipeCard = ({
     <Card className={cn('relative size-full', className)} {...props}>
       <CardHeader className='p-0'>
         <Link
-          href={`/recipe/${slugify(recipe.name)}`}
+          href={`/recipe/${recipe.slug}`}
           className='cursor-pointer'
         >
           <AspectRatio ratio={16 / 9} className={cn('size-full', className)}>

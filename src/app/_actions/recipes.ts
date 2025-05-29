@@ -19,6 +19,7 @@ import {
 import { type z } from 'zod'
 
 import type { FileUpload } from '@/types/recipes'
+import { slugify } from '@/lib/utils'
 import {
   getRecipeSchema,
   type getRecipesSchema,
@@ -134,6 +135,7 @@ export async function AddRecipeAction(
 
   await db.insert(recipes).values({
     ...values,
+    slug: slugify(values.name),
     userId: user.id,
     author: authorName,
   })
