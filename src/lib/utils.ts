@@ -55,10 +55,10 @@ export function toTitleCase(str: string) {
   )
 }
 export function isMacOs(): boolean {
-  if (typeof window === 'undefined') {
-    return false
+  if (typeof window !== 'undefined') {
+    return window.navigator.userAgent.includes('Mac')
   }
-  return window.navigator.userAgent.includes('Mac')
+  return false
 }
 export function catchClerkError(err: unknown) {
   const unknownErr = 'Something went wrong, please try again later.'
@@ -89,20 +89,20 @@ export type As<
   T5 extends React.ElementType = T1,
 > =
   | (React.ComponentPropsWithRef<DefaultTag> & {
-      as?: DefaultTag
-    })
+    as?: DefaultTag
+  })
   | (React.ComponentPropsWithRef<T1> & {
-      as: T1
-    })
+    as: T1
+  })
   | (React.ComponentPropsWithRef<T2> & {
-      as: T2
-    })
+    as: T2
+  })
   | (React.ComponentPropsWithRef<T3> & {
-      as: T3
-    })
+    as: T3
+  })
   | (React.ComponentPropsWithRef<T4> & {
-      as: T4
-    })
+    as: T4
+  })
   | (React.ComponentPropsWithRef<T5> & {
-      as: T5
-    })
+    as: T5
+  })
