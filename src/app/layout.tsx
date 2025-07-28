@@ -81,7 +81,6 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
             attribute='class'
             defaultTheme='system'
             enableSystem
-            disableTransitionOnChange
           >
             {children}
             <Analytics />
