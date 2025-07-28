@@ -10,13 +10,16 @@ const config = {
     ecmaVersion: 2022,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'tailwindcss'],
+  plugins: [
+    '@typescript-eslint',
+    // 'tailwindcss'
+  ],
   extends: [
     'next/core-web-vitals',
     'plugin:deprecation/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
-    'plugin:tailwindcss/recommended',
+    // 'plugin:tailwindcss/recommended',
     'prettier',
   ],
   rules: {
@@ -32,11 +35,11 @@ const config = {
     '@typescript-eslint/no-unused-expressions': 'off',
   },
   settings: {
-    tailwindcss: {
-      callees: ['cn', 'cva'],
-      config: './tailwind.config.ts',
-      classRegex: '^(class(Name)?|tw)$',
-    },
+    // tailwindcss: {
+    //   callees: ['cn', 'cva'],
+    //   config: './tailwind.config.ts',
+    //   classRegex: '^(class(Name)?|tw)$',
+    // },
     next: {
       rootDir: ['./'],
     },

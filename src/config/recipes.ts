@@ -19,16 +19,14 @@ export const sortOptions = [
   },
 ] satisfies { label: string; value: string }[]
 
-export const recipesCategories = [
-  ...(recipes.category.enumValues.map((category) => ({
-    title: category,
-    slug: category.toLocaleLowerCase(),
-    icon: Icons[category],
-    description: `All ${category} recipes`,
-  })) satisfies {
-    title: Recipe['category']
-    slug: string
-    icon: React.FC
-    description: string
-  }[]),
-]
+export const recipesCategories = recipes.category.enumValues.map((category) => ({
+  title: category,
+  slug: category.toLocaleLowerCase(),
+  icon: Icons[category],
+  description: `All ${category} recipes`,
+})) satisfies {
+  title: Recipe['category']
+  slug: string
+  icon: React.FC
+  description: string
+}[]

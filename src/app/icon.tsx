@@ -12,7 +12,6 @@ export default function Icon() {
   return new ImageResponse(
     (
       // ImageResponse JSX element
-      // eslint-disable-next-line tailwindcss/enforces-shorthand
       <div tw='flex h-full w-full items-center justify-center rounded-full bg-black text-white'>
         <svg
           width='24'

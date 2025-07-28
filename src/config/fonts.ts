@@ -1,7 +1,7 @@
 import Satoshi from 'next/font/local'
 
-export const satoshi = Satoshi({
-  src: '../fonts/Satoshi-Variable.ttf',
+export const fontSans = Satoshi({
+  src: '../fonts/satoshi.ttf',
   display: 'swap',
   preload: true,
   fallback: ['sans-serif'],

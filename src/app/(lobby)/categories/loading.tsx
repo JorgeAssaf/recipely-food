@@ -14,7 +14,7 @@ export default function CategoriesLoading() {
       </div>
       <div className='flex flex-col space-y-6'>
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {new Array(7).fill(0).map((_, i) => (
+          {Array.from({ length: 7 }).map((_, i) => (
             <Card key={i} className='rounded-sm'>
               <CardHeader className='border-b p-0'>
                 <AspectRatio ratio={16 / 9}>

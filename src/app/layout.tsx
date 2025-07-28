@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 
+import { fontSans } from '@/config/fonts'
 import { siteConfig } from '@/config/site'
-import { satoshi } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -74,14 +74,13 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         <body
           className={cn(
             'bg-background min-h-screen font-sans antialiased',
-            satoshi.variable,
+            fontSans.variable,
           )}
         >
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
             enableSystem
-            disableTransitionOnChange
           >
             {children}
             <Analytics />

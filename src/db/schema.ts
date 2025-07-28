@@ -7,7 +7,6 @@ import {
   pgTable,
   serial,
   timestamp,
-  uniqueIndex,
   varchar,
 } from 'drizzle-orm/pg-core'
 
@@ -34,6 +33,7 @@ export const recipes = pgTable(
     id: serial('id').primaryKey(),
     userId: varchar('userId', { length: 256 }).notNull(),
     name: varchar('name', { length: 256 }).notNull(),
+    slug: varchar('slug', { length: 256 }).notNull().default('').unique(),
     author: varchar('author', { length: 256 }).notNull(),
     description: varchar('description', { length: 1024 }).notNull(),
     difficulty: difficultyEnum().notNull().default('easy'),
