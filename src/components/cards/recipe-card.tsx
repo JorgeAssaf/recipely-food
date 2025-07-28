@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { type Recipe } from '@/db/schema'
 import { Clock, ImageIcon } from 'lucide-react'
 
-import { cn, formatPrepTime, slugify } from '@/lib/utils'
+import { cn, formatPrepTime } from '@/lib/utils'
 import { Card, CardDescription, CardHeader } from '@/components/ui/card'
 
 import { AspectRatio } from '../ui/aspect-ratio'
@@ -57,7 +57,7 @@ export const RecipeCard = ({
         <div className='border-b py-2'>
           <h2 className='truncate text-xl font-medium'>
             <Link
-              href={`/recipe/${slugify(recipe.name)}`}
+              href={`/recipe/${recipe.slug}`}
               className='cursor-pointer'
             >
               {recipe.name}

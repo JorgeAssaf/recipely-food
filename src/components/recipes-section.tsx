@@ -37,7 +37,7 @@ export const RecipesSection: FC<RecipeSectionProps> = ({
   const category = searchParams.get('category') ?? 'breakfast'
 
   const createQueryString = useCallback(
-    (params: Record<string, string | number | null>): string => {
+    (params: Record<string, string | number | null>) => {
       const newSearchParams = new URLSearchParams(searchParams?.toString())
 
       for (const [key, value] of Object.entries(params)) {
