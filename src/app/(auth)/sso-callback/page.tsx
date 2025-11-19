@@ -10,13 +10,12 @@ export interface SSOCallbackPageProps {
   searchParams: Promise<HandleOAuthCallbackParams>
 }
 
-export default async function SSOCallbackPage({
-  searchParams,
-}: SSOCallbackPageProps) {
-  const searchParamsResolve = await searchParams
+export default async function SSOCallbackPage(props: SSOCallbackPageProps) {
+  const searchParams = await props.searchParams;
+
   return (
     <Shell className='max-w-lg'>
-      <SSOCallback searchParams={searchParamsResolve} />
+      <SSOCallback searchParams={searchParams} />
     </Shell>
   )
 }

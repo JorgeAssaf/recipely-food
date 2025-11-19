@@ -32,9 +32,7 @@ async function getPostFromParams(params: PostPageProps['params']) {
   return post
 }
 
-export async function generateMetadata({
-  params,
-}: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const post = await getPostFromParams(params)
 
   if (!post) {
