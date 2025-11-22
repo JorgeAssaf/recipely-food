@@ -66,7 +66,6 @@ const components = {
     />
   ),
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
     <a
       aria-label='External Link'
       className={cn('font-medium underline underline-offset-4', className)}
@@ -74,10 +73,7 @@ const components = {
     />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-4', className)}
-      {...props}
-    />
+    <p className={cn('leading-7 not-first:mt-4', className)} {...props} />
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
     <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
@@ -119,7 +115,7 @@ const components = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        'border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right',
         className,
       )}
       {...props}
@@ -128,7 +124,7 @@ const components = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        'border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right',
         className,
       )}
       {...props}
