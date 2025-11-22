@@ -23,18 +23,15 @@ export const RecipeCard = ({
   return (
     <Card className={cn('relative size-full', className)} {...props}>
       <CardHeader className='p-0'>
-        <Link
-          href={`/recipe/${recipe.slug}`}
-          className='cursor-pointer'
-        >
+        <Link href={`/recipe/${recipe.slug}`} className='cursor-pointer'>
           <AspectRatio ratio={16 / 9} className={cn('size-full', className)}>
-            {recipe?.images?.length ? (
+            {recipe.images && recipe.images.length > 0 ? (
               <Image
-                src={recipe.images[0]?.url}
-                alt={recipe.images[0]?.name ?? recipe.name}
+                src={recipe.images[0].url}
+                alt={`Image of ${recipe.name} recipe - by ${recipe.author}`}
                 className='rounded-t-lg object-cover'
                 sizes='(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw'
-                priority
+                preload
                 fill
               />
             ) : (
@@ -56,10 +53,7 @@ export const RecipeCard = ({
       <div className='space-y-2 p-4'>
         <div className='border-b py-2'>
           <h2 className='truncate text-xl font-medium'>
-            <Link
-              href={`/recipe/${recipe.slug}`}
-              className='cursor-pointer'
-            >
+            <Link href={`/recipe/${recipe.slug}`} className='cursor-pointer'>
               {recipe.name}
             </Link>
           </h2>
