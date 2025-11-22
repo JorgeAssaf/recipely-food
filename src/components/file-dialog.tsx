@@ -79,7 +79,9 @@ const FileDialog = <TFieldValues extends FieldValues>({
             toast.error(`File is too large. Max size is ${maxSize} bytes`)
             return
           }
-          errors[0]?.message && toast.error(errors[0].message)
+          if (errors[0]?.message) {
+            toast.error(errors[0].message)
+          }
         })
       }
     },
