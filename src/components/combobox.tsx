@@ -7,8 +7,8 @@ import { SearchIcon } from 'lucide-react'
 
 import { recipesCategories } from '@/config/recipes'
 import { cn, isMacOs, slugify } from '@/lib/utils'
-import { useDebounce } from '@/hooks/useDebounce'
-import { useMounted } from '@/hooks/useMounted'
+import { useDebounce } from '@/hooks/use-debounce'
+import { useMounted } from '@/hooks/use-mounted'
 import {
   CommandDialog,
   CommandEmpty,
@@ -17,7 +17,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
-import { filterProductsAction } from '@/app/_actions/recipes'
+import { filterRecipesAction } from '@/app/_actions/recipes'
 
 import { Button } from './ui/button'
 import { DialogTitle } from './ui/dialog'
@@ -34,8 +34,9 @@ const Combobox = () => {
   const mounted = useMounted()
   const [query, setQuery] = useState<string>('')
   const [isPending, startTransition] = useTransition()
-  const debouncedQuery = useDebounce<string>(query, 300)
+  const debouncedQuery = useDebounce<string>(query)
   const [data, setData] = useState<RecipeGroup[] | null>(null)
+
   useEffect(() => {
     if (debouncedQuery.length <= 0) {
       setData(null)
@@ -43,7 +44,7 @@ const Combobox = () => {
     }
 
     async function fetchData() {
-      const data = await filterProductsAction(debouncedQuery)
+      const data = await filterRecipesAction(debouncedQuery)
       setData(data)
     }
 
@@ -73,7 +74,6 @@ const Combobox = () => {
       setQuery('')
     }
   }, [open])
-
   return (
     <>
       <Button
@@ -102,7 +102,10 @@ const Combobox = () => {
         </DialogTitle>
         <CommandList>
           <CommandEmpty
-            className={cn(isPending ? 'hidden' : 'py-6 text-center text-sm')}
+            className={cn(
+              { hidden: isPending || debouncedQuery.length === 0 },
+              'py-6 text-center text-sm',
+            )}
           >
             No recipes found.
           </CommandEmpty>
@@ -113,41 +116,46 @@ const Combobox = () => {
               <Skeleton className='h-8 rounded-sm' />
               <Skeleton className='h-8 rounded-sm' />
             </div>
-          ) : (
-            data?.map((group) => (
-              <CommandGroup
-                key={group.category}
-                className='capitalize'
-                heading={group.category}
-              >
-                {group.recipes.map((item) => {
-                  const CategoryIcon =
-                    recipesCategories.find(
-                      (category) => category.title === group.category,
-                    )?.icon ?? recipesCategories[0].icon
+          ) : data ? (
+            data.map(
+              (group) =>
+                group.recipes.length > 0 && (
+                  <CommandGroup
+                    key={group.category}
+                    className='capitalize'
+                    heading={group.recipes.length > 0 ? group.category : ''}
+                  >
+                    {group.recipes.map((item) => {
+                      const CategoryIcon =
+                        recipesCategories.find(
+                          (category) => category.title === group.category,
+                        )?.icon ?? recipesCategories[0].icon
 
-                  return (
-                    <CommandItem
-                      key={item.id}
-                      value={item.name}
-                      className='cursor-pointer'
-                      onSelect={() =>
-                        handleSelect(() =>
-                          router.push(`/recipe/${slugify(item.name)}`),
-                        )
-                      }
-                    >
-                      <CategoryIcon
-                        className='text-muted-foreground mr-2 size-4'
-                        aria-hidden='true'
-                      />
-                      <span className='truncate capitalize'>{item.name}</span>
-                    </CommandItem>
-                  )
-                })}
-              </CommandGroup>
-            ))
-          )}
+                      return (
+                        <CommandItem
+                          key={item.id}
+                          value={item.name}
+                          className='cursor-pointer'
+                          onSelect={() =>
+                            handleSelect(() =>
+                              router.push(`/recipe/${slugify(item.name)}`),
+                            )
+                          }
+                        >
+                          <CategoryIcon
+                            className='text-muted-foreground mr-2 size-4'
+                            aria-hidden='true'
+                          />
+                          <span className='truncate capitalize'>
+                            {item.name}
+                          </span>
+                        </CommandItem>
+                      )
+                    })}
+                  </CommandGroup>
+                ),
+            )
+          ) : null}
         </CommandList>
       </CommandDialog>
     </>
