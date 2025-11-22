@@ -1,4 +1,3 @@
-// src/content/config.ts
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
 import z from 'zod'
@@ -27,6 +26,7 @@ const posts = defineCollection({
         invalid_type_error: 'Date must be a string',
       })
       .describe('The date of the post'),
+    content: z.string(),
   }),
   transform: async (doc, context) => {
     const mdx = await compileMDX(context, doc)
