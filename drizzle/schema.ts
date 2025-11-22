@@ -1,4 +1,3 @@
-import { sql } from 'drizzle-orm'
 import {
   boolean,
   index,
@@ -7,10 +6,17 @@ import {
   pgEnum,
   pgTable,
   serial,
+  text,
   timestamp,
   unique,
   varchar,
 } from 'drizzle-orm/pg-core'
+
+export type Image = {
+  id: string
+  name: string
+  url: string
+}
 
 export const category = pgEnum('category', [
   'breakfast',
@@ -28,8 +34,10 @@ export const savedRecipes = pgTable(
   'saved_recipes',
   {
     id: serial().primaryKey().notNull(),
-    userId: varchar({ length: 191 }).notNull(),
-    recipeId: integer().notNull(),
+    userId: varchar({ length: 256 }).notNull(),
+    recipeId: integer()
+      .notNull()
+      .references(() => recipes.id),
     closed: boolean().default(false).notNull(),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
   },
@@ -50,17 +58,17 @@ export const recipes = pgTable(
     author: varchar({ length: 256 }).notNull(),
     description: varchar({ length: 1024 }).notNull(),
     difficulty: difficulty().default('easy').notNull(),
-    rating: integer().default(0),
+    rating: integer().default(0).notNull(),
     ingredients: json().notNull(),
     category: category().default('breakfast').notNull(),
     prepTime: integer().default(0).notNull(),
-    steps: varchar({ length: 1024 }),
-    images: json(),
-    likes: integer().default(0),
-    dislikes: integer().default(0),
+    steps: text(),
+    images: json().$type<Image[]>(),
+    likes: integer().default(0).notNull(),
+    dislikes: integer().default(0).notNull(),
     updatedAt: timestamp({ mode: 'string' }),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
-    slug: varchar({ length: 256 }).default('').notNull(),
+    slug: varchar({ length: 256 }).notNull(),
   },
   (table) => [
     index('recipes_category_idx').using(
@@ -71,6 +79,8 @@ export const recipes = pgTable(
       'btree',
       table.rating.asc().nullsLast().op('int4_ops'),
     ),
+    // Note: The unique constraint on 'slug' implicitly creates a unique index in PostgreSQL.
     unique('recipes_slug_unique').on(table.slug),
   ],
 )
+
