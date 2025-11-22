@@ -24,8 +24,8 @@ const config = {
       await passwordInput?.type('Demo123.')
       const submitButton = await page.$('button[type="submit"]')
       await Promise.all([
-        await submitButton?.click(),
-        await page.waitForNavigation({
+        submitButton?.click(),
+        page.waitForNavigation({
           waitUntil: 'networkidle0',
         }),
       ])
