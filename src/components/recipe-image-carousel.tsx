@@ -65,7 +65,7 @@ export const RecipeImageCarrousel = ({
   if (!images) {
     return (
       <div
-        aria-label='Product Placeholder'
+        aria-label='Recipe Placeholder'
         role='img'
         aria-roledescription='placeholder'
         className='bg-secondary flex aspect-square h-auto w-full flex-1 items-center justify-center'
@@ -80,13 +80,13 @@ export const RecipeImageCarrousel = ({
 
   return (
     <div
-      aria-label='Product image carousel'
+      aria-label='Recipe image carousel'
       className={cn('flex flex-col gap-2', className)}
       {...props}
     >
       <div ref={emblaRef} className='overflow-hidden'>
         <div
-          className='ml-[calc(1rem_*_-1)] flex touch-pan-y'
+          className='-ml-4 flex touch-pan-y'
           style={{
             backfaceVisibility: 'hidden',
           }}
@@ -102,11 +102,11 @@ export const RecipeImageCarrousel = ({
                 key={index}
                 aria-roledescription='slide'
                 src={image.url}
-                alt={image.name}
+                alt={`Image of ${image.name} recipe slide ${index + 1}`}
                 fill
                 sizes='(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw'
                 className='block size-full rounded-lg object-cover'
-                priority={index === 0}
+                preload={index === 0}
               />
             </div>
           ))}
