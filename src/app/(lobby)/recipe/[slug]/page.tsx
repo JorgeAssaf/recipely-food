@@ -60,7 +60,6 @@ export default async function RecipePage({ params }: RecipePageProps) {
   const recipe = await db.query.recipes.findFirst({
     where: (recipes, { eq }) => eq(recipes.slug, slug),
   })
-  //console.log(`Fetched recipe: ${recipe ? recipe.name : 'not found'}`)
 
   if (!recipe) {
     notFound()
