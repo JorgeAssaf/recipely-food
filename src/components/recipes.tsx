@@ -104,8 +104,7 @@ export const Recipes = ({
         },
       )
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [difficulty])
+  }, [createQueryString, pahname, router, difficulty])
 
   // TODO - fix authors array for filter
 
@@ -139,8 +138,7 @@ export const Recipes = ({
         },
       )
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategories])
+  }, [createQueryString, pahname, router, selectedCategories])
   return (
     <section className='flex flex-col space-y-6' {...props}>
       <div className='flex items-center space-x-2'>
