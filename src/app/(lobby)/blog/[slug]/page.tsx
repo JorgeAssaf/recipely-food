@@ -20,7 +20,6 @@ interface PostPageProps {
     slug: string
   }>
 }
-// eslint-disable-next-line @typescript-eslint/require-await
 async function getPostFromParams(params: PostPageProps['params']) {
   const { slug } = await params
   const post = allPosts.find((post) => post.slugAsParams === slug)
@@ -32,7 +31,9 @@ async function getPostFromParams(params: PostPageProps['params']) {
   return post
 }
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const post = await getPostFromParams(params)
 
   if (!post) {
@@ -44,9 +45,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export async function generateStaticParams() {
-  // eslint-disable-next-line @typescript-eslint/await-thenable
   const posts = allPosts
 
   return posts.map((post) => ({
