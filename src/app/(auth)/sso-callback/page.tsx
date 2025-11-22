@@ -11,7 +11,7 @@ export interface SSOCallbackPageProps {
 }
 
 export default async function SSOCallbackPage(props: SSOCallbackPageProps) {
-  const searchParams = await props.searchParams;
+  const searchParams = await props.searchParams
 
   return (
     <Shell className='max-w-lg'>

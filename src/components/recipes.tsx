@@ -6,7 +6,7 @@ import { type Recipe } from '@/db/schema'
 
 import { type Option } from '@/types/recipes'
 import { sortOptions } from '@/config/recipes'
-import { useDebounce } from '@/hooks/useDebounce'
+import { useDebounce } from '@/hooks/use-debounce'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -87,8 +87,7 @@ export const Recipes = ({
         },
       )
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedPrepTime])
+  }, [createQueryString, debouncedPrepTime, pahname, router])
 
   const [difficulty, setDifficulty] = useState<string[] | null>(
     difficultyParams?.split('.') ?? null,

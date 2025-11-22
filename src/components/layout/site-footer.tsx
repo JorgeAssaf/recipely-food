@@ -1,4 +1,3 @@
-/* eslint-disable deprecation/deprecation */
 import Link from 'next/link'
 import { Github, Pizza } from 'lucide-react'
 

@@ -26,8 +26,9 @@ import {
   type recipesSchema,
 } from '@/lib/validations/recipes'
 
-export async function filterProductsAction(query: string) {
-  if (query.length === 0) return null
+export async function filterRecipesAction(query: string) {
+  if (query.length === 0) return []
+
   const filteredRecipes = await db
     .select({
       category: recipes.category,
@@ -36,12 +37,14 @@ export async function filterProductsAction(query: string) {
     })
     .from(recipes)
     .where(like(recipes.name, `%${query}%`))
-    .orderBy(recipes.createdAt)
+    .orderBy(desc(recipes.createdAt))
     .limit(10)
-  const data = Object.values(recipes.category.enumValues).map((category) => ({
+
+  const data = recipes.category.enumValues.map((category) => ({
     category,
     recipes: filteredRecipes.filter((recipe) => recipe.category === category),
   }))
+
   return data
 }
 export async function getRecipesAction(
@@ -252,4 +255,4 @@ export async function DeleteRecipeAction(
 export async function DeleteRecipesAction() {
   return await db.delete(savedRecipes)
 }
-export const generateRecipes = async () => {}
+export const generateRecipes = async () => { }
