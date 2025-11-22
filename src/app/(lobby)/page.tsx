@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import { type Recipe } from '@/db/schema'
+import { db } from '@/db'
+import { recipes as recipesTable, type Recipe } from '@/db/schema'
+import { sql } from 'drizzle-orm'
 import { Balancer } from 'react-wrap-balancer'
 
 import { sortOptions } from '@/config/recipes'
@@ -14,16 +16,22 @@ import { getRecipesAction } from '@/app/_actions/recipes'
 type HomeProps = {
   searchParams: Promise<{ sort: string; category: Recipe['category'] }>
 }
-
 export default async function Home({ searchParams }: HomeProps) {
   const { sort, category } = await searchParams
 
-  const recipesTransaction = await getRecipesAction({
-    limit: 2,
-    offset: 0,
-    sort,
-    category: category ?? 'breakfast',
-  })
+  const [recipesTransaction, countTotalRecipes] = await Promise.all([
+    getRecipesAction({
+      limit: 2,
+      offset: 0,
+      sort,
+      category: category ?? 'breakfast',
+    }),
+    db
+      .select({ count: sql<number>`COUNT(*)` })
+      .from(recipesTable)
+      .then((res) => res[0].count || 0),
+  ])
+
   const recipes = recipesTransaction.items
   return (
     <Shell as='div' className='py-3'>
@@ -36,7 +44,7 @@ export default async function Home({ searchParams }: HomeProps) {
           className='flex gap-1 px-4 py-2 text-sm font-bold tabular-nums md:text-base'
           variant='outline'
         >
-          More than <CounterUp count={recipes.length} /> recipes
+          More than <CounterUp end={countTotalRecipes} /> recipes
         </Badge>
         <Balancer
           as='h1'
@@ -46,7 +54,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <span className='text-pink-accent'>fast recipes!</span>
         </Balancer>
         <Balancer
-          className='text-muted-foreground max-w-[46rem] text-base font-medium md:text-xl'
+          className='text-muted-foreground max-w-184 text-base font-medium md:text-xl'
           as='q'
         >
           A recipe is soulless The essence of the recipe must corne from you,
